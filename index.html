@@ -495,6 +495,11 @@ function toggleGym(name,d){
 
 // POSTURA
 function renderPostura(d){
+    if(d === 0 || d === 3){
+    const cont=document.getElementById('postContent');
+    cont.innerHTML=`<div class="rest-card"><div class="rest-emoji">😴</div><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">El músculo crece mientras descansas. Recuperación activa recomendada.</div></div>`;
+    return;
+  }
   const sk=[1,4,6].includes(d)?'A':'B';
   const sess=POST[sk];
   const cont=document.getElementById('postContent');
