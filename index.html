@@ -410,8 +410,12 @@ function selDay(d){
   curDay=d;
   document.querySelectorAll('.day-btn').forEach(b=>b.classList.toggle('active',parseInt(b.dataset.day)===d));
   renderDay(d);
+  const postView=document.getElementById('view-postura');
+  if(postView.classList.contains('active')){renderPostura(d);}
+  const resView=document.getElementById('view-resumen');
+  if(resView.classList.contains('active')){renderResumen();}
 }
-
+  
 function renderDay(d){
   const data=GYM[d];
   document.getElementById('dayBig').textContent=DN[d];
