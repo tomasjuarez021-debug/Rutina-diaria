@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -136,7 +135,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .ph-block-title::after{content:'';flex:1;height:1px;background:var(--border)}
 .p-card{background:var(--card);border-radius:12px;margin-bottom:8px;border:1px solid var(--border);overflow:hidden;animation:fadeUp 0.22s ease both;transition:border-color 0.2s,opacity 0.2s}
 .p-card.p-done{border-color:rgba(74,170,106,0.25);opacity:0.55}
-.p-hdr{padding:13px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.res-day-card.locked{opacity:0.5}
+.p-hdr{padding:13px 14px;display:flex;align-items:center;gap:12px;user-select:none}
+.p-hdr .p-chk{cursor:pointer}
+.p-hdr .p-inf{flex:1;min-width:0;cursor:pointer}
+.p-hdr .p-chev{cursor:pointer}
 .p-chk{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;background:var(--card2);transition:all 0.2s}
 .p-card.p-done .p-chk{background:var(--green);border-color:var(--green);color:#fff;font-weight:800}
 .p-inf{flex:1;min-width:0}
@@ -342,7 +345,7 @@ const GYM={
 };
 
 const POST={
-  A:{name:'SESIÓN A',title:'Pelvis · Cadera · Lumbar',desc:'Corrige la anteversión pélvica. Libera hip flexores, activa glúteos e isquios, re-educa la posición neutra de pelvis.',days:'Lun · Mar · Vie',phases:[
+  A:{name:'SESIÓN A',title:'Pelvis · Cadera · Lumbar',desc:'Corrige la anteversión pélvica. Libera hip flexores, activa glúteos e isquios, re-educa la posición neutra de pelvis.',days:'Lun · Jue · Sáb',phases:[
     {name:'RELEASE',sub:'Foam Roller · 10 min',ex:[
       {id:'pA1a',name:'Foam roller cuádriceps',params:'2 min por lado',why:'El cuádriceps y psoas son los principales causantes de la anteversión.',steps:['Boca abajo, roller bajo el muslo izquierdo','Peso en antebrazos, pierna derecha a un lado','Rodá lento desde la cadera hasta la rodilla','Pausá en puntos tensos 20-30 seg · repetí del otro lado']},
       {id:'pA1b',name:'Foam roller banda IT',params:'90 seg por lado',why:'La IT Band tensa contribuye a la rotación pélvica y al valgo de rodilla.',steps:['De lado, roller bajo la cadera izquierda','Apoyo en mano y pie derecho','Rodá desde la cadera hasta sobre la rodilla','Pausá en puntos de mayor tensión · repetí del otro lado']},
@@ -368,7 +371,7 @@ const POST={
       {id:'pA4c',name:'Plancha modificada pelvis neutra',params:'3 × 30 seg',timer:30,why:'Integra todo lo aprendido con la pelvis correcta.',steps:['En cuatro apoyos, rodillas y manos en el suelo','Pelvis neutra — ni muy arqueada ni muy metida','Extendé hasta plancha sobre rodillas','Si la lumbar se hunde: bajá las rodillas y corregí']}
     ]}
   ]},
-  B:{name:'SESIÓN B',title:'Hombros · Escápulas · Cuello',desc:'Corrige la protracción de hombros y la cabeza adelantada. Libera pectoral menor, activa serrato y romboides.',days:'Mié · Jue · Sáb',phases:[
+  B:{name:'SESIÓN B',title:'Hombros · Escápulas · Cuello',desc:'Corrige la protracción de hombros y la cabeza adelantada. Libera pectoral menor, activa serrato y romboides.',days:'Mar · Vie',phases:[
     {name:'RELEASE',sub:'Foam Roller · 10 min',ex:[
       {id:'pB1a',name:'Foam roller columna torácica',params:'3 min · muy lento',why:'La cifosis torácica es la causa raíz de la protracción de hombros.',steps:['Boca arriba, roller perpendicular bajo los omóplatos','Brazos cruzados en el pecho','Dejá que la espalda se curve sobre el roller','Rodá lento entre los omóplatos y la zona media','EVITÁ la zona lumbar y el cuello']},
       {id:'pB1b',name:'Foam roller pectoral menor',params:'2 min por lado',why:'El pectoral menor tenso es el principal culpable de que los hombros vayan hacia adelante.',steps:['De cara al suelo, roller bajo la clavícula','Inclinación hacia ese lado — peso en el pectoral','Rodá lentísimo en un área pequeña (5cm)','Respirá profundo para ayudar a la liberación']},
@@ -396,8 +399,8 @@ const POST={
   ]}
 };
 
-// A: Lun(1),Mar(2),Vie(5) | B: Mié(3),Jue(4),Sáb(6) | Dom(0): null
-function postSessKey(d){return d===0?null:[1,2,5].includes(d)?'A':'B'}
+// A: Lun(1),Jue(4),Sáb(6) | B: Mar(2),Vie(5) | Sin movilidad: Dom(0),Mié(3)
+function postSessKey(d){return [1,4,6].includes(d)?'A':[2,5].includes(d)?'B':null}
 
 let curDay=new Date().getDay();
 let gd={},pd={},md={};
@@ -446,29 +449,29 @@ function renderDay(d){
   const data=GYM[d];
   document.getElementById('dayBig').textContent=DN[d];
   document.getElementById('dayBg').textContent=DS[d].toUpperCase();
+  document.getElementById('compRow').innerHTML='';
   if(!data){
     document.getElementById('dayLbl').textContent='Descanso';
     document.getElementById('daySub').textContent='Recuperación activa';
-    document.getElementById('compRow').innerHTML='';
     document.getElementById('gymContent').innerHTML=`<div class="rest-card"><span class="rest-emoji">😴</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">El músculo crece mientras descansás.<br>Hidratate · 8 horas de sueño · proteína.</div></div>`;
     return;
   }
   document.getElementById('dayLbl').textContent=data.label;
   document.getElementById('daySub').textContent=`${data.sessions.length} sesión${data.sessions.length>1?'es':''} · ⚡ Thor Mode`;
-  renderComp(d,data);renderSessions(d,data);
+  renderSessions(d,data);
 }
 
 function renderComp(d,data){
-  const gp=gymPct(d),mok=mobDone(d),pp=postPct(d);
+  const gp=gymPct(d),mok=mobDone(d);
   const row=document.getElementById('compRow');row.innerHTML='';
   const m=document.createElement('div');
   m.className=`comp-card${mok?' done':''}`;m.onclick=()=>toggleMob(d);
-  m.innerHTML=`<div class="comp-check">${mok?'✓':''}</div><span class="comp-icon">🧘</span><div class="comp-label">Movilidad</div><div class="comp-pct">${mok?100:pp}%</div><div class="comp-hint">${mok?'✓ Completado':'Tocá para marcar'}</div>`;
+  m.innerHTML=`<div class="comp-check">${mok?'✓':''}</div><span class="comp-icon">🧘</span><div class="comp-label">Movilidad</div><div class="comp-hint">${mok?'✓ Completado':'Tocá para marcar'}</div>`;
   row.appendChild(m);
   const ok=gp===100;const inProg=gp>0&&!ok;
   const g=document.createElement('div');
   g.className=`comp-card auto${ok?' done':inProg?' in-prog':''}`;
-  g.innerHTML=`<div class="comp-check">${ok?'✓':''}</div><span class="comp-icon">🏋️</span><div class="comp-label">Gym</div><div class="comp-pct">${gp}%</div><div class="comp-hint">${ok?'✓ Completado':'Auto al terminar'}</div>`;
+  g.innerHTML=`<div class="comp-check">${ok?'✓':''}</div><span class="comp-icon">🏋️</span><div class="comp-label">Gym</div><div class="comp-hint">${ok?'✓ Completado':'Auto al terminar'}</div>`;
   row.appendChild(g);
 }
 
@@ -492,7 +495,7 @@ function renderSessions(d,data){
 }
 
 function togSess(i){document.getElementById('sc'+i).classList.toggle('open')}
-function toggleGym(name,d){gd[name]=!gd[name];sg();renderComp(d,GYM[d]);renderSessions(d,GYM[d]);buildDays()}
+function toggleGym(name,d){gd[name]=!gd[name];sg();renderSessions(d,GYM[d]);buildDays()}
 
 function renderPostura(d){
   const sk=postSessKey(d);const cont=document.getElementById('postContent');cont.innerHTML='';
@@ -508,48 +511,88 @@ function renderPostura(d){
     const bt=document.createElement('div');bt.className='ph-block-title';bt.textContent=`${ph.name} — ${ph.sub}`;cont.appendChild(bt);
     ph.ex.forEach((ex,ei)=>{
       const ok=!!pd[ex.id];const card=document.createElement('div');
-      card.className=`p-card${ok?' p-done':''}${ei===0&&pi===0?' p-open':''}`;
+      // nunca empieza abierto
+      card.className=`p-card${ok?' p-done':''}`;
       card.id='pe'+ex.id;card.style.animationDelay=(ei*0.04)+'s';
       const steps=ex.steps.map((s,i)=>`<li><span class="p-sn">${i+1}</span>${s}</li>`).join('');
       const safeN=ex.name.replace(/'/g,"\\'");
       const tb=ex.timer?`<button class="tbtn" onclick="openTimer(${ex.timer},'${safeN}')">⏱ ${ex.timer}s</button>`:'';
-      card.innerHTML=`<div class="p-hdr" onclick="togP('${ex.id}')"><div class="p-chk">${ok?'✓':''}</div><div class="p-inf"><div class="p-nm">${ex.name}</div><div class="p-pm">${ex.params}</div></div><span class="p-chev">▼</span></div><div class="p-body"><div class="p-detail"><div class="p-why"><strong>¿Por qué?</strong> ${ex.why}</div><ul class="p-steps">${steps}</ul><div class="p-btns">${tb}<button class="dbtn${ok?' is-done':''}" onclick="togglePost('${ex.id}')">${ok?'✓ Hecho':'Marcar hecho'}</button></div></div></div>`;
+      card.innerHTML=`<div class="p-hdr"><div class="p-chk" onclick="togglePost('${ex.id}',event)">${ok?'✓':''}</div><div class="p-inf" onclick="togP('${ex.id}')"><div class="p-nm">${ex.name}</div><div class="p-pm">${ex.params}</div></div><span class="p-chev" onclick="togP('${ex.id}')">▼</span></div><div class="p-body"><div class="p-detail"><div class="p-why"><strong>¿Por qué?</strong> ${ex.why}</div><ul class="p-steps">${steps}</ul><div class="p-btns">${tb}<button class="dbtn${ok?' is-done':''}" onclick="togglePost('${ex.id}',event)">${ok?'✓ Hecho':'Marcar hecho'}</button></div></div></div>`;
       cont.appendChild(card);
     });
   });
 }
 
 function togP(id){document.getElementById('pe'+id).classList.toggle('p-open')}
-function togglePost(id){pd[id]=!pd[id];sp();renderPostura(curDay);buildDays()}
+function togglePost(id,ev){if(ev)ev.stopPropagation();pd[id]=!pd[id];sp();renderPostura(curDay);buildDays()}
 
 function renderResumen(){
   const cont=document.getElementById('resContent');cont.innerHTML='';
-  const today=new Date().getDay();
-  const gp=gymPct(today),mok=mobDone(today),pp=postPct(today),tp=totalPct(today);
+
+  // ── Semana actual Argentina (UTC-3): Dom→Sáb ──
+  // Calculamos el domingo de la semana actual en hora Argentina
+  const nowAR=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Argentina/Buenos_Aires'}));
+  const todayAR=nowAR.getDay(); // 0=Dom
+  // Inicio de semana = domingo más reciente
+  const weekStart=new Date(nowAR);weekStart.setDate(nowAR.getDate()-todayAR);weekStart.setHours(0,0,0,0);
+  // Fin de semana = sábado 23:59:59
+  const weekEnd=new Date(weekStart);weekEnd.setDate(weekStart.getDate()+6);weekEnd.setHours(23,59,59,999);
+
+  // día seleccionado para el box de arriba
+  const sd=curDay;
+  const gp=gymPct(sd),mok=mobDone(sd),pp=postPct(sd),tp=totalPct(sd);
   cont.innerHTML=`<div class="res-header"><div class="res-title">RESUMEN SEMANAL</div><div class="res-sub">Vista general · progreso y actividades</div></div>`;
   const tb=document.createElement('div');tb.className='today-box';
-  tb.innerHTML=`<div class="today-box-lbl">📅 HOY — ${DN[today]}</div><div class="today-pct-row"><div class="today-pct-num">${tp}%</div><div class="today-pct-info"><div class="today-pct-label">Completitud del día</div><div class="today-pct-sub">🏋️ Gym: ${gp}%<br>🧘 Movilidad: ${mok?'✓ listo':pp+'%'}</div></div></div><div class="today-prog"><div class="today-prog-fill" style="width:${tp}%"></div></div>`;
+  const isRestDay=!GYM[sd]&&!postSessKey(sd);
+  if(isRestDay){
+    tb.innerHTML=`<div class="today-box-lbl">📅 ${DN[sd]}</div><div class="today-pct-row"><div class="today-pct-num" style="font-size:36px;color:var(--muted)">😴</div><div class="today-pct-info"><div class="today-pct-label" style="color:var(--muted)">Día de descanso</div><div class="today-pct-sub">Recuperación activa · hidratate bien</div></div></div>`;
+  } else {
+    tb.innerHTML=`<div class="today-box-lbl">📅 ${DN[sd]}</div><div class="today-pct-row"><div class="today-pct-num">${tp}%</div><div class="today-pct-info"><div class="today-pct-label">Completitud del día</div><div class="today-pct-sub">🏋️ Gym: ${gp}%<br>🧘 Movilidad: ${mok?'✓ listo':postSessKey(sd)?pp+'%':'sin sesión'}</div></div></div><div class="today-prog"><div class="today-prog-fill" style="width:${tp}%"></div></div>`;
+  }
   cont.appendChild(tb);
   const expWrap=document.createElement('div');
   expWrap.innerHTML=`<button class="export-btn" onclick="exportExcel()">⬇️ &nbsp;DESCARGAR EXCEL SEMANAL</button><div class="export-note">Exporta el estado actual de todos los ejercicios de la semana</div>`;
   cont.appendChild(expWrap);
   const wl=document.createElement('div');wl.className='week-label';wl.textContent='ACTIVIDADES POR DÍA';cont.appendChild(wl);
+
+  // Mostrar solo los 7 días de la semana actual (Dom a Sáb)
   for(let i=0;i<7;i++){
-    const d=(today+i)%7;const dt=new Date();dt.setDate(dt.getDate()+i);
-    const data=GYM[d];const tp2=totalPct(d);const isToday=i===0;
+    const dt=new Date(weekStart);dt.setDate(weekStart.getDate()+i);
+    const d=dt.getDay(); // 0=Dom…6=Sáb
+    // Bloquear días futuros: si dt > ahora AR → bloqueado
+    const isFuture=dt>nowAR;
+    const isSelDay=d===curDay&&dt.toDateString()===new Date(nowAR.toLocaleString('en-US',{timeZone:'America/Argentina/Buenos_Aires'})).toDateString();
+    const isToday=todayAR===d&&i===todayAR;
+    const data=GYM[d];
+    const tp2=isFuture?0:totalPct(d);
     const sk=postSessKey(d);
     const pctColor=tp2>=100?'var(--green)':tp2>0?'var(--gold)':'var(--muted)';
+
     let acts=[];
-    if(sk)acts.push({type:'mob',name:`🧘 Movilidad Sesión ${sk} — ${POST[sk].title}`,done:mobDone(d)});
-    if(data){data.sessions.forEach(sess=>{const dn=sess.ex.filter(e=>gd[e.n]).length;acts.push({type:sess.ic==='ic-run'?'run':'gym',name:`${sess.icon} ${sess.name} (${dn}/${sess.ex.length})`,done:dn===sess.ex.length});});}
+    if(sk)acts.push({type:'mob',name:`🧘 Movilidad Sesión ${sk} — ${POST[sk].title}`,done:!isFuture&&mobDone(d)});
+    if(data){data.sessions.forEach(sess=>{const dn=isFuture?0:sess.ex.filter(e=>gd[e.n]).length;acts.push({type:sess.ic==='ic-run'?'run':'gym',name:`${sess.icon} ${sess.name}${isFuture?'':' ('+dn+'/'+sess.ex.length+')'}`,done:!isFuture&&dn===sess.ex.length});});}
     else acts.push({type:'rest',name:'😴 Descanso total',done:true});
-    const actsHTML=acts.map(a=>`<div class="res-act"><div class="res-act-dot dot-${a.type}"></div><div class="res-act-name">${a.name}</div><div class="${a.done?'res-act-ok':'res-act-pend'}">${a.done?'✓ hecho':'pendiente'}</div></div>`).join('');
-    const card=document.createElement('div');card.className=`res-day-card${isToday?' r-open':''}`;card.id='rd'+i;
-    card.innerHTML=`<div class="res-day-hdr" onclick="togR(${i})"><div class="res-day-num${isToday?' is-today':''}">${dt.getDate()}</div><div class="res-day-info"><div class="res-day-name">${DS[d]}${isToday?' · HOY':''}</div><div class="res-day-sub">${data?data.label:'Descanso'}</div></div><div class="res-day-pct" style="color:${pctColor}">${tp2>0?tp2+'%':data?'—':'😴'}</div><span class="res-day-chev">▼</span></div><div class="res-day-body"><div class="res-act-list">${actsHTML}</div></div>`;
+
+    const actsHTML=acts.map(a=>`<div class="res-act"><div class="res-act-dot dot-${a.type}"></div><div class="res-act-name">${a.name}</div><div class="${a.done?'res-act-ok':'res-act-pend'}">${isFuture&&a.type!=='rest'?'—':a.done?'✓ hecho':'pendiente'}</div></div>`).join('');
+
+    const isOpen=d===curDay;
+    const card=document.createElement('div');
+    card.className=`res-day-card${isOpen?' r-open':''}${isFuture?' locked':''}`;
+    card.id='rdd'+i;
+    card.innerHTML=`<div class="res-day-hdr" onclick="togR('rdd${i}')">
+      <div class="res-day-num${isToday?' is-today':''}">${dt.getDate()}</div>
+      <div class="res-day-info">
+        <div class="res-day-name">${DS[d]}${isToday?' · HOY':''}</div>
+        <div class="res-day-sub">${data?data.label:'Descanso'}${isFuture?' · <span style="color:var(--muted2);font-size:9px">pendiente</span>':''}</div>
+      </div>
+      <div class="res-day-pct" style="color:${isFuture?'var(--muted2)':pctColor}">${isFuture?'—':tp2>0?tp2+'%':data?'—':'😴'}</div>
+      <span class="res-day-chev">▼</span>
+    </div>
+    <div class="res-day-body"><div class="res-act-list">${actsHTML}</div></div>`;
     cont.appendChild(card);
   }
 }
-function togR(i){document.getElementById('rd'+i).classList.toggle('r-open')}
+function togR(id){document.getElementById(id).classList.toggle('r-open')}
 
 function exportExcel(){
   const wb=XLSX.utils.book_new();const today=new Date().getDay();
