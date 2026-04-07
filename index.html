@@ -29,7 +29,6 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
 
-/* ══ HEADER ══ */
 .header{padding:14px 16px 0;position:sticky;top:0;background:rgba(8,12,16,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:100;border-bottom:1px solid var(--border)}
 .header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
 .app-title{display:flex;flex-direction:column;gap:1px}
@@ -37,7 +36,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .app-title-sub{font-size:9px;font-weight:500;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase}
 .today-date{font-size:11px;color:var(--muted);font-weight:500;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:4px 11px}
 
-/* day strip */
 .day-strip{display:flex;gap:5px;overflow-x:auto;padding:0 0 13px;scrollbar-width:none}
 .day-strip::-webkit-scrollbar{display:none}
 .day-btn{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px;border-radius:11px;border:1px solid var(--border);background:var(--card);cursor:pointer;transition:all 0.2s;min-width:46px}
@@ -50,18 +48,16 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .day-btn.has-dot .day-dot{background:var(--gold);opacity:0.5}
 .day-btn.active .day-dot{opacity:0}
 .day-btn.full-done .day-dot{background:var(--green);opacity:1}
+.day-btn.today-mark .dn{color:var(--blue)}
 
-/* ══ CONTENT ══ */
 .content{padding:18px 16px 110px;position:relative}
 
-/* ══ DAY HERO ══ */
 .day-hero{margin-bottom:18px;position:relative;overflow:hidden}
 .day-hero-bg{position:absolute;top:-8px;right:-4px;font-family:'Barlow Condensed',sans-serif;font-size:100px;font-weight:900;color:rgba(232,184,75,0.03);line-height:1;pointer-events:none;user-select:none;letter-spacing:-2px}
 .day-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--gold);margin-bottom:4px}
 .day-big{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:900;letter-spacing:1px;line-height:1;color:var(--text)}
 .day-sub{color:var(--muted);font-size:11px;margin-top:5px;font-weight:400}
 
-/* ══ COMP ROW ══ */
 .comp-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
 .comp-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:16px 14px;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden}
 .comp-card.done{background:rgba(74,170,106,0.08);border-color:rgba(74,170,106,0.3)}
@@ -77,7 +73,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .comp-check{position:absolute;top:11px;right:11px;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;background:var(--card2);transition:all 0.2s}
 .comp-card.done .comp-check{background:var(--green);border-color:var(--green);color:#fff;font-weight:700}
 
-/* ══ SESSION CARDS ══ */
 .session-card{background:var(--card);border:1px solid var(--border);border-radius:13px;margin-bottom:10px;overflow:hidden;transition:border-color 0.25s;animation:fadeUp 0.25s ease both}
 .session-card.open{border-color:var(--border2)}
 .session-card.all-done{border-color:rgba(74,170,106,0.35)}
@@ -115,13 +110,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .tag-correctivo{background:rgba(74,184,255,0.12);color:var(--blue)}
 .tag-atletico{background:rgba(74,170,106,0.12);color:var(--green)}
 
-/* ══ REST ══ */
 .rest-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:50px 20px;text-align:center}
 .rest-emoji{font-size:52px;margin-bottom:14px;display:block}
 .rest-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;letter-spacing:2px;color:var(--muted);margin-bottom:8px}
 .rest-txt{color:var(--muted);font-size:12px;line-height:1.7}
 
-/* ══ POSTURA ══ */
 .post-hero{background:linear-gradient(135deg,var(--card3),var(--card));border:1px solid rgba(74,184,255,0.18);border-radius:13px;padding:18px;margin-bottom:14px}
 .post-badge{display:inline-flex;align-items:center;gap:7px;background:var(--blue-dim);border:1px solid rgba(74,184,255,0.25);border-radius:20px;padding:5px 13px;margin-bottom:12px}
 .pb-dot{width:6px;height:6px;border-radius:50%;background:var(--blue)}
@@ -135,7 +128,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .ph-block-title::after{content:'';flex:1;height:1px;background:var(--border)}
 .p-card{background:var(--card);border-radius:12px;margin-bottom:8px;border:1px solid var(--border);overflow:hidden;animation:fadeUp 0.22s ease both;transition:border-color 0.2s,opacity 0.2s}
 .p-card.p-done{border-color:rgba(74,170,106,0.25);opacity:0.55}
-.res-day-card.locked{opacity:0.5}
 .p-hdr{padding:13px 14px;display:flex;align-items:center;gap:12px;user-select:none}
 .p-hdr .p-chk{cursor:pointer}
 .p-hdr .p-inf{flex:1;min-width:0;cursor:pointer}
@@ -161,7 +153,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .dbtn{display:inline-flex;align-items:center;gap:5px;background:var(--card2);color:var(--muted);border:1px solid var(--border2);border-radius:7px;padding:6px 12px;font-size:10px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
 .dbtn.is-done{background:var(--green-dim);color:var(--green);border-color:rgba(74,170,106,0.35)}
 
-/* ══ RESUMEN ══ */
+/* RESUMEN */
 .res-header{margin-bottom:18px}
 .res-title{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;letter-spacing:1.5px;margin-bottom:3px;color:var(--text)}
 .res-sub{font-size:11px;color:var(--muted)}
@@ -178,12 +170,25 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .export-btn{width:100%;padding:15px;border-radius:11px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080c10;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:900;letter-spacing:2px;cursor:pointer;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.2s}
 .export-btn:active{opacity:0.82}
 .export-note{font-size:10px;color:var(--muted);text-align:center;margin-bottom:20px}
+
+/* WEEK NAVIGATOR */
+.week-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:10px 14px}
+.week-nav-btn{background:none;border:1px solid var(--border2);border-radius:7px;color:var(--muted);font-size:14px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.week-nav-btn:hover{color:var(--gold);border-color:rgba(232,184,75,0.4)}
+.week-nav-btn:disabled{opacity:0.3;cursor:default}
+.week-nav-btn:disabled:hover{color:var(--muted);border-color:var(--border2)}
+.week-nav-center{text-align:center;flex:1}
+.week-nav-label{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--text);letter-spacing:0.5px}
+.week-nav-sub{font-size:9px;color:var(--muted);margin-top:1px}
+.week-nav-today{font-size:9px;font-weight:700;color:var(--gold);cursor:pointer;padding:3px 9px;border:1px solid rgba(232,184,75,0.3);border-radius:10px;background:var(--gold-dim);margin-top:4px;display:inline-block}
+
 .week-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
 .res-day-card{background:var(--card);border-radius:12px;margin-bottom:8px;border:1px solid var(--border);overflow:hidden;transition:border-color 0.2s}
 .res-day-card.r-open{border-color:var(--border2)}
+.res-day-card.is-today-card{border-color:rgba(74,184,255,0.25)}
 .res-day-hdr{padding:13px 15px;display:flex;align-items:center;gap:11px;cursor:pointer;user-select:none}
 .res-day-num{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;line-height:1;min-width:34px;color:var(--muted)}
-.res-day-num.is-today{color:var(--gold)}
+.res-day-num.is-today{color:var(--blue)}
 .res-day-info{flex:1}
 .res-day-name{font-size:13px;font-weight:600;margin-bottom:1px;color:var(--text)}
 .res-day-sub{font-size:10px;color:var(--muted)}
@@ -204,7 +209,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .res-act-ok{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--green)}
 .res-act-pend{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted2)}
 
-/* ══ TIMER ══ */
+/* TIMER */
 .timer-ov{display:none;position:fixed;inset:0;background:rgba(8,12,16,0.97);z-index:200;align-items:center;justify-content:center;flex-direction:column}
 .timer-ov.show{display:flex}
 .t-ring{width:190px;height:190px;position:relative;margin-bottom:18px}
@@ -220,7 +225,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .t-btn.sec{background:var(--card);color:var(--muted);border:1px solid var(--border2)}
 .t-btn:active{opacity:0.8}
 
-/* ══ BOTTOM NAV ══ */
+/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(8,12,16,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:10px 6px 26px;display:flex;justify-content:space-around;z-index:100}
 .nav-btn{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;color:var(--muted2);transition:color 0.2s;padding:5px 14px;border-radius:9px}
 .nav-btn.active{color:var(--gold)}
@@ -399,190 +404,364 @@ const POST={
   ]}
 };
 
-// A: Lun(1),Jue(4),Sáb(6) | B: Mar(2),Vie(5) | Sin movilidad: Dom(0),Mié(3)
 function postSessKey(d){return [1,4,6].includes(d)?'A':[2,5].includes(d)?'B':null}
 
-let curDay=new Date().getDay();
-let gd={},pd={},md={};
-let timerInterval=null,timerSecs=0,timerTotal=0,timerRunning=false;
-try{gd=JSON.parse(sessionStorage.getItem('gd')||'{}')}catch(e){}
-try{pd=JSON.parse(sessionStorage.getItem('pd')||'{}')}catch(e){}
-try{md=JSON.parse(sessionStorage.getItem('md')||'{}')}catch(e){}
-const sg=()=>{try{sessionStorage.setItem('gd',JSON.stringify(gd))}catch(e){}};
-const sp=()=>{try{sessionStorage.setItem('pd',JSON.stringify(pd))}catch(e){}};
-const sm=()=>{try{sessionStorage.setItem('md',JSON.stringify(md))}catch(e){}};
-function mobKey(d){return 'm'+d+'_'+new Date().toDateString()}
+// ── STORAGE: localStorage para persistencia real ──
+// gym: clave = dateStr + '_' + exName (ej: "2026-04-07_Dominadas pronadas")
+// postura: clave = dateStr + '_' + exId (ej: "2026-04-07_pA1a")
+// mob: clave = dateStr + '_mob' (ej: "2026-04-07_mob")
+// Todo vive en localStorage bajo la clave 'rc_data' como un objeto JSON
 
-function gymPct(d){const data=GYM[d];if(!data)return 0;const all=data.sessions.flatMap(s=>s.ex);return all.length?Math.round(all.filter(e=>gd[e.n]).length/all.length*100):0}
-function postPct(d){const sk=postSessKey(d);if(!sk)return 0;const all=POST[sk].phases.flatMap(p=>p.ex);return all.length?Math.round(all.filter(e=>pd[e.id]).length/all.length*100):0}
-function mobDone(d){return !!md[mobKey(d)]}
-function totalPct(d){const gp=gymPct(d);const mp=mobDone(d)?100:postPct(d);if(!GYM[d])return mp;return Math.round((gp+mp)/2)}
+let store = {};
+try { store = JSON.parse(localStorage.getItem('rc_data') || '{}'); } catch(e){ store = {}; }
+const saveStore = () => { try { localStorage.setItem('rc_data', JSON.stringify(store)); } catch(e){} };
 
-function init(){
-  document.getElementById('todayDate').textContent=new Date().toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
-  buildDays();renderDay(curDay);
+// dateStr para una fecha Date
+function dateStr(dt) {
+  const y = dt.getFullYear();
+  const m = String(dt.getMonth()+1).padStart(2,'0');
+  const d2 = String(dt.getDate()).padStart(2,'0');
+  return `${y}-${m}-${d2}`;
 }
 
-function buildDays(){
-  const cont=document.getElementById('daySelector');cont.innerHTML='';
-  const today=new Date().getDay();
-  for(let i=0;i<7;i++){
-    const d=(today+i)%7;const dt=new Date();dt.setDate(dt.getDate()+i);
-    const tp=totalPct(d);
-    const btn=document.createElement('div');
-    btn.className=`day-btn${d===curDay?' active':''} has-dot${tp>=100?' full-done':''}`;
-    btn.dataset.day=d;
-    btn.innerHTML=`<span class="dn">${DS[d]}</span><span class="dd">${dt.getDate()}</span><div class="day-dot"></div>`;
-    btn.onclick=()=>selDay(d);cont.appendChild(btn);
+// Fecha local argentina (usamos la del navegador del usuario)
+// Para calcular el lunes de la semana actual
+function getToday() { return new Date(); }
+
+// Lunes de la semana que contiene `dt`
+function getMondayOf(dt) {
+  const d = new Date(dt);
+  const dow = d.getDay(); // 0=Dom,1=Lun,...
+  const diff = dow === 0 ? -6 : 1 - dow; // si es domingo, vamos al lunes anterior
+  d.setDate(d.getDate() + diff);
+  d.setHours(0,0,0,0);
+  return d;
+}
+
+// Los 7 días de la semana: Lun a Dom a partir de un lunes
+function weekDays(mondayDt) {
+  return Array.from({length:7}, (_,i) => {
+    const d = new Date(mondayDt);
+    d.setDate(mondayDt.getDate() + i);
+    return d;
+  });
+}
+
+// gym key por fecha y nombre de ejercicio
+function gymKey(dt, name) { return dateStr(dt) + '_gym_' + name; }
+function postKey(dt, id) { return dateStr(dt) + '_post_' + id; }
+function mobKey(dt) { return dateStr(dt) + '_mob'; }
+
+// ── Estado global ──
+let curDayDate = (function(){
+  const t = getToday();
+  const weekStart = new Date(2026,3,6);
+  const weekEnd = new Date(2026,3,12);
+  t.setHours(0,0,0,0);
+  weekStart.setHours(0,0,0,0);
+  weekEnd.setHours(23,59,59,999);
+  return (t >= weekStart && t <= weekEnd) ? t : new Date(2026,3,6);
+})();
+let resWeekOffset = 0; // semanas relativas a la semana actual (0=esta, -1=anterior, +1=siguiente)
+
+// ── Porcentajes ──
+function gymPct(dt) {
+  const d = dt.getDay();
+  const data = GYM[d];
+  if(!data) return 0;
+  const all = data.sessions.flatMap(s=>s.ex);
+  return all.length ? Math.round(all.filter(e=>store[gymKey(dt,e.n)]).length/all.length*100) : 0;
+}
+function postPct(dt) {
+  const d = dt.getDay();
+  const sk = postSessKey(d);
+  if(!sk) return 0;
+  const all = POST[sk].phases.flatMap(p=>p.ex);
+  return all.length ? Math.round(all.filter(e=>store[postKey(dt,e.id)]).length/all.length*100) : 0;
+}
+function mobDone(dt) { return !!store[mobKey(dt)]; }
+function totalPct(dt) {
+  const d = dt.getDay();
+  const gp = gymPct(dt);
+  const pp = postPct(dt);
+  if(!GYM[d]) return pp;
+  return Math.round((gp+pp)/2);
+}
+
+// ── Init ──
+function init() {
+  const today = getToday();
+  document.getElementById('todayDate').textContent = today.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
+  buildDays();
+  renderDay(curDayDate);
+}
+
+// ── Day Strip: muestra fijo Lun 6 - Dom 12 abril 2026 ──
+function buildDays() {
+  const cont = document.getElementById('daySelector');
+  cont.innerHTML = '';
+  const today = getToday();
+  today.setHours(0,0,0,0);
+  const todayStr = dateStr(today);
+  const weekStart = new Date(2026, 3, 6); // lunes 6 abril 2026
+
+  for(let i=0; i<7; i++) {
+    const dt = new Date(weekStart);
+    dt.setDate(weekStart.getDate() + i);
+    const tp = totalPct(dt);
+    const isActive = dateStr(dt) === dateStr(curDayDate);
+    const isToday = dateStr(dt) === todayStr;
+    const btn = document.createElement('div');
+    let cls = 'day-btn';
+    if(isActive) cls += ' active';
+    if(tp > 0 && tp < 100) cls += ' has-dot';
+    if(tp >= 100) cls += ' full-done';
+    if(isToday) cls += ' today-mark';
+    btn.className = cls;
+    btn.dataset.date = dateStr(dt);
+    btn.innerHTML = `<span class="dn">${DS[dt.getDay()]}</span><span class="dd">${dt.getDate()}</span><div class="day-dot"></div>`;
+    btn.onclick = () => selDay(dt);
+    cont.appendChild(btn);
   }
 }
 
-function selDay(d){
-  curDay=d;
-  document.querySelectorAll('.day-btn').forEach(b=>b.classList.toggle('active',parseInt(b.dataset.day)===d));
-  renderDay(d);
-  if(document.getElementById('view-postura').classList.contains('active'))renderPostura(d);
-  if(document.getElementById('view-resumen').classList.contains('active'))renderResumen();
+function selDay(dt) {
+  curDayDate = new Date(dt);
+  buildDays();
+  renderDay(curDayDate);
+  if(document.getElementById('view-postura').classList.contains('active')) renderPostura(curDayDate);
+  if(document.getElementById('view-resumen').classList.contains('active')) renderResumen();
 }
 
-function renderDay(d){
-  const data=GYM[d];
-  document.getElementById('dayBig').textContent=DN[d];
-  document.getElementById('dayBg').textContent=DS[d].toUpperCase();
-  document.getElementById('compRow').innerHTML='';
-  if(!data){
-    document.getElementById('dayLbl').textContent='Descanso';
-    document.getElementById('daySub').textContent='Recuperación activa';
-    document.getElementById('gymContent').innerHTML=`<div class="rest-card"><span class="rest-emoji">😴</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">El músculo crece mientras descansás.<br>Hidratate · 8 horas de sueño · proteína.</div></div>`;
+// ── Render día gym ──
+function renderDay(dt) {
+  const d = dt.getDay();
+  const data = GYM[d];
+  document.getElementById('dayBig').textContent = DN[d];
+  document.getElementById('dayBg').textContent = DS[d].toUpperCase();
+  document.getElementById('compRow').innerHTML = '';
+  if(!data) {
+    document.getElementById('dayLbl').textContent = 'Descanso';
+    document.getElementById('daySub').textContent = 'Recuperación activa';
+    document.getElementById('gymContent').innerHTML = `<div class="rest-card"><span class="rest-emoji">😴</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">El músculo crece mientras descansás.<br>Hidratate · 8 horas de sueño · proteína.</div></div>`;
     return;
   }
-  document.getElementById('dayLbl').textContent=data.label;
-  document.getElementById('daySub').textContent=`${data.sessions.length} sesión${data.sessions.length>1?'es':''} · ⚡ Thor Mode`;
-  renderSessions(d,data);
+  document.getElementById('dayLbl').textContent = data.label;
+  document.getElementById('daySub').textContent = `${data.sessions.length} sesión${data.sessions.length>1?'es':''} · ⚡ Thor Mode`;
+  renderComp(dt, data);
+  renderSessions(dt, data);
 }
 
-function renderComp(d,data){
-  const gp=gymPct(d),mok=mobDone(d);
-  const row=document.getElementById('compRow');row.innerHTML='';
-  const m=document.createElement('div');
-  m.className=`comp-card${mok?' done':''}`;m.onclick=()=>toggleMob(d);
-  m.innerHTML=`<div class="comp-check">${mok?'✓':''}</div><span class="comp-icon">🧘</span><div class="comp-label">Movilidad</div><div class="comp-hint">${mok?'✓ Completado':'Tocá para marcar'}</div>`;
-  row.appendChild(m);
-  const ok=gp===100;const inProg=gp>0&&!ok;
-  const g=document.createElement('div');
-  g.className=`comp-card auto${ok?' done':inProg?' in-prog':''}`;
-  g.innerHTML=`<div class="comp-check">${ok?'✓':''}</div><span class="comp-icon">🏋️</span><div class="comp-label">Gym</div><div class="comp-hint">${ok?'✓ Completado':'Auto al terminar'}</div>`;
+function renderComp(dt, data) {
+  const gp = gymPct(dt);
+  const row = document.getElementById('compRow');
+  row.innerHTML = '';
+  const ok = gp===100; const inProg = gp>0&&!ok;
+  const g = document.createElement('div');
+  g.className = `comp-card auto${ok?' done':inProg?' in-prog':''}`;
+  g.innerHTML = `<div class="comp-check">${ok?'✓':''}</div><span class="comp-icon">🏋️</span><div class="comp-label">Gym</div><div class="comp-hint">${ok?'✓ Completado':'Auto al terminar'}</div>`;
   row.appendChild(g);
 }
 
-function toggleMob(d){md[mobKey(d)]=!md[mobKey(d)];sm();renderComp(d,GYM[d]);buildDays()}
+function toggleMob(dt) {
+  const k = mobKey(dt);
+  store[k] = !store[k];
+  saveStore();
+  renderComp(dt, GYM[dt.getDay()]);
+  buildDays();
+}
 
-function renderSessions(d,data){
-  const cont=document.getElementById('gymContent');cont.innerHTML='';
-  data.sessions.forEach((sess,si)=>{
-    const din=sess.ex.filter(e=>gd[e.n]).length;
-    const pct=Math.round(din/sess.ex.length*100);const ok=din===sess.ex.length;
-    const exHTML=sess.ex.map(ex=>{
-      const done=!!gd[ex.n];const safe=ex.n.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-      return `<div class="ex-item${done?' done':''}" onclick="toggleGym('${safe}',${d})"><div class="ex-chk">${done?'✓':''}</div><div class="ex-det"><div class="ex-nm">${ex.n}</div><div class="ex-mt">${ex.m}</div>${ex.note?`<div class="ex-nt">${ex.note}</div>`:''}</div><span class="ex-tag tag-${ex.t}">${TL[ex.t]||ex.t}</span></div>`;
+function renderSessions(dt, data) {
+  const cont = document.getElementById('gymContent');
+  cont.innerHTML = '';
+  data.sessions.forEach((sess,si) => {
+    const din = sess.ex.filter(e=>store[gymKey(dt,e.n)]).length;
+    const pct = Math.round(din/sess.ex.length*100);
+    const ok = din===sess.ex.length;
+    const dtStr = dateStr(dt);
+    const exHTML = sess.ex.map(ex => {
+      const done = !!store[gymKey(dt,ex.n)];
+      const safe = ex.n.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      return `<div class="ex-item${done?' done':''}" onclick="toggleGym('${safe}','${dtStr}')"><div class="ex-chk">${done?'✓':''}</div><div class="ex-det"><div class="ex-nm">${ex.n}</div><div class="ex-mt">${ex.m}</div>${ex.note?`<div class="ex-nt">${ex.note}</div>`:''}</div><span class="ex-tag tag-${ex.t}">${TL[ex.t]||ex.t}</span></div>`;
     }).join('');
-    const card=document.createElement('div');
-    card.className=`session-card${si===0?' open':''}${ok?' all-done':''}`;
-    card.id='sc'+si;card.style.animationDelay=(si*0.06)+'s';
-    card.innerHTML=`<div class="sess-hdr" onclick="togSess(${si})"><div class="s-ico ${sess.ic}">${sess.icon}</div><div class="s-inf"><div class="s-type">${sess.type}</div><div class="s-name">${sess.name}</div></div><span class="s-badge${ok?' ok':''}">${ok?'✓ Listo':din+'/'+sess.ex.length}</span><span class="chevron">▼</span></div><div class="sess-body"><div class="pbar-wrap"><div class="pbar-lbl"><span>Progreso</span><span>${pct}%</span></div><div class="pbar"><div class="pbar-fill${ok?' gfill':''}" style="width:${pct}%"></div></div></div><div class="ex-list">${exHTML}</div></div>`;
+    const card = document.createElement('div');
+    card.className = `session-card${si===0?' open':''}${ok?' all-done':''}`;
+    card.id = 'sc'+si;
+    card.style.animationDelay = (si*0.06)+'s';
+    card.innerHTML = `<div class="sess-hdr" onclick="togSess(${si})"><div class="s-ico ${sess.ic}">${sess.icon}</div><div class="s-inf"><div class="s-type">${sess.type}</div><div class="s-name">${sess.name}</div></div><span class="s-badge${ok?' ok':''}">${ok?'✓ Listo':din+'/'+sess.ex.length}</span><span class="chevron">▼</span></div><div class="sess-body"><div class="pbar-wrap"><div class="pbar-lbl"><span>Progreso</span><span>${pct}%</span></div><div class="pbar"><div class="pbar-fill${ok?' gfill':''}" style="width:${pct}%"></div></div></div><div class="ex-list">${exHTML}</div></div>`;
     cont.appendChild(card);
   });
 }
 
 function togSess(i){document.getElementById('sc'+i).classList.toggle('open')}
-function toggleGym(name,d){gd[name]=!gd[name];sg();renderSessions(d,GYM[d]);buildDays()}
 
-function renderPostura(d){
-  const sk=postSessKey(d);const cont=document.getElementById('postContent');cont.innerHTML='';
-  if(!sk){cont.innerHTML=`<div class="rest-card"><span class="rest-emoji">😴</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">Recuperación activa recomendada.</div></div>`;return;}
-  const sess=POST[sk];
-  const hero=document.createElement('div');hero.className='post-hero';
-  hero.innerHTML=`<div class="post-badge"><div class="pb-dot"></div><div class="pb-txt">SESIÓN ${sk}</div></div><div class="post-title">${sess.title}</div><div class="post-desc">${sess.desc}</div>`;
+function toggleGym(name, dtStr) {
+  // Reconstruir dt desde dtStr
+  const [y,m,d2] = dtStr.split('-').map(Number);
+  const dt = new Date(y,m-1,d2);
+  const k = gymKey(dt, name);
+  store[k] = !store[k];
+  saveStore();
+  renderSessions(dt, GYM[dt.getDay()]);
+  renderComp(dt, GYM[dt.getDay()]);
+  buildDays();
+}
+
+// ── Postura ──
+function renderPostura(dt) {
+  const d = dt.getDay();
+  const sk = postSessKey(d);
+  const cont = document.getElementById('postContent');
+  cont.innerHTML = '';
+  if(!sk) {
+    cont.innerHTML = `<div class="rest-card"><span class="rest-emoji">😴</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">Recuperación activa recomendada.</div></div>`;
+    return;
+  }
+  const sess = POST[sk];
+  const dtStr = dateStr(dt);
+  const hero = document.createElement('div');
+  hero.className = 'post-hero';
+  hero.innerHTML = `<div class="post-badge"><div class="pb-dot"></div><div class="pb-txt">SESIÓN ${sk}</div></div><div class="post-title">${sess.title}</div><div class="post-desc">${sess.desc}</div>`;
   cont.appendChild(hero);
-  const pills=document.createElement('div');pills.className='phase-pills';
-  sess.phases.forEach(ph=>{const done=ph.ex.every(e=>pd[e.id]);pills.innerHTML+=`<div class="ph-pill${done?' done-ph':''}">${done?'✓ ':''}${ph.name}</div>`;});
+  const pills = document.createElement('div');
+  pills.className = 'phase-pills';
+  sess.phases.forEach(ph => {
+    const done = ph.ex.every(e=>store[postKey(dt,e.id)]);
+    pills.innerHTML += `<div class="ph-pill${done?' done-ph':''}">${done?'✓ ':''}${ph.name}</div>`;
+  });
   cont.appendChild(pills);
-  sess.phases.forEach((ph,pi)=>{
-    const bt=document.createElement('div');bt.className='ph-block-title';bt.textContent=`${ph.name} — ${ph.sub}`;cont.appendChild(bt);
-    ph.ex.forEach((ex,ei)=>{
-      const ok=!!pd[ex.id];const card=document.createElement('div');
-      // nunca empieza abierto
-      card.className=`p-card${ok?' p-done':''}`;
-      card.id='pe'+ex.id;card.style.animationDelay=(ei*0.04)+'s';
-      const steps=ex.steps.map((s,i)=>`<li><span class="p-sn">${i+1}</span>${s}</li>`).join('');
-      const safeN=ex.name.replace(/'/g,"\\'");
-      const tb=ex.timer?`<button class="tbtn" onclick="openTimer(${ex.timer},'${safeN}')">⏱ ${ex.timer}s</button>`:'';
-      card.innerHTML=`<div class="p-hdr"><div class="p-chk" onclick="togglePost('${ex.id}',event)">${ok?'✓':''}</div><div class="p-inf" onclick="togP('${ex.id}')"><div class="p-nm">${ex.name}</div><div class="p-pm">${ex.params}</div></div><span class="p-chev" onclick="togP('${ex.id}')">▼</span></div><div class="p-body"><div class="p-detail"><div class="p-why"><strong>¿Por qué?</strong> ${ex.why}</div><ul class="p-steps">${steps}</ul><div class="p-btns">${tb}<button class="dbtn${ok?' is-done':''}" onclick="togglePost('${ex.id}',event)">${ok?'✓ Hecho':'Marcar hecho'}</button></div></div></div>`;
+  sess.phases.forEach((ph,pi) => {
+    const bt = document.createElement('div');
+    bt.className = 'ph-block-title';
+    bt.textContent = `${ph.name} — ${ph.sub}`;
+    cont.appendChild(bt);
+    ph.ex.forEach((ex,ei) => {
+      const ok = !!store[postKey(dt,ex.id)];
+      const card = document.createElement('div');
+      card.className = `p-card${ok?' p-done':''}`;
+      card.id = 'pe'+ex.id;
+      card.style.animationDelay = (ei*0.04)+'s';
+      const steps = ex.steps.map((s,i)=>`<li><span class="p-sn">${i+1}</span>${s}</li>`).join('');
+      const safeN = ex.name.replace(/'/g,"\\'");
+      const tb = ex.timer ? `<button class="tbtn" onclick="openTimer(${ex.timer},'${safeN}')">⏱ ${ex.timer}s</button>` : '';
+      card.innerHTML = `<div class="p-hdr"><div class="p-chk" onclick="togglePost('${ex.id}','${dtStr}',event)">${ok?'✓':''}</div><div class="p-inf" onclick="togP('${ex.id}')"><div class="p-nm">${ex.name}</div><div class="p-pm">${ex.params}</div></div><span class="p-chev" onclick="togP('${ex.id}')">▼</span></div><div class="p-body"><div class="p-detail"><div class="p-why"><strong>¿Por qué?</strong> ${ex.why}</div><ul class="p-steps">${steps}</ul><div class="p-btns">${tb}<button class="dbtn${ok?' is-done':''}" onclick="togglePost('${ex.id}','${dtStr}',event)">${ok?'✓ Hecho':'Marcar hecho'}</button></div></div></div>`;
       cont.appendChild(card);
     });
   });
 }
 
 function togP(id){document.getElementById('pe'+id).classList.toggle('p-open')}
-function togglePost(id,ev){if(ev)ev.stopPropagation();pd[id]=!pd[id];sp();renderPostura(curDay);buildDays()}
 
-function renderResumen(){
-  const cont=document.getElementById('resContent');cont.innerHTML='';
+function togglePost(id, dtStr, ev) {
+  if(ev) ev.stopPropagation();
+  const [y,m,d2] = dtStr.split('-').map(Number);
+  const dt = new Date(y,m-1,d2);
+  const k = postKey(dt, id);
+  store[k] = !store[k];
+  saveStore();
+  renderPostura(dt);
+  buildDays();
+}
 
-  // ── Semana actual Argentina (UTC-3): Dom→Sáb ──
-  // Calculamos el domingo de la semana actual en hora Argentina
-  const nowAR=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Argentina/Buenos_Aires'}));
-  const todayAR=nowAR.getDay(); // 0=Dom
-  // Inicio de semana = domingo más reciente
-  const weekStart=new Date(nowAR);weekStart.setDate(nowAR.getDate()-todayAR);weekStart.setHours(0,0,0,0);
-  // Fin de semana = sábado 23:59:59
-  const weekEnd=new Date(weekStart);weekEnd.setDate(weekStart.getDate()+6);weekEnd.setHours(23,59,59,999);
+// ── Resumen con navegación semanal ──
+function renderResumen() {
+  const cont = document.getElementById('resContent');
+  cont.innerHTML = '';
 
-  // día seleccionado para el box de arriba
-  const sd=curDay;
-  const gp=gymPct(sd),mok=mobDone(sd),pp=postPct(sd),tp=totalPct(sd);
-  cont.innerHTML=`<div class="res-header"><div class="res-title">RESUMEN SEMANAL</div><div class="res-sub">Vista general · progreso y actividades</div></div>`;
-  const tb=document.createElement('div');tb.className='today-box';
-  const isRestDay=!GYM[sd]&&!postSessKey(sd);
-  if(isRestDay){
-    tb.innerHTML=`<div class="today-box-lbl">📅 ${DN[sd]}</div><div class="today-pct-row"><div class="today-pct-num" style="font-size:36px;color:var(--muted)">😴</div><div class="today-pct-info"><div class="today-pct-label" style="color:var(--muted)">Día de descanso</div><div class="today-pct-sub">Recuperación activa · hidratate bien</div></div></div>`;
+  const today = getToday();
+  today.setHours(0,0,0,0);
+  const todayStr = dateStr(today);
+
+  // Semana actual = lunes de hoy + offset
+  const baseMon = getMondayOf(today);
+  const weekMon = new Date(baseMon);
+  weekMon.setDate(baseMon.getDate() + resWeekOffset * 7);
+  const days = weekDays(weekMon);
+  const weekSun = days[6]; // domingo
+
+  // Formatear rango
+  const fmt = (dt) => dt.toLocaleDateString('es-ES',{day:'numeric',month:'short'});
+  const weekRange = `${fmt(weekMon)} – ${fmt(weekSun)}`;
+  const isCurrentWeek = resWeekOffset === 0;
+
+  // Header
+  cont.innerHTML = `<div class="res-header"><div class="res-title">RESUMEN SEMANAL</div><div class="res-sub">Vista general · progreso y actividades</div></div>`;
+
+  // Box día seleccionado (siempre muestra el curDayDate)
+  const sd = curDayDate;
+  const sdStr = dateStr(sd);
+  const gp = gymPct(sd), mok = mobDone(sd), pp = postPct(sd), tp = totalPct(sd);
+  const tb = document.createElement('div');
+  tb.className = 'today-box';
+  const isRestDay = !GYM[sd.getDay()] && !postSessKey(sd.getDay());
+  const dayLabel = sdStr === todayStr ? 'HOY · ' : '';
+  if(isRestDay) {
+    tb.innerHTML = `<div class="today-box-lbl">📅 ${dayLabel}${DN[sd.getDay()]}</div><div class="today-pct-row"><div class="today-pct-num" style="font-size:36px;color:var(--muted)">😴</div><div class="today-pct-info"><div class="today-pct-label" style="color:var(--muted)">Día de descanso</div><div class="today-pct-sub">Recuperación activa · hidratate bien</div></div></div>`;
   } else {
-    tb.innerHTML=`<div class="today-box-lbl">📅 ${DN[sd]}</div><div class="today-pct-row"><div class="today-pct-num">${tp}%</div><div class="today-pct-info"><div class="today-pct-label">Completitud del día</div><div class="today-pct-sub">🏋️ Gym: ${gp}%<br>🧘 Movilidad: ${mok?'✓ listo':postSessKey(sd)?pp+'%':'sin sesión'}</div></div></div><div class="today-prog"><div class="today-prog-fill" style="width:${tp}%"></div></div>`;
+    tb.innerHTML = `<div class="today-box-lbl">📅 ${dayLabel}${DN[sd.getDay()]}</div><div class="today-pct-row"><div class="today-pct-num">${tp}%</div><div class="today-pct-info"><div class="today-pct-label">Completitud del día</div><div class="today-pct-sub">🏋️ Gym: ${gp}%<br>🧘 Movilidad: ${mok?'✓ listo':postSessKey(sd.getDay())?pp+'%':'sin sesión'}</div></div></div><div class="today-prog"><div class="today-prog-fill" style="width:${tp}%"></div></div>`;
   }
   cont.appendChild(tb);
-  const expWrap=document.createElement('div');
-  expWrap.innerHTML=`<button class="export-btn" onclick="exportExcel()">⬇️ &nbsp;DESCARGAR EXCEL SEMANAL</button><div class="export-note">Exporta el estado actual de todos los ejercicios de la semana</div>`;
+
+  // Export
+  const expWrap = document.createElement('div');
+  expWrap.innerHTML = `<button class="export-btn" onclick="exportExcel()">⬇️ &nbsp;DESCARGAR EXCEL SEMANAL</button><div class="export-note">Exporta el estado actual de todos los ejercicios de la semana</div>`;
   cont.appendChild(expWrap);
-  const wl=document.createElement('div');wl.className='week-label';wl.textContent='ACTIVIDADES POR DÍA';cont.appendChild(wl);
 
-  // Mostrar solo los 7 días de la semana actual (Dom a Sáb)
-  for(let i=0;i<7;i++){
-    const dt=new Date(weekStart);dt.setDate(weekStart.getDate()+i);
-    const d=dt.getDay(); // 0=Dom…6=Sáb
-    // Bloquear días futuros: si dt > ahora AR → bloqueado
-    const isFuture=dt>nowAR;
-    const isSelDay=d===curDay&&dt.toDateString()===new Date(nowAR.toLocaleString('en-US',{timeZone:'America/Argentina/Buenos_Aires'})).toDateString();
-    const isToday=todayAR===d&&i===todayAR;
-    const data=GYM[d];
-    const tp2=isFuture?0:totalPct(d);
-    const sk=postSessKey(d);
-    const pctColor=tp2>=100?'var(--green)':tp2>0?'var(--gold)':'var(--muted)';
+  // Navegador de semana
+  const nav = document.createElement('div');
+  nav.className = 'week-nav';
+  nav.innerHTML = `
+    <button class="week-nav-btn" onclick="changeWeek(-1)">◀</button>
+    <div class="week-nav-center">
+      <div class="week-nav-label">${weekRange}</div>
+      ${!isCurrentWeek ? `<div><span class="week-nav-today" onclick="changeWeek(0)">IR A HOY</span></div>` : '<div style="font-size:9px;color:var(--gold);margin-top:3px;font-weight:700">SEMANA ACTUAL</div>'}
+    </div>
+    <button class="week-nav-btn" onclick="changeWeek(1)">▶</button>
+  `;
+  cont.appendChild(nav);
 
-    let acts=[];
-    if(sk)acts.push({type:'mob',name:`🧘 Movilidad Sesión ${sk} — ${POST[sk].title}`,done:!isFuture&&mobDone(d)});
-    if(data){data.sessions.forEach(sess=>{const dn=isFuture?0:sess.ex.filter(e=>gd[e.n]).length;acts.push({type:sess.ic==='ic-run'?'run':'gym',name:`${sess.icon} ${sess.name}${isFuture?'':' ('+dn+'/'+sess.ex.length+')'}`,done:!isFuture&&dn===sess.ex.length});});}
-    else acts.push({type:'rest',name:'😴 Descanso total',done:true});
+  // Lista de días
+  const wl = document.createElement('div');
+  wl.className = 'week-label';
+  wl.textContent = 'ACTIVIDADES POR DÍA';
+  cont.appendChild(wl);
 
-    const actsHTML=acts.map(a=>`<div class="res-act"><div class="res-act-dot dot-${a.type}"></div><div class="res-act-name">${a.name}</div><div class="${a.done?'res-act-ok':'res-act-pend'}">${isFuture&&a.type!=='rest'?'—':a.done?'✓ hecho':'pendiente'}</div></div>`).join('');
+  days.forEach((dt, i) => {
+    const d = dt.getDay();
+    const dtStr2 = dateStr(dt);
+    const isFuture = dt > today;
+    const isToday2 = dtStr2 === todayStr;
+    const isCurDay = dtStr2 === sdStr;
+    const data = GYM[d];
+    const tp2 = isFuture ? 0 : totalPct(dt);
+    const sk = postSessKey(d);
+    const pctColor = tp2>=100?'var(--green)':tp2>0?'var(--gold)':'var(--muted)';
 
-    const isOpen=d===curDay;
-    const card=document.createElement('div');
-    card.className=`res-day-card${isOpen?' r-open':''}${isFuture?' locked':''}`;
-    card.id='rdd'+i;
-    card.innerHTML=`<div class="res-day-hdr" onclick="togR('rdd${i}')">
-      <div class="res-day-num${isToday?' is-today':''}">${dt.getDate()}</div>
+    let acts = [];
+    if(sk) acts.push({type:'mob',name:`🧘 Movilidad Sesión ${sk} — ${POST[sk].title}`,done:!isFuture&&mobDone(dt)});
+    if(data) {
+      data.sessions.forEach(sess => {
+        const dn = isFuture ? 0 : sess.ex.filter(e=>store[gymKey(dt,e.n)]).length;
+        acts.push({type:sess.ic==='ic-run'?'run':'gym',name:`${sess.icon} ${sess.name}${isFuture?'':' ('+dn+'/'+sess.ex.length+')'}`,done:!isFuture&&dn===sess.ex.length});
+      });
+    } else {
+      acts.push({type:'rest',name:'😴 Descanso total',done:true});
+    }
+
+    const actsHTML = acts.map(a=>`<div class="res-act"><div class="res-act-dot dot-${a.type}"></div><div class="res-act-name">${a.name}</div><div class="${a.done?'res-act-ok':'res-act-pend'}">${isFuture&&a.type!=='rest'?'—':a.done?'✓ hecho':'pendiente'}</div></div>`).join('');
+
+    const card = document.createElement('div');
+    let cardCls = 'res-day-card';
+    if(isCurDay) cardCls += ' r-open';
+    if(isToday2) cardCls += ' is-today-card';
+    card.className = cardCls;
+    card.id = 'rdd'+i;
+
+    const todayBadge = isToday2 ? ' · <span style="color:var(--blue);font-size:9px;font-weight:700">HOY</span>' : '';
+    card.innerHTML = `<div class="res-day-hdr" onclick="togR('rdd${i}')">
+      <div class="res-day-num${isToday2?' is-today':''}">${dt.getDate()}</div>
       <div class="res-day-info">
-        <div class="res-day-name">${DS[d]}${isToday?' · HOY':''}</div>
+        <div class="res-day-name">${DS[d]}${todayBadge}</div>
         <div class="res-day-sub">${data?data.label:'Descanso'}${isFuture?' · <span style="color:var(--muted2);font-size:9px">pendiente</span>':''}</div>
       </div>
       <div class="res-day-pct" style="color:${isFuture?'var(--muted2)':pctColor}">${isFuture?'—':tp2>0?tp2+'%':data?'—':'😴'}</div>
@@ -590,33 +769,101 @@ function renderResumen(){
     </div>
     <div class="res-day-body"><div class="res-act-list">${actsHTML}</div></div>`;
     cont.appendChild(card);
-  }
+  });
 }
+
+function changeWeek(delta) {
+  if(delta === 0) {
+    resWeekOffset = 0;
+  } else {
+    resWeekOffset += delta;
+  }
+  renderResumen();
+}
+
 function togR(id){document.getElementById(id).classList.toggle('r-open')}
 
-function exportExcel(){
-  const wb=XLSX.utils.book_new();const today=new Date().getDay();
-  const s1=[['DÍA','FECHA','MOVILIDAD','GYM %','TOTAL %','ESTADO']];
-  for(let i=0;i<7;i++){const d=(today+i)%7;const dt=new Date();dt.setDate(dt.getDate()+i);s1.push([DN[d],dt.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),mobDone(d)?'✅ Completo':'⏳ Pendiente',GYM[d]?gymPct(d)+'%':'N/A',totalPct(d)+'%',totalPct(d)>=100?'✅ Completo':totalPct(d)>0?'🔄 En progreso':'⏳ Sin iniciar']);}
-  const ws1=XLSX.utils.aoa_to_sheet(s1);ws1['!cols']=[{wch:14},{wch:14},{wch:16},{wch:10},{wch:10},{wch:16}];XLSX.utils.book_append_sheet(wb,ws1,'Resumen Semanal');
-  const s2=[['DÍA','SESIÓN','EJERCICIO','SERIES/REPS','CATEGORÍA','ESTADO']];
-  for(let d=0;d<7;d++){const data=GYM[d];if(!data)continue;data.sessions.forEach(sess=>{sess.ex.forEach(ex=>{s2.push([DN[d],sess.name,ex.n,ex.m,TL[ex.t]||ex.t,gd[ex.n]?'✅ Hecho':'⏳ Pendiente'])})});}
-  const ws2=XLSX.utils.aoa_to_sheet(s2);ws2['!cols']=[{wch:12},{wch:22},{wch:32},{wch:18},{wch:12},{wch:14}];XLSX.utils.book_append_sheet(wb,ws2,'Gym Detallado');
-  const s3=[['SESIÓN','FASE','EJERCICIO','PARÁMETROS','ESTADO']];
-  ['A','B'].forEach(sk=>{const sess=POST[sk];sess.phases.forEach(ph=>{ph.ex.forEach(ex=>{s3.push([sess.name+' — '+sess.title,ph.name,ex.name,ex.params,pd[ex.id]?'✅ Hecho':'⏳ Pendiente'])})})});
-  const ws3=XLSX.utils.aoa_to_sheet(s3);ws3['!cols']=[{wch:28},{wch:16},{wch:32},{wch:22},{wch:14}];XLSX.utils.book_append_sheet(wb,ws3,'Movilidad Detallada');
-  XLSX.writeFile(wb,'reestructuracion_'+new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}).replace(/\//g,'-')+'.xlsx');
+// ── Export Excel ──
+function exportExcel() {
+  const wb = XLSX.utils.book_new();
+  const today = getToday();
+  const baseMon = getMondayOf(today);
+  const weekMon = new Date(baseMon);
+  weekMon.setDate(baseMon.getDate() + resWeekOffset * 7);
+  const days = weekDays(weekMon);
+
+  const s1 = [['DÍA','FECHA','MOVILIDAD','GYM %','TOTAL %','ESTADO']];
+  days.forEach(dt => {
+    s1.push([
+      DN[dt.getDay()],
+      dt.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
+      mobDone(dt)?'✅ Completo':'⏳ Pendiente',
+      GYM[dt.getDay()] ? gymPct(dt)+'%' : 'N/A',
+      totalPct(dt)+'%',
+      totalPct(dt)>=100?'✅ Completo':totalPct(dt)>0?'🔄 En progreso':'⏳ Sin iniciar'
+    ]);
+  });
+  const ws1 = XLSX.utils.aoa_to_sheet(s1);
+  ws1['!cols']=[{wch:14},{wch:14},{wch:16},{wch:10},{wch:10},{wch:16}];
+  XLSX.utils.book_append_sheet(wb,ws1,'Resumen Semanal');
+
+  const s2 = [['DÍA','FECHA','SESIÓN','EJERCICIO','SERIES/REPS','CATEGORÍA','ESTADO']];
+  days.forEach(dt => {
+    const data = GYM[dt.getDay()];
+    if(!data) return;
+    data.sessions.forEach(sess => {
+      sess.ex.forEach(ex => {
+        s2.push([
+          DN[dt.getDay()],
+          dt.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
+          sess.name, ex.n, ex.m, TL[ex.t]||ex.t,
+          store[gymKey(dt,ex.n)] ? '✅ Hecho' : '⏳ Pendiente'
+        ]);
+      });
+    });
+  });
+  const ws2 = XLSX.utils.aoa_to_sheet(s2);
+  ws2['!cols']=[{wch:12},{wch:14},{wch:22},{wch:32},{wch:18},{wch:12},{wch:14}];
+  XLSX.utils.book_append_sheet(wb,ws2,'Gym Detallado');
+
+  const s3 = [['SESIÓN','FECHA','FASE','EJERCICIO','PARÁMETROS','ESTADO']];
+  days.forEach(dt => {
+    const sk = postSessKey(dt.getDay());
+    if(!sk) return;
+    const sess = POST[sk];
+    sess.phases.forEach(ph => {
+      ph.ex.forEach(ex => {
+        s3.push([
+          sess.name+' — '+sess.title,
+          dt.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
+          ph.name, ex.name, ex.params,
+          store[postKey(dt,ex.id)] ? '✅ Hecho' : '⏳ Pendiente'
+        ]);
+      });
+    });
+  });
+  const ws3 = XLSX.utils.aoa_to_sheet(s3);
+  ws3['!cols']=[{wch:28},{wch:14},{wch:16},{wch:32},{wch:22},{wch:14}];
+  XLSX.utils.book_append_sheet(wb,ws3,'Movilidad Detallada');
+
+  XLSX.writeFile(wb,'reestructuracion_semana_'+(resWeekOffset>=0?'+':'')+resWeekOffset+'_'+new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}).replace(/\//g,'-')+'.xlsx');
 }
 
+// ── Timer ──
+let timerInterval=null,timerSecs=0,timerTotal=0,timerRunning=false;
 function openTimer(s,l){
   timerSecs=s;timerTotal=s;timerRunning=false;clearInterval(timerInterval);
-  document.getElementById('tDisp').textContent=fmt(s);document.getElementById('tLbl').textContent=l;
-  document.getElementById('tToggle').textContent='INICIAR';updateRing(s,s);
+  document.getElementById('tDisp').textContent=fmt(s);
+  document.getElementById('tLbl').textContent=l;
+  document.getElementById('tToggle').textContent='INICIAR';
+  updateRing(s,s);
   document.getElementById('timerOv').classList.add('show');
 }
 function updateRing(rem,total){
-  const c=document.getElementById('tCircle');const r=87;const circ=2*Math.PI*r;
-  c.style.strokeDasharray=circ;c.style.strokeDashoffset=total>0?circ*(1-rem/total):0;
+  const c=document.getElementById('tCircle');
+  const circ=2*Math.PI*87;
+  c.style.strokeDasharray=circ;
+  c.style.strokeDashoffset=total>0?circ*(1-rem/total):0;
 }
 function toggleTimer(){
   if(timerRunning){clearInterval(timerInterval);timerRunning=false;document.getElementById('tToggle').textContent='CONTINUAR';}
@@ -626,11 +873,16 @@ function toggleTimer(){
 function closeTimer(){clearInterval(timerInterval);timerRunning=false;document.getElementById('timerOv').classList.remove('show')}
 function fmt(s){const m=Math.floor(s/60);const sec=s%60;return m+':'+(sec<10?'0':'')+sec}
 
+// ── Nav ──
 function sw(v){
-  if(v==='postura')renderPostura(curDay);if(v==='resumen')renderResumen();
-  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));document.getElementById('view-'+v).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('nav-'+v).classList.add('active');
+  if(v==='postura') renderPostura(curDayDate);
+  if(v==='resumen') renderResumen();
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('nav-'+v).classList.add('active');
 }
+
 init();
 </script>
 </body>
