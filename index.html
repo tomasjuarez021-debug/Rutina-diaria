@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Reestructuración Corporal</title>
+<title>Rutina Tomy</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -182,6 +182,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .week-nav-sub{font-size:9px;color:var(--muted);margin-top:1px}
 .week-nav-today{font-size:9px;font-weight:700;color:var(--gold);cursor:pointer;padding:3px 9px;border:1px solid rgba(232,184,75,0.3);border-radius:10px;background:var(--gold-dim);margin-top:4px;display:inline-block}
 
+.week-strip-nav{display:flex;align-items:center;justify-content:space-between;padding:6px 0 8px;gap:8px}
+.week-strip-btn{background:none;border:1px solid var(--border2);border-radius:7px;color:var(--muted);font-size:16px;cursor:pointer;width:28px;height:28px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-family:'DM Sans',sans-serif;flex-shrink:0;line-height:1}
+.week-strip-btn:hover{color:var(--gold);border-color:rgba(232,184,75,0.4)}
+.week-strip-label{flex:1;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--text);letter-spacing:0.5px}
+.week-strip-label span{font-size:9px;font-weight:500;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(232,184,75,0.25);border-radius:8px;padding:2px 7px;margin-left:7px;letter-spacing:1px;text-transform:uppercase;vertical-align:middle}
 .week-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
 .res-day-card{background:var(--card);border-radius:12px;margin-bottom:8px;border:1px solid var(--border);overflow:hidden;transition:border-color 0.2s}
 .res-day-card.r-open{border-color:var(--border2)}
@@ -233,6 +238,25 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .nav-btn .nl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-family:'Barlow Condensed',sans-serif}
 .view{display:none}.view.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+/* EDIT MODAL */
+.ex-dots{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:5px;color:var(--muted2);font-size:13px;letter-spacing:1px;cursor:pointer;flex-shrink:0;transition:color 0.15s,background 0.15s;line-height:1;margin-left:4px}
+.ex-dots:hover{color:var(--muted);background:var(--card3)}
+.edit-ov{display:none;position:fixed;inset:0;background:rgba(8,12,16,0.85);z-index:300;align-items:flex-end;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.edit-ov.show{display:flex}
+.edit-modal{background:var(--card);border:1px solid var(--border2);border-radius:18px 18px 0 0;padding:22px 20px 36px;width:100%;max-width:480px;animation:slideUp 0.28s cubic-bezier(0.34,1.1,0.64,1) both}
+@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.edit-modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.edit-modal-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.5px;color:var(--text)}
+.edit-close{background:var(--card2);border:1px solid var(--border2);color:var(--muted);font-size:12px;width:28px;height:28px;border-radius:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif}
+.edit-field{margin-bottom:14px}
+.edit-lbl{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px}
+.edit-inp{width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:9px;padding:11px 13px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s}
+.edit-inp:focus{border-color:rgba(232,184,75,0.45)}
+.edit-actions{display:flex;gap:10px;margin-top:20px}
+.edit-btn-cancel{flex:1;padding:13px;border-radius:10px;border:1px solid var(--border2);background:var(--card2);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer}
+.edit-btn-save{flex:2;padding:13px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080c10;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;letter-spacing:1px;cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -255,10 +279,15 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <div class="header">
   <div class="header-top">
     <div class="app-title">
-      <div class="app-title-main">REESTRUCTURACIÓN CORPORAL</div>
-      <div class="app-title-sub">Protocolo integral · Thor Mode</div>
+      <div class="app-title-main">RUTINA DE MOVILIDAD Y FUERZA</div>
+      <div class="app-title-sub">Protocolo integral</div>
     </div>
     <div class="today-date" id="todayDate"></div>
+  </div>
+  <div class="week-strip-nav">
+    <button class="week-strip-btn" onclick="changeMainWeek(-1)">‹</button>
+    <div class="week-strip-label" id="weekStripLabel"></div>
+    <button class="week-strip-btn" onclick="changeMainWeek(1)">›</button>
   </div>
   <div class="day-strip" id="daySelector"></div>
 </div>
@@ -278,6 +307,32 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   <div class="view" id="view-resumen"><div id="resContent"></div></div>
 </div>
 
+<!-- Edit Exercise Modal -->
+<div class="edit-ov" id="editOv" onclick="closeEditIfBg(event)">
+  <div class="edit-modal">
+    <div class="edit-modal-hdr">
+      <div class="edit-modal-title">Editar ejercicio</div>
+      <button class="edit-close" onclick="closeEdit()">✕</button>
+    </div>
+    <div class="edit-field">
+      <label class="edit-lbl">Nombre</label>
+      <input class="edit-inp" id="editName" type="text" placeholder="Nombre del ejercicio"/>
+    </div>
+    <div class="edit-field">
+      <label class="edit-lbl">Series / Reps</label>
+      <input class="edit-inp" id="editMeta" type="text" placeholder="ej: 4 × 10 reps"/>
+    </div>
+    <div class="edit-field">
+      <label class="edit-lbl">Nota <span style="color:var(--muted2);font-weight:400">(opcional)</span></label>
+      <input class="edit-inp" id="editNote" type="text" placeholder="Tip o clave del ejercicio"/>
+    </div>
+    <div class="edit-actions">
+      <button class="edit-btn-cancel" onclick="closeEdit()">Cancelar</button>
+      <button class="edit-btn-save" onclick="saveEdit()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <div class="bottom-nav">
   <button class="nav-btn active" onclick="sw('gym')" id="nav-gym"><span class="ni">🏋️</span><span class="nl">Gym</span></button>
   <button class="nav-btn" onclick="sw('postura')" id="nav-postura"><span class="ni">🧘</span><span class="nl">Postura</span></button>
@@ -287,7 +342,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <script>
 const DS=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 const DN=['DOMINGO','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES','SÁBADO'];
-const TL={thor:'thor',postura:'postura',correctivo:'correctivo',atletico:'atlético'};
+const TL={thor:'fuerza',postura:'postura',correctivo:'correctivo',atletico:'atlético'};
 
 const GYM={
   0:null,
@@ -453,14 +508,11 @@ function postKey(dt, id) { return dateStr(dt) + '_post_' + id; }
 function mobKey(dt) { return dateStr(dt) + '_mob'; }
 
 // ── Estado global ──
+// La semana siempre arranca el lunes de la semana actual del dispositivo
 let curDayDate = (function(){
   const t = getToday();
-  const weekStart = new Date(2026,3,6);
-  const weekEnd = new Date(2026,3,12);
   t.setHours(0,0,0,0);
-  weekStart.setHours(0,0,0,0);
-  weekEnd.setHours(23,59,59,999);
-  return (t >= weekStart && t <= weekEnd) ? t : new Date(2026,3,6);
+  return t;
 })();
 let resWeekOffset = 0; // semanas relativas a la semana actual (0=esta, -1=anterior, +1=siguiente)
 
@@ -490,20 +542,31 @@ function totalPct(dt) {
 
 // ── Init ──
 function init() {
+  applyGymEdits();
   const today = getToday();
   document.getElementById('todayDate').textContent = today.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
   buildDays();
   renderDay(curDayDate);
 }
 
-// ── Day Strip: muestra fijo Lun 6 - Dom 12 abril 2026 ──
+// ── Day Strip: semana dinámica basada en curDayDate ──
 function buildDays() {
   const cont = document.getElementById('daySelector');
   cont.innerHTML = '';
   const today = getToday();
   today.setHours(0,0,0,0);
   const todayStr = dateStr(today);
-  const weekStart = new Date(2026, 3, 6); // lunes 6 abril 2026
+  // Calcula el lunes de la semana que contiene curDayDate
+  const weekStart = getMondayOf(curDayDate);
+  const weekEnd = new Date(weekStart); weekEnd.setDate(weekStart.getDate()+6);
+
+  // Actualizar etiqueta de semana en el header
+  const lbl = document.getElementById('weekStripLabel');
+  if(lbl) {
+    const fmt = d => d.toLocaleDateString('es-ES',{day:'numeric',month:'short'});
+    const isCurrentWeek = dateStr(getMondayOf(today)) === dateStr(weekStart);
+    lbl.innerHTML = fmt(weekStart) + ' — ' + fmt(weekEnd) + (isCurrentWeek ? '<span>Esta semana</span>' : '');
+  }
 
   for(let i=0; i<7; i++) {
     const dt = new Date(weekStart);
@@ -523,6 +586,17 @@ function buildDays() {
     btn.onclick = () => selDay(dt);
     cont.appendChild(btn);
   }
+}
+
+// Navegar semanas desde el header del strip
+function changeMainWeek(delta) {
+  const newDate = new Date(curDayDate);
+  newDate.setDate(curDayDate.getDate() + delta * 7);
+  curDayDate = newDate;
+  buildDays();
+  renderDay(curDayDate);
+  if(document.getElementById('view-postura').classList.contains('active')) renderPostura(curDayDate);
+  if(document.getElementById('view-resumen').classList.contains('active')) renderResumen();
 }
 
 function selDay(dt) {
@@ -547,20 +621,12 @@ function renderDay(dt) {
     return;
   }
   document.getElementById('dayLbl').textContent = data.label;
-  document.getElementById('daySub').textContent = `${data.sessions.length} sesión${data.sessions.length>1?'es':''} · ⚡ Thor Mode`;
-  renderComp(dt, data);
+  document.getElementById('daySub').textContent = `${data.sessions.length} sesión${data.sessions.length>1?'es':''} · ⚡ Fuerza`;
   renderSessions(dt, data);
 }
 
 function renderComp(dt, data) {
-  const gp = gymPct(dt);
-  const row = document.getElementById('compRow');
-  row.innerHTML = '';
-  const ok = gp===100; const inProg = gp>0&&!ok;
-  const g = document.createElement('div');
-  g.className = `comp-card auto${ok?' done':inProg?' in-prog':''}`;
-  g.innerHTML = `<div class="comp-check">${ok?'✓':''}</div><span class="comp-icon">🏋️</span><div class="comp-label">Gym</div><div class="comp-hint">${ok?'✓ Completado':'Auto al terminar'}</div>`;
-  row.appendChild(g);
+  document.getElementById('compRow').innerHTML = '';
 }
 
 function toggleMob(dt) {
@@ -579,10 +645,11 @@ function renderSessions(dt, data) {
     const pct = Math.round(din/sess.ex.length*100);
     const ok = din===sess.ex.length;
     const dtStr = dateStr(dt);
-    const exHTML = sess.ex.map(ex => {
+    const exHTML = sess.ex.map((ex,ei) => {
       const done = !!store[gymKey(dt,ex.n)];
       const safe = ex.n.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-      return `<div class="ex-item${done?' done':''}" onclick="toggleGym('${safe}','${dtStr}')"><div class="ex-chk">${done?'✓':''}</div><div class="ex-det"><div class="ex-nm">${ex.n}</div><div class="ex-mt">${ex.m}</div>${ex.note?`<div class="ex-nt">${ex.note}</div>`:''}</div><span class="ex-tag tag-${ex.t}">${TL[ex.t]||ex.t}</span></div>`;
+      const dayDow = dt.getDay();
+      return `<div class="ex-item${done?' done':''}" id="exi-${dtStr}-${si}-${ei}"><div class="ex-chk" onclick="toggleGym('${safe}','${dtStr}')">${done?'✓':''}</div><div class="ex-det" onclick="toggleGym('${safe}','${dtStr}')"><div class="ex-nm">${ex.n}</div><div class="ex-mt">${ex.m}</div>${ex.note?`<div class="ex-nt">${ex.note}</div>`:''}</div><span class="ex-tag tag-${ex.t}" onclick="toggleGym('${safe}','${dtStr}')">${TL[ex.t]||ex.t}</span><span class="ex-dots" onclick="openEdit(${dayDow},${si},${ei},event)" title="Editar">···</span></div>`;
     }).join('');
     const card = document.createElement('div');
     card.className = `session-card${si===0?' open':''}${ok?' all-done':''}`;
@@ -881,6 +948,70 @@ function sw(v){
   document.getElementById('view-'+v).classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('nav-'+v).classList.add('active');
+}
+
+// ── Edit Exercise ──
+let editCtx = null; // {dow, si, ei}
+
+// Load overrides from localStorage
+let gymEdits = {};
+try { gymEdits = JSON.parse(localStorage.getItem('rc_gym_edits') || '{}'); } catch(e){ gymEdits = {}; }
+const saveEdits = () => { try { localStorage.setItem('rc_gym_edits', JSON.stringify(gymEdits)); } catch(e){} };
+
+// Key: "dow-si-ei"
+function editKey(dow, si, ei) { return `${dow}-${si}-${ei}`; }
+
+// Get effective exercise (with overrides applied)
+function getEx(dow, si, ei) {
+  const base = GYM[dow].sessions[si].ex[ei];
+  const over = gymEdits[editKey(dow,si,ei)];
+  return over ? {...base, ...over} : base;
+}
+
+function openEdit(dow, si, ei, e) {
+  e.stopPropagation();
+  editCtx = {dow, si, ei};
+  const ex = getEx(dow, si, ei);
+  document.getElementById('editName').value = ex.n;
+  document.getElementById('editMeta').value = ex.m;
+  document.getElementById('editNote').value = ex.note || '';
+  document.getElementById('editOv').classList.add('show');
+}
+
+function closeEdit() {
+  document.getElementById('editOv').classList.remove('show');
+  editCtx = null;
+}
+
+function closeEditIfBg(e) {
+  if(e.target === document.getElementById('editOv')) closeEdit();
+}
+
+function saveEdit() {
+  if(!editCtx) return;
+  const {dow, si, ei} = editCtx;
+  const k = editKey(dow, si, ei);
+  const newName = document.getElementById('editName').value.trim();
+  const newMeta = document.getElementById('editMeta').value.trim();
+  const newNote = document.getElementById('editNote').value.trim();
+  if(!newName) return;
+  gymEdits[k] = {n: newName, m: newMeta, note: newNote};
+  saveEdits();
+  // Apply to GYM data in memory
+  const ex = GYM[dow].sessions[si].ex[ei];
+  ex.n = newName; ex.m = newMeta; ex.note = newNote;
+  closeEdit();
+  renderSessions(curDayDate, GYM[curDayDate.getDay()]);
+}
+
+// Apply saved edits to GYM on load
+function applyGymEdits() {
+  Object.entries(gymEdits).forEach(([k, over]) => {
+    const [dow, si, ei] = k.split('-').map(Number);
+    if(GYM[dow] && GYM[dow].sessions[si] && GYM[dow].sessions[si].ex[ei]) {
+      Object.assign(GYM[dow].sessions[si].ex[ei], over);
+    }
+  });
 }
 
 init();
