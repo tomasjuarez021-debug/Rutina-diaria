@@ -34,6 +34,17 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
+
+/* Iconos SVG — reemplazan a los emojis */
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-0.14em;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+/* tamaños mínimos legibles donde el texto es muy chico */
+.ex-chk .ic,.p-chk .ic{width:12px;height:12px;stroke-width:2.4}
+.s-badge .ic,.ph-pill .ic,.res-act-ok .ic,.today-pct-sub .ic{width:11px;height:11px;stroke-width:2.2}
+.today-box-lbl .ic{width:12px;height:12px;stroke-width:2}
+.chevron .ic,.p-chev .ic,.res-day-chev .ic{width:11px;height:11px;stroke-width:2.2}
+.dbtn .ic,.tbtn .ic{width:13px;height:13px;stroke-width:2}
+.rest-emoji .ic{width:46px;height:46px;stroke-width:1.2;color:var(--muted)}
+.week-nav-btn .ic{width:14px;height:14px;stroke-width:2.2}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
 
 .header{padding:14px 16px 0;position:sticky;top:0;background:rgba(8,12,16,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:100;border-bottom:1px solid var(--border)}
@@ -76,7 +87,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .ic-arco{background:linear-gradient(135deg,rgba(74,170,106,0.15),rgba(74,170,106,0.04))}
 .s-inf{flex:1;min-width:0}
 .s-type{font-size:9px;font-weight:600;color:var(--muted);margin-bottom:2px}
-.s-name{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-name{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--text);line-height:1.15}
 .s-badge{font-size:10px;font-weight:700;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(232,184,75,0.2);padding:4px 9px;border-radius:6px;white-space:nowrap;flex-shrink:0}
 .s-badge.ok{color:var(--green);background:var(--green-dim);border-color:rgba(74,170,106,0.2)}
 .chevron{color:var(--muted);transition:transform 0.3s;font-size:10px;flex-shrink:0}
@@ -233,8 +244,32 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 @keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 
 /* EDIT MODAL */
-.ex-dots{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:5px;color:var(--muted2);font-size:13px;letter-spacing:1px;cursor:pointer;flex-shrink:0;transition:color 0.15s,background 0.15s;line-height:1;margin-left:4px}
-.ex-dots:hover{color:var(--muted);background:var(--card3)}
+.ex-edit{width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--muted2);cursor:pointer;flex-shrink:0;transition:color 0.15s,background 0.15s;margin-left:2px}
+.ex-edit .ic{width:14px;height:14px}
+.ex-edit:hover{color:var(--gold);background:var(--card3)}
+
+/* lápiz para renombrar día / sesión */
+.lbl-row{display:flex;align-items:center;gap:7px}
+.lbl-edit{background:none;border:none;padding:2px;cursor:pointer;color:var(--muted2);display:flex;align-items:center;transition:color 0.15s}
+.lbl-edit .ic{width:13px;height:13px}
+.lbl-edit:hover{color:var(--gold)}
+.sess-edit{width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--muted2);cursor:pointer;flex-shrink:0;transition:color 0.15s,background 0.15s}
+.sess-edit .ic{width:14px;height:14px}
+.sess-edit:hover{color:var(--gold);background:var(--card3)}
+
+/* agregar ejercicio */
+.add-ex{width:100%;margin-top:10px;padding:11px;border-radius:9px;border:1px dashed var(--border2);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s}
+.add-ex .ic{width:13px;height:13px}
+.add-ex:hover{color:var(--gold);border-color:rgba(232,184,75,0.4)}
+
+/* campos series/reps/peso */
+.edit-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.edit-hint{font-size:9px;color:var(--muted2);margin:-6px 0 14px;line-height:1.5}
+.edit-sel{width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:9px;padding:11px 13px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;-webkit-appearance:none;appearance:none}
+.edit-btn-del{padding:13px 15px;border-radius:10px;border:1px solid rgba(255,100,100,0.3);background:rgba(255,100,100,0.08);color:#ff8080;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.edit-btn-del .ic{width:16px;height:16px}
+.edit-reset{width:100%;margin-top:14px;padding:11px;border-radius:9px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;cursor:pointer}
+.edit-reset:hover{color:#ff8080;border-color:rgba(255,100,100,0.3)}
 .edit-ov{display:none;position:fixed;inset:0;background:rgba(8,12,16,0.85);z-index:300;align-items:flex-end;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .edit-ov.show{display:flex}
 .edit-modal{background:var(--card);border:1px solid var(--border2);border-radius:18px 18px 0 0;padding:22px 20px 36px;width:100%;max-width:480px;animation:slideUp 0.28s cubic-bezier(0.34,1.1,0.64,1) both}
@@ -281,9 +316,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="today-date" id="todayDate"></div>
   </div>
   <div class="week-strip-nav">
-    <button class="week-strip-btn" onclick="changeMainWeek(-1)">‹</button>
+    <button class="week-strip-btn" onclick="changeMainWeek(-1)">&larr;</button>
     <div class="week-strip-label" id="weekStripLabel"></div>
-    <button class="week-strip-btn" onclick="changeMainWeek(1)">›</button>
+    <button class="week-strip-btn" onclick="changeMainWeek(1)">&rarr;</button>
   </div>
   <div class="day-strip" id="daySelector"></div>
 </div>
@@ -291,7 +326,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <div class="content">
   <div class="view active" id="view-gym">
     <div class="day-hero">
-      <div class="day-lbl" id="dayLbl">—</div>
+      <div class="lbl-row">
+        <div class="day-lbl" id="dayLbl">—</div>
+        <button class="lbl-edit" id="dayLblEdit" onclick="openDayName()" title="Renombrar actividad del día"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.3 19.7h4L19.2 8.8a2.5 2.5 0 0 0-3.5-3.5L4.3 15.7v4z"/><path d="M14.6 6.5l3.4 3.4"/></svg></button>
+      </div>
       <div class="day-big" id="dayBig">LUNES</div>
       <div class="day-sub" id="daySub">—</div>
     </div>
@@ -301,39 +339,108 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   <div class="view" id="view-resumen"><div id="resContent"></div></div>
 </div>
 
-<!-- Edit Exercise Modal -->
+<!-- Modal: editar / agregar ejercicio -->
 <div class="edit-ov" id="editOv" onclick="closeEditIfBg(event)">
   <div class="edit-modal">
     <div class="edit-modal-hdr">
-      <div class="edit-modal-title">Editar ejercicio</div>
-      <button class="edit-close" onclick="closeEdit()">✕</button>
+      <div class="edit-modal-title" id="editTitle">Editar ejercicio</div>
+      <button class="edit-close" onclick="closeEdit()"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.3 6.3l11.4 11.4M17.7 6.3L6.3 17.7"/></svg></button>
     </div>
     <div class="edit-field">
       <label class="edit-lbl">Nombre</label>
       <input class="edit-inp" id="editName" type="text" placeholder="Nombre del ejercicio"/>
     </div>
+    <div class="edit-grid">
+      <div class="edit-field">
+        <label class="edit-lbl">Series</label>
+        <input class="edit-inp" id="editSets" type="text" inputmode="decimal" placeholder="4"/>
+      </div>
+      <div class="edit-field">
+        <label class="edit-lbl">Reps</label>
+        <input class="edit-inp" id="editReps" type="text" placeholder="10"/>
+      </div>
+      <div class="edit-field">
+        <label class="edit-lbl">Peso</label>
+        <input class="edit-inp" id="editWeight" type="text" placeholder="20kg"/>
+      </div>
+    </div>
+    <div class="edit-hint">Dejá vacío lo que no aplique — no se muestra en la rutina.</div>
     <div class="edit-field">
-      <label class="edit-lbl">Series / Reps</label>
-      <input class="edit-inp" id="editMeta" type="text" placeholder="ej: 4 × 10 reps"/>
+      <label class="edit-lbl">Categoría</label>
+      <select class="edit-sel" id="editTag">
+        <option value="thor">Fuerza</option>
+        <option value="postura">Postura</option>
+        <option value="correctivo">Correctivo</option>
+        <option value="atletico">Atlético</option>
+        <option value="arco">Arco / pie</option>
+        <option value="calistenia">Calistenia</option>
+        <option value="">Sin categoría</option>
+      </select>
     </div>
     <div class="edit-field">
       <label class="edit-lbl">Nota <span style="color:var(--muted2);font-weight:400">(opcional)</span></label>
       <input class="edit-inp" id="editNote" type="text" placeholder="Tip o clave del ejercicio"/>
     </div>
     <div class="edit-actions">
+      <button class="edit-btn-del" id="editDel" onclick="deleteEx()" title="Eliminar ejercicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.3 6.9h15.4M9.7 6.9V4.7h4.6v2.2M6.7 6.9l.9 13.1h8.8l.9-13.1M10.5 10.9v5.3M13.5 10.9v5.3"/></svg></button>
       <button class="edit-btn-cancel" onclick="closeEdit()">Cancelar</button>
       <button class="edit-btn-save" onclick="saveEdit()">Guardar</button>
     </div>
   </div>
 </div>
 
+<!-- Modal: renombrar día o sesión -->
+<div class="edit-ov" id="nameOv" onclick="closeNameIfBg(event)">
+  <div class="edit-modal">
+    <div class="edit-modal-hdr">
+      <div class="edit-modal-title" id="nameTitle">Renombrar</div>
+      <button class="edit-close" onclick="closeName()"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.3 6.3l11.4 11.4M17.7 6.3L6.3 17.7"/></svg></button>
+    </div>
+    <div class="edit-field">
+      <label class="edit-lbl" id="nameLbl">Nombre</label>
+      <input class="edit-inp" id="nameInp" type="text" placeholder="ej: Espalda y Hombros"/>
+    </div>
+    <div class="edit-actions">
+      <button class="edit-btn-cancel" onclick="closeName()">Cancelar</button>
+      <button class="edit-btn-save" onclick="saveName()">Guardar</button>
+    </div>
+    <button class="edit-reset" id="nameReset" onclick="resetDay()">Restaurar rutina original de este día</button>
+  </div>
+</div>
+
 <div class="bottom-nav">
-  <button class="nav-btn active" onclick="sw('gym')" id="nav-gym"><span class="ni">🏋️</span><span class="nl">Gym</span></button>
-  <button class="nav-btn" onclick="sw('postura')" id="nav-postura"><span class="ni">🧘</span><span class="nl">Postura</span></button>
-  <button class="nav-btn" onclick="sw('resumen')" id="nav-resumen"><span class="ni">📊</span><span class="nl">Resumen</span></button>
+  <button class="nav-btn active" onclick="sw('gym')" id="nav-gym"><span class="ni"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5v7M3.6 10.5v3M17.5 8.5v7M20.4 10.5v3M6.5 12h11"/></svg></span><span class="nl">Gym</span></button>
+  <button class="nav-btn" onclick="sw('postura')" id="nav-postura"><span class="ni"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.4" r="2.05"/><path d="M12 6.9v7.3M8.4 9.9h7.2M12 14.2l-2.7 5.5M12 14.2l2.7 5.5"/></svg></span><span class="nl">Postura</span></button>
+  <button class="nav-btn" onclick="sw('resumen')" id="nav-resumen"><span class="ni"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.6h16"/><path d="M7.7 19.6v-5.3M12 19.6v-9.5M16.3 19.6v-3.3"/></svg></span><span class="nl">Resumen</span></button>
 </div>
 
 <script>
+// ── ICONOS ── set propio en SVG, trazo uniforme, sin emojis
+const ICONS = {
+  dumbbell:'<path d="M6.5 8.5v7M3.6 10.5v3M17.5 8.5v7M20.4 10.5v3M6.5 12h11"/>',
+  bolt:'<path d="M13.2 2.8L6 12.6h4.8l-1 8.6L17 11.4h-4.8l1-8.6z"/>',
+  run:'<circle cx="14.9" cy="4.7" r="2.05"/><path d="M8.3 20.9l3.2-5.1-2.3-2.9 1-4.3 3.4-1.1"/><path d="M13.6 7.5l2.3 2.6 3 .8"/><path d="M11.5 15.8l3.1 1.2 1 3.9"/><path d="M9.2 9.5l-3 1.1-1.3 2.9"/>',
+  arch:'<path d="M5 19.4v-5.6a7 7 0 0 1 14 0v5.6"/><path d="M2.8 19.4h18.4"/>',
+  posture:'<circle cx="12" cy="4.4" r="2.05"/><path d="M12 6.9v7.3M8.4 9.9h7.2M12 14.2l-2.7 5.5M12 14.2l2.7 5.5"/>',
+  chart:'<path d="M4 19.6h16"/><path d="M7.7 19.6v-5.3M12 19.6v-9.5M16.3 19.6v-3.3"/>',
+  moon:'<path d="M20.2 14.9A8.6 8.6 0 0 1 9.1 3.8a8.6 8.6 0 1 0 11.1 11.1z"/>',
+  timer:'<circle cx="12" cy="13.9" r="7.3"/><path d="M12 10.1v3.8l2.5 1.5"/><path d="M9.6 2.7h4.8M12 2.7v3"/>',
+  calendar:'<rect x="3.7" y="5.3" width="16.6" height="15" rx="2.6"/><path d="M3.7 10.1h16.6M8.3 3.3v4M15.7 3.3v4"/>',
+  chevron:'<path d="M6.6 9.6l5.4 5.4 5.4-5.4"/>',
+  check:'<path d="M5.2 12.6l4.5 4.5 9.1-9.4"/>',
+  plus:'<path d="M12 5.6v12.8M5.6 12h12.8"/>',
+  trash:'<path d="M4.3 6.9h15.4M9.7 6.9V4.7h4.6v2.2M6.7 6.9l.9 13.1h8.8l.9-13.1M10.5 10.9v5.3M13.5 10.9v5.3"/>',
+  pencil:'<path d="M4.3 19.7h4L19.2 8.8a2.5 2.5 0 0 0-3.5-3.5L4.3 15.7v4z"/><path d="M14.6 6.5l3.4 3.4"/>',
+  close:'<path d="M6.3 6.3l11.4 11.4M17.7 6.3L6.3 17.7"/>',
+  arrowL:'<path d="M14.4 5.6L8 12l6.4 6.4"/>',
+  arrowR:'<path d="M9.6 5.6L16 12l-6.4 6.4"/>'
+};
+function icon(n, cls){
+  const p = ICONS[n];
+  if(!p) return '';
+  return `<svg class="ic${cls?' '+cls:''}" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+}
+
 const DS=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 const DN=['DOMINGO','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES','SÁBADO'];
 const TL={thor:'fuerza',postura:'postura',correctivo:'correctivo',atletico:'atlético',arco:'arco/pie',calistenia:'calistenia'};
@@ -347,7 +454,7 @@ const GYM = {
     label: 'Arco + Velocidad Pura',
     sessions: [
       {
-        id: 'l_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: '🦶', ic: 'ic-arco',
+        id: 'l_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
         ex: [
           {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos — el más importante',t:'arco'},
           {n:'Elevación dedo gordo con arco activo',m:'2 × 12 reps por pie',note:'Levantá solo el gordo, los otros dedos en el suelo',t:'arco'},
@@ -355,7 +462,7 @@ const GYM = {
         ]
       },
       {
-        id: 'l_vel', type: 'Tarde · ~20:30 · Parque', name: 'Pasadas — Velocidad Pura', icon: '⚡', ic: 'ic-run',
+        id: 'l_vel', type: 'Tarde · ~20:30 · Parque', name: 'Pasadas — Velocidad Pura', icon: 'bolt', ic: 'ic-run',
         ex: [
           {n:'Calentamiento trote + drills',m:'8 minutos',note:'Incluí skipping, talones, y 2-3 aceleraciones cortas',t:'atletico'},
           {n:'6 × 60m al 95-100%',m:'Descanso 3 min completos entre series',note:'Velocidad MÁXIMA — si no podés dar el 95%, pará ahí',t:'atletico'},
@@ -367,17 +474,17 @@ const GYM = {
 
   // MARTES — Espalda + Hombros Vol.1 (tirón dominante, ratio corregido)
   2: {
-    label: '🔱 Espalda + Hombros Vol.1',
+    label: 'Espalda + Hombros Vol.1',
     sessions: [
       {
-        id: 'mar_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: '🦶', ic: 'ic-arco',
+        id: 'mar_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
         ex: [
           {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos',t:'arco'},
           {n:'Calf raise unilateral con arco activo',m:'2 × 10 reps por lado',note:'Arco activado durante todo el movimiento',t:'arco'}
         ]
       },
       {
-        id: 'mar_gym', type: 'Gym · Tirón dominante', name: 'Espalda + Hombros Vol.1', icon: '🏋️', ic: 'ic-gym',
+        id: 'mar_gym', type: 'Gym · Tirón dominante', name: 'Espalda + Hombros Vol.1', icon: 'dumbbell', ic: 'ic-gym',
         ex: [
           {n:'Dominadas pronadas lastradas +5kg',m:'4 × 6 reps',note:'Escápulas abajo ANTES de subir — semanas 1-4: +5kg / 5-8: +10kg',t:'calistenia'},
           {n:'Jalón al pecho con polea',m:'3 × 10-12 reps',note:'Complemento al tirón vertical — dorsal ancho',t:'thor'},
@@ -386,7 +493,7 @@ const GYM = {
           {n:'Face pull con polea',m:'4 × 15 reps',note:'CLAVE: rear delts + postura — codos más altos que manos al final',t:'postura'},
           {n:'Band pull apart',m:'4 × 20 reps',note:'Trapecio medio y romboides — escápulas juntas al final',t:'postura'},
           {n:'Retracción escapular con banda',m:'3 × 15 reps',note:'Pausa 2 seg apretado — re-educa el patrón escapular',t:'postura'},
-          {n:'Elevaciones laterales',m:'5 × 15-20 reps',note:'⭐ Prioridad máxima — deltoides lateral = anchura en V',t:'thor'},
+          {n:'Elevaciones laterales',m:'5 × 15-20 reps',note:'Prioridad máxima — deltoides lateral = anchura en V',t:'thor'},
           {n:'Encogimientos con mancuernas',m:'3 × 12 reps',note:'Trapecio superior controlado',t:'thor'}
         ]
       }
@@ -398,14 +505,14 @@ const GYM = {
     label: 'Pecho + Brazos + Core',
     sessions: [
       {
-        id: 'mie_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: '🦶', ic: 'ic-arco',
+        id: 'mie_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
         ex: [
           {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos',t:'arco'},
           {n:'Elevación dedo gordo con arco activo',m:'2 × 12 reps por pie',t:'arco'}
         ]
       },
       {
-        id: 'mie_gym', type: 'Gym · Único día de empuje', name: 'Pecho + Brazos + Core', icon: '💪', ic: 'ic-gym',
+        id: 'mie_gym', type: 'Gym · Único día de empuje', name: 'Pecho + Brazos + Core', icon: 'dumbbell', ic: 'ic-gym',
         ex: [
           {n:'Press inclinado con mancuernas',m:'4 × 10 reps',note:'Pecho ALTO — más importante que el plano para la forma en V',t:'thor'},
           {n:'Aperturas con mancuernas',m:'3 × 12 reps',note:'Abrí el pectoral al máximo — estiramiento completo',t:'thor'},
@@ -427,7 +534,7 @@ const GYM = {
     label: 'Piernas + Core Correctivo',
     sessions: [
       {
-        id: 'jue_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: '🦶', ic: 'ic-arco',
+        id: 'jue_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
         ex: [
           {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos',t:'arco'},
           {n:'Tibial posterior — caminar en supinación',m:'3 × 30 pasos',note:'Caminá sobre el borde externo del pie — activa el arco',t:'arco'},
@@ -435,12 +542,12 @@ const GYM = {
         ]
       },
       {
-        id: 'jue_gym', type: 'Gym · Correctivo + Fuerza', name: 'Piernas + Core', icon: '🏋️', ic: 'ic-gym',
+        id: 'jue_gym', type: 'Gym · Correctivo + Fuerza', name: 'Piernas + Core', icon: 'dumbbell', ic: 'ic-gym',
         ex: [
           {n:'Clamshell con banda',m:'3 × 15 reps por lado',note:'PRE-FATIGA glúteo medio — hacelo antes de todo lo demás',t:'correctivo'},
           {n:'Hip thrust con barra',m:'4 × 10-12 reps',note:'Corrige anteversión pélvica — pausa 2 seg arriba apretando glúteo',t:'correctivo'},
           {n:'Romanian deadlift',m:'4 × 10 reps',note:'Isquiotibiales — freno excéntrico clave para velocidad',t:'thor'},
-          {n:'Sentadilla con banda en rodillas',m:'4 × 10 reps',note:'⚠️ Rodillas hacia AFUERA siempre — corrige valgo activamente',t:'correctivo'},
+          {n:'Sentadilla con banda en rodillas',m:'4 × 10 reps',note:'Rodillas hacia AFUERA siempre — corrige valgo activamente',t:'correctivo'},
           {n:'Single leg deadlift',m:'3 × 10 reps por lado',note:'Derecha primero — estabilidad tobillo + glúteo',t:'correctivo'},
           {n:'Step up lateral',m:'3 × 12 reps por lado',note:'Glúteo medio — corrige valgo lateral',t:'correctivo'},
           {n:'Sentadilla búlgara',m:'3 × 10 reps por lado',note:'Fuerza unilateral real — cuádriceps + glúteo',t:'thor'},
@@ -455,17 +562,17 @@ const GYM = {
 
   // VIERNES — Espalda + Hombros Vol.2
   5: {
-    label: '🔱 Espalda + Hombros Vol.2',
+    label: 'Espalda + Hombros Vol.2',
     sessions: [
       {
-        id: 'vie_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: '🦶', ic: 'ic-arco',
+        id: 'vie_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
         ex: [
           {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos',t:'arco'},
           {n:'Elevación dedo gordo con arco activo',m:'2 × 12 reps por pie',t:'arco'}
         ]
       },
       {
-        id: 'vie_gym', type: 'Gym · Tirón dominante', name: 'Espalda + Hombros Vol.2', icon: '🏋️', ic: 'ic-gym',
+        id: 'vie_gym', type: 'Gym · Tirón dominante', name: 'Espalda + Hombros Vol.2', icon: 'dumbbell', ic: 'ic-gym',
         ex: [
           {n:'Jalón al pecho con polea',m:'4 × 10-12 reps',note:'Agarre neutro — dorsal + bíceps',t:'thor'},
           {n:'Pullover con mancuerna',m:'3 × 12 reps',note:'Estira el dorsal al máximo — forma en V',t:'thor'},
@@ -475,7 +582,7 @@ const GYM = {
           {n:'W exercise con mancuerna 7kg',m:'3 × 12 reps',note:'Rotadores externos + trapecio inferior — boca abajo',t:'postura'},
           {n:'Serratus punch con mancuerna',m:'3 × 12 reps por lado',note:'Serrato anterior — fija la escápula a la caja torácica',t:'postura'},
           {n:'Press Arnold',m:'4 × 10 reps',note:'Deltoides completo — recorrido completo de rotación',t:'thor'},
-          {n:'Elevaciones laterales Vol.2',m:'5 × 15-20 reps',note:'⭐ 5 series — máxima prioridad anchura',t:'thor'},
+          {n:'Elevaciones laterales Vol.2',m:'5 × 15-20 reps',note:'5 series — máxima prioridad anchura',t:'thor'},
           {n:'Remo al mentón con barra',m:'3 × 12 reps',note:'Trapecio + deltoides lateral — complemento',t:'thor'}
         ]
       }
@@ -487,14 +594,14 @@ const GYM = {
     label: 'Pasadas Resistencia + Calistenia',
     sessions: [
       {
-        id: 'sab_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: '🦶', ic: 'ic-arco',
+        id: 'sab_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
         ex: [
           {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos',t:'arco'},
           {n:'Single leg balance con arco activo',m:'2 × 20 seg por lado',note:'Cierre de semana — consolidá el patrón',t:'arco'}
         ]
       },
       {
-        id: 'sab_run', type: 'Parque · Resistencia de velocidad', name: 'Pasadas — Resistencia 200m', icon: '🏃', ic: 'ic-run',
+        id: 'sab_run', type: 'Parque · Resistencia de velocidad', name: 'Pasadas — Resistencia 200m', icon: 'run', ic: 'ic-run',
         ex: [
           {n:'Calentamiento trote suave',m:'8 minutos',note:'Más largo — viene de semana acumulada',t:'atletico'},
           {n:'7 × 200m al 85-90%',m:'Descanso 2 min entre series',note:'Resistencia de velocidad — ritmo constante en las 7',t:'atletico'},
@@ -502,7 +609,7 @@ const GYM = {
         ]
       },
       {
-        id: 'sab_cali', type: 'Full Body · Calistenia', name: 'Full Body Calistenia', icon: '⚡', ic: 'ic-gym',
+        id: 'sab_cali', type: 'Full Body · Calistenia', name: 'Full Body Calistenia', icon: 'bolt', ic: 'ic-gym',
         ex: [
           {n:'Dominadas sin lastre — máx reps',m:'3 × Máx reps',note:'Volumen libre — después de las lastradas del martes',t:'calistenia'},
           {n:'Flexiones',m:'3 × Máx reps',note:'Forma perfecta — escápulas bajas, pelvis neutra',t:'calistenia'},
@@ -515,6 +622,9 @@ const GYM = {
     ]
   }
 };
+
+// copia intacta de la rutina original — permite restaurar un día editado
+const GYM_DEFAULT = JSON.parse(JSON.stringify(GYM));
 
 const POST = {
   A: {
@@ -828,7 +938,8 @@ function totalPct(dt) {
 }
 
 function init() {
-  applyGymEdits();
+  applyLegacyEdits();
+  loadRoutine();
   const today = getToday();
   document.getElementById('todayDate').textContent = today.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
   buildDays();
@@ -893,39 +1004,60 @@ function renderDay(dt) {
   const d = dt.getDay();
   const data = GYM[d];
   document.getElementById('dayBig').textContent = DN[d];
+  document.getElementById('dayLblEdit').style.display = data ? 'flex' : 'none';
   if(!data) {
     document.getElementById('dayLbl').textContent = 'Descanso';
     document.getElementById('daySub').textContent = 'Recuperación activa';
-    document.getElementById('gymContent').innerHTML = `<div class="rest-card"><span class="rest-emoji">😴</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">El músculo crece mientras descansás.<br>Hidratate · 8 horas de sueño · proteína.</div></div>`;
+    document.getElementById('gymContent').innerHTML = `<div class="rest-card"><span class="rest-emoji">${icon('moon')}</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">El músculo crece mientras descansás.<br>Hidratate · 8 horas de sueño · proteína.</div></div>`;
     return;
   }
   document.getElementById('dayLbl').textContent = data.label;
-  document.getElementById('daySub').textContent = `${data.sessions.length} sesión${data.sessions.length>1?'es':''} · ⚡ Fuerza`;
+  document.getElementById('daySub').textContent = `${data.sessions.length} sesión${data.sessions.length>1?'es':''} · Fuerza`;
   renderSessions(dt, data);
 }
 
 // Sesiones desplegadas — se conserva al re-renderizar, arranca todo cerrado
 let openSess = new Set();
 
+// escapa texto que escribe el usuario antes de insertarlo como HTML
+function esc(t){
+  return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// arma "4 x 10 reps - 20kg" omitiendo lo que este vacio
+function exMeta(ex){
+  if(ex.sets||ex.reps||ex.weight){
+    const parts=[];
+    if(ex.sets&&ex.reps) parts.push(ex.sets+' × '+ex.reps);
+    else if(ex.sets) parts.push(ex.sets+' series');
+    else if(ex.reps) parts.push(ex.reps);
+    if(ex.weight) parts.push(ex.weight);
+    return parts.join(' · ');
+  }
+  return ex.m||'';
+}
+
 function renderSessions(dt, data) {
   const cont = document.getElementById('gymContent');
   cont.innerHTML = '';
+  const dow = dt.getDay();
+  const dtStr = dateStr(dt);
   data.sessions.forEach((sess,si) => {
     const din = sess.ex.filter(e=>store[gymKey(dt,e.n)]).length;
-    const pct = Math.round(din/sess.ex.length*100);
-    const ok = din===sess.ex.length;
-    const dtStr = dateStr(dt);
+    const pct = sess.ex.length ? Math.round(din/sess.ex.length*100) : 0;
+    const ok = sess.ex.length>0 && din===sess.ex.length;
     const exHTML = sess.ex.map((ex,ei) => {
       const done = !!store[gymKey(dt,ex.n)];
-      const safe = ex.n.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-      const dayDow = dt.getDay();
-      return `<div class="ex-item${done?' done':''}" id="exi-${dtStr}-${si}-${ei}"><div class="ex-chk" onclick="toggleGym('${safe}','${dtStr}')">${done?'✓':''}</div><div class="ex-det" onclick="toggleGym('${safe}','${dtStr}')"><div class="ex-nm">${ex.n}</div><div class="ex-mt">${ex.m}</div>${ex.note?`<div class="ex-nt">${ex.note}</div>`:''}</div><span class="ex-tag tag-${ex.t}" onclick="toggleGym('${safe}','${dtStr}')">${TL[ex.t]||ex.t}</span><span class="ex-dots" onclick="openEdit(${dayDow},${si},${ei},event)" title="Editar">···</span></div>`;
+      const meta = exMeta(ex);
+      const tap = `onclick="toggleGymAt(${si},${ei},'${dtStr}')"`;
+      return `<div class="ex-item${done?' done':''}"><div class="ex-chk" ${tap}>${done?icon('check'):''}</div><div class="ex-det" ${tap}><div class="ex-nm">${esc(ex.n)}</div>${meta?`<div class="ex-mt">${esc(meta)}</div>`:''}${ex.note?`<div class="ex-nt">${esc(ex.note)}</div>`:''}</div>${ex.t?`<span class="ex-tag tag-${esc(ex.t)}" ${tap}>${esc(TL[ex.t]||ex.t)}</span>`:''}<span class="ex-edit" onclick="openEdit(${dow},${si},${ei},event)" title="Editar">${icon('pencil')}</span></div>`;
     }).join('');
     const card = document.createElement('div');
     card.className = `session-card${openSess.has(si)?' open':''}${ok?' all-done':''}`;
     card.id = 'sc'+si;
     card.style.animationDelay = (si*0.06)+'s';
-    card.innerHTML = `<div class="sess-hdr" onclick="togSess(${si})"><div class="s-ico ${sess.ic}">${sess.icon}</div><div class="s-inf"><div class="s-type">${sess.type}</div><div class="s-name">${sess.name}</div></div><span class="s-badge${ok?' ok':''}">${ok?'✓ Listo':din+'/'+sess.ex.length}</span><span class="chevron">▼</span></div><div class="sess-body"><div class="pbar-wrap"><div class="pbar-lbl"><span>Progreso</span><span>${pct}%</span></div><div class="pbar"><div class="pbar-fill${ok?' gfill':''}" style="width:${pct}%"></div></div></div><div class="ex-list">${exHTML}</div></div>`;
+    card.innerHTML = `<div class="sess-hdr" onclick="togSess(${si})"><div class="s-ico ${sess.ic}">${icon(sess.icon)}</div><div class="s-inf"><div class="s-type">${esc(sess.type)}</div><div class="s-name">${esc(sess.name)}</div></div><span class="sess-edit" onclick="openSessName(${dow},${si},event)" title="Renombrar sesión">${icon('pencil')}</span><span class="s-badge${ok?' ok':''}">${ok?icon('check')+' Listo':din+'/'+sess.ex.length}</span><span class="chevron">${icon('chevron')}</span></div><div class="sess-body"><div class="pbar-wrap"><div class="pbar-lbl"><span>Progreso</span><span>${pct}%</span></div><div class="pbar"><div class="pbar-fill${ok?' gfill':''}" style="width:${pct}%"></div></div></div><div class="ex-list">${exHTML}<button class="add-ex" onclick="addEx(${dow},${si},event)">${icon('plus')} Agregar ejercicio</button></div></div>`;
     cont.appendChild(card);
   });
 }
@@ -935,13 +1067,16 @@ function togSess(i){
   document.getElementById('sc'+i).classList.toggle('open');
 }
 
-function toggleGym(name, dtStr) {
+function toggleGymAt(si, ei, dtStr) {
   const [y,m,d2] = dtStr.split('-').map(Number);
   const dt = new Date(y,m-1,d2);
-  const k = gymKey(dt, name);
+  const data = GYM[dt.getDay()];
+  const ex = data && data.sessions[si] && data.sessions[si].ex[ei];
+  if(!ex) return;
+  const k = gymKey(dt, ex.n);
   store[k] = !store[k];
   saveStore();
-  renderSessions(dt, GYM[dt.getDay()]);
+  renderSessions(dt, data);
   buildDays();
 }
 
@@ -954,7 +1089,7 @@ function renderPostura(dt) {
   const cont = document.getElementById('postContent');
   cont.innerHTML = '';
   if(!sk) {
-    cont.innerHTML = `<div class="rest-card"><span class="rest-emoji">😴</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">Recuperación activa recomendada.</div></div>`;
+    cont.innerHTML = `<div class="rest-card"><span class="rest-emoji">${icon('moon')}</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">Recuperación activa recomendada.</div></div>`;
     return;
   }
   const sess = POST[sk];
@@ -967,7 +1102,7 @@ function renderPostura(dt) {
   pills.className = 'phase-pills';
   sess.phases.forEach(ph => {
     const done = ph.ex.every(e=>store[postKey(dt,e.id)]);
-    pills.innerHTML += `<div class="ph-pill${done?' done-ph':''}">${done?'✓ ':''}${ph.name}</div>`;
+    pills.innerHTML += `<div class="ph-pill${done?' done-ph':''}">${done?icon('check')+' ':''}${ph.name}</div>`;
   });
   cont.appendChild(pills);
   sess.phases.forEach((ph,pi) => {
@@ -983,8 +1118,8 @@ function renderPostura(dt) {
       card.style.animationDelay = (ei*0.04)+'s';
       const steps = ex.steps.map((s,i)=>`<li><span class="p-sn">${i+1}</span>${s}</li>`).join('');
       const safeN = ex.name.replace(/'/g,"\\'");
-      const tb = ex.timer ? `<button class="tbtn" onclick="openTimer(${ex.timer},'${safeN}')">⏱ ${ex.timer}s</button>` : '';
-      card.innerHTML = `<div class="p-hdr"><div class="p-chk" onclick="togglePost('${ex.id}','${dtStr}',event)">${ok?'✓':''}</div><div class="p-inf" onclick="togP('${ex.id}')"><div class="p-nm">${ex.name}</div><div class="p-pm">${ex.params}</div></div><span class="p-chev" onclick="togP('${ex.id}')">▼</span></div><div class="p-body"><div class="p-detail"><div class="p-why"><strong>¿Por qué?</strong> ${ex.why}</div><ul class="p-steps">${steps}</ul><div class="p-btns">${tb}<button class="dbtn${ok?' is-done':''}" onclick="togglePost('${ex.id}','${dtStr}',event)">${ok?'✓ Hecho':'Marcar hecho'}</button></div></div></div>`;
+      const tb = ex.timer ? `<button class="tbtn" onclick="openTimer(${ex.timer},'${safeN}')">${icon('timer')} ${ex.timer}s</button>` : '';
+      card.innerHTML = `<div class="p-hdr"><div class="p-chk" onclick="togglePost('${ex.id}','${dtStr}',event)">${ok?icon('check'):''}</div><div class="p-inf" onclick="togP('${ex.id}')"><div class="p-nm">${ex.name}</div><div class="p-pm">${ex.params}</div></div><span class="p-chev" onclick="togP('${ex.id}')">${icon('chevron')}</span></div><div class="p-body"><div class="p-detail"><div class="p-why"><strong>¿Por qué?</strong> ${ex.why}</div><ul class="p-steps">${steps}</ul><div class="p-btns">${tb}<button class="dbtn${ok?' is-done':''}" onclick="togglePost('${ex.id}','${dtStr}',event)">${ok?icon('check')+' Hecho':'Marcar hecho'}</button></div></div></div>`;
       cont.appendChild(card);
     });
   });
@@ -1034,21 +1169,21 @@ function renderResumen() {
   const isRestDay = !GYM[sd.getDay()] && !postSessKey(sd.getDay());
   const dayLabel = sdStr === todayStr ? 'HOY · ' : '';
   if(isRestDay) {
-    tb.innerHTML = `<div class="today-box-lbl">📅 ${dayLabel}${DN[sd.getDay()]}</div><div class="today-pct-row"><div class="today-pct-num" style="font-size:36px;color:var(--muted)">😴</div><div class="today-pct-info"><div class="today-pct-label" style="color:var(--muted)">Día de descanso</div><div class="today-pct-sub">Recuperación activa · hidratate bien</div></div></div>`;
+    tb.innerHTML = `<div class="today-box-lbl">${icon('calendar')} ${dayLabel}${DN[sd.getDay()]}</div><div class="today-pct-row"><div class="today-pct-num" style="font-size:30px;color:var(--muted)">${icon('moon')}</div><div class="today-pct-info"><div class="today-pct-label" style="color:var(--muted)">Día de descanso</div><div class="today-pct-sub">Recuperación activa · hidratate bien</div></div></div>`;
   } else {
-    tb.innerHTML = `<div class="today-box-lbl">📅 ${dayLabel}${DN[sd.getDay()]}</div><div class="today-pct-row"><div class="today-pct-num">${tp}%</div><div class="today-pct-info"><div class="today-pct-label">Completitud del día</div><div class="today-pct-sub">🏋️ Gym: ${gp}%<br>🧘 Movilidad: ${mok?'✓ listo':postSessKey(sd.getDay())?pp+'%':'sin sesión'}</div></div></div><div class="today-prog"><div class="today-prog-fill" style="width:${tp}%"></div></div>`;
+    tb.innerHTML = `<div class="today-box-lbl">${icon('calendar')} ${dayLabel}${DN[sd.getDay()]}</div><div class="today-pct-row"><div class="today-pct-num">${tp}%</div><div class="today-pct-info"><div class="today-pct-label">Completitud del día</div><div class="today-pct-sub">${icon('dumbbell')} Gym: ${gp}%<br>${icon('posture')} Movilidad: ${mok?icon('check')+' listo':postSessKey(sd.getDay())?pp+'%':'sin sesión'}</div></div></div><div class="today-prog"><div class="today-prog-fill" style="width:${tp}%"></div></div>`;
   }
   cont.appendChild(tb);
 
   const nav = document.createElement('div');
   nav.className = 'week-nav';
   nav.innerHTML = `
-    <button class="week-nav-btn" onclick="changeWeek(-1)">◀</button>
+    <button class="week-nav-btn" onclick="changeWeek(-1)">${icon('arrowL')}</button>
     <div class="week-nav-center">
       <div class="week-nav-label">${weekRange}</div>
       ${!isCurrentWeek ? `<div><span class="week-nav-today" onclick="changeWeek(0)">IR A HOY</span></div>` : '<div style="font-size:9px;color:var(--gold);margin-top:3px;font-weight:700">SEMANA ACTUAL</div>'}
     </div>
-    <button class="week-nav-btn" onclick="changeWeek(1)">▶</button>
+    <button class="week-nav-btn" onclick="changeWeek(1)">${icon('arrowR')}</button>
   `;
   cont.appendChild(nav);
 
@@ -1069,17 +1204,17 @@ function renderResumen() {
     const pctColor = tp2>=100?'var(--green)':tp2>0?'var(--gold)':'var(--muted)';
 
     let acts = [];
-    if(sk) acts.push({type:'mob',name:`🧘 Movilidad Sesión ${sk} — ${POST[sk].title}`,done:!isFuture&&mobDone(dt)});
+    if(sk) acts.push({type:'mob',name:`${icon('posture')} Movilidad Sesión ${sk} — ${POST[sk].title}`,done:!isFuture&&mobDone(dt)});
     if(data) {
       data.sessions.forEach(sess => {
         const dn = isFuture ? 0 : sess.ex.filter(e=>store[gymKey(dt,e.n)]).length;
-        acts.push({type:sess.ic==='ic-run'?'run':'gym',name:`${sess.icon} ${sess.name}${isFuture?'':' ('+dn+'/'+sess.ex.length+')'}`,done:!isFuture&&dn===sess.ex.length});
+        acts.push({type:sess.ic==='ic-run'?'run':'gym',name:`${icon(sess.icon)} ${sess.name}${isFuture?'':' ('+dn+'/'+sess.ex.length+')'}`,done:!isFuture&&dn===sess.ex.length});
       });
     } else {
-      acts.push({type:'rest',name:'😴 Descanso total',done:true});
+      acts.push({type:'rest',name:icon('moon')+' Descanso total',done:true});
     }
 
-    const actsHTML = acts.map(a=>`<div class="res-act"><div class="res-act-dot dot-${a.type}"></div><div class="res-act-name">${a.name}</div><div class="${a.done?'res-act-ok':'res-act-pend'}">${isFuture&&a.type!=='rest'?'—':a.done?'✓ hecho':'pendiente'}</div></div>`).join('');
+    const actsHTML = acts.map(a=>`<div class="res-act"><div class="res-act-dot dot-${a.type}"></div><div class="res-act-name">${a.name}</div><div class="${a.done?'res-act-ok':'res-act-pend'}">${isFuture&&a.type!=='rest'?'—':a.done?icon('check')+' hecho':'pendiente'}</div></div>`).join('');
 
     const card = document.createElement('div');
     let cardCls = 'res-day-card';
@@ -1095,8 +1230,8 @@ function renderResumen() {
         <div class="res-day-name">${DS[d]}${todayBadge}</div>
         <div class="res-day-sub">${data?data.label:'Descanso'}${isFuture?' · <span style="color:var(--muted2);font-size:9px">pendiente</span>':''}</div>
       </div>
-      <div class="res-day-pct" style="color:${isFuture?'var(--muted2)':pctColor}">${isFuture?'—':tp2>0?tp2+'%':data?'—':'😴'}</div>
-      <span class="res-day-chev">▼</span>
+      <div class="res-day-pct" style="color:${isFuture?'var(--muted2)':pctColor}">${isFuture?'—':tp2>0?tp2+'%':data?'—':icon('moon')}</div>
+      <span class="res-day-chev">${icon('chevron')}</span>
     </div>
     <div class="res-day-body"><div class="res-act-list">${actsHTML}</div></div>`;
     cont.appendChild(card);
@@ -1146,62 +1281,168 @@ function sw(v){
   document.getElementById('nav-'+v).classList.add('active');
 }
 
-let editCtx = null;
+// ── RUTINA EDITABLE ──
+// Se guarda la rutina completa por dia de semana. Al editar cualquier cosa
+// de un dia, ese dia queda "propio" del usuario y ya no toma el default.
+const ROUTINE_KEY = 'rc_routine_v2';
 
-let gymEdits = {};
-try { gymEdits = JSON.parse(localStorage.getItem('rc_gym_edits') || '{}'); } catch(e){ gymEdits = {}; }
-const saveEdits = () => { try { localStorage.setItem('rc_gym_edits', JSON.stringify(gymEdits)); } catch(e){} };
-
-function editKey(dow, si, ei) { return `${dow}-${si}-${ei}`; }
-
-function getEx(dow, si, ei) {
-  const base = GYM[dow].sessions[si].ex[ei];
-  const over = gymEdits[editKey(dow,si,ei)];
-  return over ? {...base, ...over} : base;
+function saveRoutine(){
+  const out = {};
+  Object.keys(GYM).forEach(dow => { if(GYM[dow]) out[dow] = GYM[dow]; });
+  try { localStorage.setItem(ROUTINE_KEY, JSON.stringify(out)); } catch(e){}
 }
 
-function openEdit(dow, si, ei, e) {
-  e.stopPropagation();
-  editCtx = {dow, si, ei};
-  const ex = getEx(dow, si, ei);
-  document.getElementById('editName').value = ex.n;
-  document.getElementById('editMeta').value = ex.m;
-  document.getElementById('editNote').value = ex.note || '';
-  document.getElementById('editOv').classList.add('show');
+function loadRoutine(){
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(ROUTINE_KEY) || '{}'); } catch(e){ saved = {}; }
+  Object.keys(saved).forEach(dow => { if(saved[dow]) GYM[dow] = saved[dow]; });
 }
 
-function closeEdit() {
-  document.getElementById('editOv').classList.remove('show');
-  editCtx = null;
-}
-
-function closeEditIfBg(e) {
-  if(e.target === document.getElementById('editOv')) closeEdit();
-}
-
-function saveEdit() {
-  if(!editCtx) return;
-  const {dow, si, ei} = editCtx;
-  const k = editKey(dow, si, ei);
-  const newName = document.getElementById('editName').value.trim();
-  const newMeta = document.getElementById('editMeta').value.trim();
-  const newNote = document.getElementById('editNote').value.trim();
-  if(!newName) return;
-  gymEdits[k] = {n: newName, m: newMeta, note: newNote};
-  saveEdits();
-  const ex = GYM[dow].sessions[si].ex[ei];
-  ex.n = newName; ex.m = newMeta; ex.note = newNote;
-  closeEdit();
-  renderSessions(curDayDate, GYM[curDayDate.getDay()]);
-}
-
-function applyGymEdits() {
-  Object.entries(gymEdits).forEach(([k, over]) => {
+// migra ediciones del sistema viejo (rc_gym_edits) sobre los defaults
+function applyLegacyEdits(){
+  let legacy = {};
+  try { legacy = JSON.parse(localStorage.getItem('rc_gym_edits') || '{}'); } catch(e){ return; }
+  Object.entries(legacy).forEach(([k, over]) => {
     const [dow, si, ei] = k.split('-').map(Number);
-    if(GYM[dow] && GYM[dow].sessions[si] && GYM[dow].sessions[si].ex[ei]) {
+    if(GYM[dow] && GYM[dow].sessions[si] && GYM[dow].sessions[si].ex[ei]){
       Object.assign(GYM[dow].sessions[si].ex[ei], over);
     }
   });
+}
+
+function refreshGym(){
+  renderDay(curDayDate);
+  buildDays();
+}
+
+// ── MODAL: editar / agregar ejercicio ──
+let editCtx = null;   // {dow, si, ei}  — ei === null significa "agregar"
+
+function fillEdit(ex){
+  document.getElementById('editName').value   = ex.n || '';
+  document.getElementById('editSets').value   = ex.sets || '';
+  document.getElementById('editReps').value   = ex.reps || '';
+  document.getElementById('editWeight').value = ex.weight || '';
+  document.getElementById('editNote').value   = ex.note || '';
+  document.getElementById('editTag').value    = ex.t || '';
+}
+
+function openEdit(dow, si, ei, e){
+  if(e) e.stopPropagation();
+  const ex = GYM[dow].sessions[si].ex[ei];
+  if(!ex) return;
+  editCtx = {dow, si, ei};
+  // si el ejercicio viene del formato viejo ("4 × 10 reps"), se muestra en Reps
+  const seed = (ex.sets||ex.reps||ex.weight) ? ex : {...ex, reps: ex.m || ''};
+  fillEdit(seed);
+  document.getElementById('editTitle').textContent = 'Editar ejercicio';
+  document.getElementById('editDel').style.display = 'flex';
+  document.getElementById('editOv').classList.add('show');
+}
+
+function addEx(dow, si, e){
+  if(e) e.stopPropagation();
+  editCtx = {dow, si, ei: null};
+  fillEdit({t:'thor'});
+  document.getElementById('editTitle').textContent = 'Agregar ejercicio';
+  document.getElementById('editDel').style.display = 'none';
+  document.getElementById('editOv').classList.add('show');
+  setTimeout(()=>document.getElementById('editName').focus(), 80);
+}
+
+function closeEdit(){
+  document.getElementById('editOv').classList.remove('show');
+  editCtx = null;
+}
+function closeEditIfBg(e){
+  if(e.target === document.getElementById('editOv')) closeEdit();
+}
+
+function saveEdit(){
+  if(!editCtx) return;
+  const {dow, si, ei} = editCtx;
+  const name = document.getElementById('editName').value.trim();
+  if(!name){ document.getElementById('editName').focus(); return; }
+  const data = {
+    n: name,
+    sets:   document.getElementById('editSets').value.trim(),
+    reps:   document.getElementById('editReps').value.trim(),
+    weight: document.getElementById('editWeight').value.trim(),
+    note:   document.getElementById('editNote').value.trim(),
+    t:      document.getElementById('editTag').value,
+    m: ''   // se descarta el formato libre viejo al guardar
+  };
+  const list = GYM[dow].sessions[si].ex;
+  if(ei === null) list.push(data);
+  else list[ei] = data;
+  saveRoutine();
+  closeEdit();
+  refreshGym();
+}
+
+function deleteEx(){
+  if(!editCtx || editCtx.ei === null) return;
+  const {dow, si, ei} = editCtx;
+  const ex = GYM[dow].sessions[si].ex[ei];
+  if(!confirm('¿Eliminar "'+ex.n+'" de la rutina?')) return;
+  GYM[dow].sessions[si].ex.splice(ei, 1);
+  saveRoutine();
+  closeEdit();
+  refreshGym();
+}
+
+// ── MODAL: renombrar dia o sesion ──
+let nameCtx = null;   // {kind:'day'|'sess', dow, si}
+
+function openNameModal(title, label, value, showReset){
+  document.getElementById('nameTitle').textContent = title;
+  document.getElementById('nameLbl').textContent = label;
+  document.getElementById('nameInp').value = value || '';
+  document.getElementById('nameReset').style.display = showReset ? 'block' : 'none';
+  document.getElementById('nameOv').classList.add('show');
+  setTimeout(()=>document.getElementById('nameInp').focus(), 80);
+}
+
+function openDayName(){
+  const dow = curDayDate.getDay();
+  if(!GYM[dow]) return;
+  nameCtx = {kind:'day', dow};
+  openNameModal('Actividad del día', 'Nombre de la actividad', GYM[dow].label, true);
+}
+
+function openSessName(dow, si, e){
+  if(e) e.stopPropagation();
+  nameCtx = {kind:'sess', dow, si};
+  openNameModal('Nombre de la sesión', 'Nombre', GYM[dow].sessions[si].name, false);
+}
+
+function closeName(){
+  document.getElementById('nameOv').classList.remove('show');
+  nameCtx = null;
+}
+function closeNameIfBg(e){
+  if(e.target === document.getElementById('nameOv')) closeName();
+}
+
+function saveName(){
+  if(!nameCtx) return;
+  const v = document.getElementById('nameInp').value.trim();
+  if(!v){ document.getElementById('nameInp').focus(); return; }
+  if(nameCtx.kind === 'day') GYM[nameCtx.dow].label = v;
+  else GYM[nameCtx.dow].sessions[nameCtx.si].name = v;
+  saveRoutine();
+  closeName();
+  refreshGym();
+}
+
+function resetDay(){
+  if(!nameCtx || nameCtx.kind !== 'day') return;
+  const dow = nameCtx.dow;
+  if(!confirm('¿Restaurar la rutina original de este día? Se pierden los cambios que hiciste.')) return;
+  GYM[dow] = JSON.parse(JSON.stringify(GYM_DEFAULT[dow]));
+  saveRoutine();
+  closeName();
+  refreshGym();
 }
 
 init();
