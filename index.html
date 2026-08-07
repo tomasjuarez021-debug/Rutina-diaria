@@ -10,7 +10,6 @@
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 :root{
   --bg:#080c10;
@@ -161,9 +160,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .today-pct-sub{font-size:10px;color:var(--muted);line-height:1.6}
 .today-prog{height:3px;background:var(--card3);border-radius:2px;overflow:hidden}
 .today-prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width 0.5s ease}
-.export-btn{width:100%;padding:15px;border-radius:11px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080c10;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:900;letter-spacing:2px;cursor:pointer;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.2s}
-.export-btn:active{opacity:0.82}
-.export-note{font-size:10px;color:var(--muted);text-align:center;margin-bottom:20px}
 
 /* WEEK NAVIGATOR */
 .week-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:10px 14px}
@@ -905,6 +901,9 @@ function renderDay(dt) {
   renderSessions(dt, data);
 }
 
+// Sesiones desplegadas — se conserva al re-renderizar, arranca todo cerrado
+let openSess = new Set();
+
 function renderSessions(dt, data) {
   const cont = document.getElementById('gymContent');
   cont.innerHTML = '';
@@ -920,7 +919,7 @@ function renderSessions(dt, data) {
       return `<div class="ex-item${done?' done':''}" id="exi-${dtStr}-${si}-${ei}"><div class="ex-chk" onclick="toggleGym('${safe}','${dtStr}')">${done?'✓':''}</div><div class="ex-det" onclick="toggleGym('${safe}','${dtStr}')"><div class="ex-nm">${ex.n}</div><div class="ex-mt">${ex.m}</div>${ex.note?`<div class="ex-nt">${ex.note}</div>`:''}</div><span class="ex-tag tag-${ex.t}" onclick="toggleGym('${safe}','${dtStr}')">${TL[ex.t]||ex.t}</span><span class="ex-dots" onclick="openEdit(${dayDow},${si},${ei},event)" title="Editar">···</span></div>`;
     }).join('');
     const card = document.createElement('div');
-    card.className = `session-card${si===0?' open':''}${ok?' all-done':''}`;
+    card.className = `session-card${openSess.has(si)?' open':''}${ok?' all-done':''}`;
     card.id = 'sc'+si;
     card.style.animationDelay = (si*0.06)+'s';
     card.innerHTML = `<div class="sess-hdr" onclick="togSess(${si})"><div class="s-ico ${sess.ic}">${sess.icon}</div><div class="s-inf"><div class="s-type">${sess.type}</div><div class="s-name">${sess.name}</div></div><span class="s-badge${ok?' ok':''}">${ok?'✓ Listo':din+'/'+sess.ex.length}</span><span class="chevron">▼</span></div><div class="sess-body"><div class="pbar-wrap"><div class="pbar-lbl"><span>Progreso</span><span>${pct}%</span></div><div class="pbar"><div class="pbar-fill${ok?' gfill':''}" style="width:${pct}%"></div></div></div><div class="ex-list">${exHTML}</div></div>`;
@@ -928,7 +927,10 @@ function renderSessions(dt, data) {
   });
 }
 
-function togSess(i){document.getElementById('sc'+i).classList.toggle('open')}
+function togSess(i){
+  if(openSess.has(i)) openSess.delete(i); else openSess.add(i);
+  document.getElementById('sc'+i).classList.toggle('open');
+}
 
 function toggleGym(name, dtStr) {
   const [y,m,d2] = dtStr.split('-').map(Number);
@@ -939,6 +941,9 @@ function toggleGym(name, dtStr) {
   renderSessions(dt, GYM[dt.getDay()]);
   buildDays();
 }
+
+// Ejercicios de postura desplegados — se conserva al re-renderizar, arranca todo cerrado
+let openPost = new Set();
 
 function renderPostura(dt) {
   const d = dt.getDay();
@@ -970,7 +975,7 @@ function renderPostura(dt) {
     ph.ex.forEach((ex,ei) => {
       const ok = !!store[postKey(dt,ex.id)];
       const card = document.createElement('div');
-      card.className = `p-card${ok?' p-done':''}`;
+      card.className = `p-card${ok?' p-done':''}${openPost.has(ex.id)?' p-open':''}`;
       card.id = 'pe'+ex.id;
       card.style.animationDelay = (ei*0.04)+'s';
       const steps = ex.steps.map((s,i)=>`<li><span class="p-sn">${i+1}</span>${s}</li>`).join('');
@@ -982,7 +987,10 @@ function renderPostura(dt) {
   });
 }
 
-function togP(id){document.getElementById('pe'+id).classList.toggle('p-open')}
+function togP(id){
+  if(openPost.has(id)) openPost.delete(id); else openPost.add(id);
+  document.getElementById('pe'+id).classList.toggle('p-open');
+}
 
 function togglePost(id, dtStr, ev) {
   if(ev) ev.stopPropagation();
@@ -1028,10 +1036,6 @@ function renderResumen() {
     tb.innerHTML = `<div class="today-box-lbl">📅 ${dayLabel}${DN[sd.getDay()]}</div><div class="today-pct-row"><div class="today-pct-num">${tp}%</div><div class="today-pct-info"><div class="today-pct-label">Completitud del día</div><div class="today-pct-sub">🏋️ Gym: ${gp}%<br>🧘 Movilidad: ${mok?'✓ listo':postSessKey(sd.getDay())?pp+'%':'sin sesión'}</div></div></div><div class="today-prog"><div class="today-prog-fill" style="width:${tp}%"></div></div>`;
   }
   cont.appendChild(tb);
-
-  const expWrap = document.createElement('div');
-  expWrap.innerHTML = `<button class="export-btn" onclick="exportExcel()">⬇️ &nbsp;DESCARGAR EXCEL SEMANAL</button><div class="export-note">Exporta el estado actual de todos los ejercicios de la semana</div>`;
-  cont.appendChild(expWrap);
 
   const nav = document.createElement('div');
   nav.className = 'week-nav';
@@ -1106,71 +1110,6 @@ function changeWeek(delta) {
 }
 
 function togR(id){document.getElementById(id).classList.toggle('r-open')}
-
-function exportExcel() {
-  const wb = XLSX.utils.book_new();
-  const today = getToday();
-  const baseMon = getMondayOf(today);
-  const weekMon = new Date(baseMon);
-  weekMon.setDate(baseMon.getDate() + resWeekOffset * 7);
-  const days = weekDays(weekMon);
-
-  const s1 = [['DÍA','FECHA','MOVILIDAD','GYM %','TOTAL %','ESTADO']];
-  days.forEach(dt => {
-    s1.push([
-      DN[dt.getDay()],
-      dt.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
-      mobDone(dt)?'✅ Completo':'⏳ Pendiente',
-      GYM[dt.getDay()] ? gymPct(dt)+'%' : 'N/A',
-      totalPct(dt)+'%',
-      totalPct(dt)>=100?'✅ Completo':totalPct(dt)>0?'🔄 En progreso':'⏳ Sin iniciar'
-    ]);
-  });
-  const ws1 = XLSX.utils.aoa_to_sheet(s1);
-  ws1['!cols']=[{wch:14},{wch:14},{wch:16},{wch:10},{wch:10},{wch:16}];
-  XLSX.utils.book_append_sheet(wb,ws1,'Resumen Semanal');
-
-  const s2 = [['DÍA','FECHA','SESIÓN','EJERCICIO','SERIES/REPS','CATEGORÍA','ESTADO']];
-  days.forEach(dt => {
-    const data = GYM[dt.getDay()];
-    if(!data) return;
-    data.sessions.forEach(sess => {
-      sess.ex.forEach(ex => {
-        s2.push([
-          DN[dt.getDay()],
-          dt.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
-          sess.name, ex.n, ex.m, TL[ex.t]||ex.t,
-          store[gymKey(dt,ex.n)] ? '✅ Hecho' : '⏳ Pendiente'
-        ]);
-      });
-    });
-  });
-  const ws2 = XLSX.utils.aoa_to_sheet(s2);
-  ws2['!cols']=[{wch:12},{wch:14},{wch:22},{wch:32},{wch:18},{wch:12},{wch:14}];
-  XLSX.utils.book_append_sheet(wb,ws2,'Gym Detallado');
-
-  const s3 = [['SESIÓN','FECHA','FASE','EJERCICIO','PARÁMETROS','ESTADO']];
-  days.forEach(dt => {
-    const sk = postSessKey(dt.getDay());
-    if(!sk) return;
-    const sess = POST[sk];
-    sess.phases.forEach(ph => {
-      ph.ex.forEach(ex => {
-        s3.push([
-          sess.name+' — '+sess.title,
-          dt.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
-          ph.name, ex.name, ex.params,
-          store[postKey(dt,ex.id)] ? '✅ Hecho' : '⏳ Pendiente'
-        ]);
-      });
-    });
-  });
-  const ws3 = XLSX.utils.aoa_to_sheet(s3);
-  ws3['!cols']=[{wch:28},{wch:14},{wch:16},{wch:32},{wch:22},{wch:14}];
-  XLSX.utils.book_append_sheet(wb,ws3,'Movilidad Detallada');
-
-  XLSX.writeFile(wb,'reestructuracion_semana_'+(resWeekOffset>=0?'+':'')+resWeekOffset+'_'+new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}).replace(/\//g,'-')+'.xlsx');
-}
 
 let timerInterval=null,timerSecs=0,timerTotal=0,timerRunning=false;
 function openTimer(s,l){
