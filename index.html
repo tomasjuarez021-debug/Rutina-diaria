@@ -513,32 +513,54 @@ const DS=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 const DN=['DOMINGO','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES','SÁBADO'];
 const TL={thor:'fuerza',postura:'postura',correctivo:'correctivo',atletico:'atlético',arco:'arco/pie',calistenia:'calistenia'};
 
+// ── RUTINA DE FUERZA ──
+// Se repite lunes, miércoles y viernes. Cada día recibe su propia copia,
+// así se puede editar un día sin tocar los otros.
+function rutinaFuerza(){
+  return {
+    label: 'Gambas + Tronco superior',
+    tipo: 'Fuerza · Piernas y tronco superior',
+    sessions: [
+      {
+        id:'ef_calor', type:'Pre-activación · 10 min', name:'Entrada en calor', icon:'dumbbell', ic:'ic-arco',
+        ex:[
+          {n:'Soga', sets:'', reps:'5 minutos', weight:'', note:'', t:'atletico'},
+          {n:'Mobility drills', sets:'', reps:'5 min', weight:'', note:'Caderas - rodillas - tobillos', t:'correctivo'}
+        ]
+      },
+      {
+        id:'ef_gambas', type:'Gym - 19:00 hs', name:'Gambas - fuerza', icon:'dumbbell', ic:'ic-run',
+        ex:[
+          {n:'Sentadillas con ketbell', sets:'4', reps:'20 reps', weight:'30 kg', note:'', t:'thor'},
+          {n:'Wall sits', sets:'4', reps:'60s', weight:'10kg', note:'', t:'thor'},
+          {n:'Subidas al cajon', sets:'4', reps:'20 reps', weight:'10 kg x lado', note:'', t:'thor'},
+          {n:'Peso muerto ketbell', sets:'4', reps:'20 reps', weight:'X 15 kg', note:'', t:'thor'},
+          {n:'Estocadas a dos piernas', sets:'', reps:'20 reps', weight:'10 kg', note:'', t:'thor'},
+          {n:'Sentadillas aductores', sets:'4', reps:'20 reps', weight:'15 kg', note:'', t:'thor'},
+          {n:'Gemelos', sets:'4', reps:'20 reps', weight:'30 kg', note:'', t:'thor'}
+        ]
+      },
+      {
+        id:'ef_spider', type:'Resistencia y desarrollo tronco superior', name:'Spiderman course 20\u201d', icon:'bolt', ic:'ic-gym',
+        ex:[
+          {n:'Pull ups', sets:'', reps:'6', weight:'', note:'Velocidad y resistencia', t:'calistenia'},
+          {n:'Flexiones de brazos', sets:'20', reps:'10', weight:'', note:'Apuntar a resistencia', t:'calistenia'},
+          {n:'Sentadillas', sets:'', reps:'15', weight:'', note:'Series impares', t:'atletico'},
+          {n:'Estocadas', sets:'', reps:'15', weight:'', note:'Series pares', t:'atletico'},
+          {n:'Sentadillas spiderman', sets:'', reps:'10', weight:'', note:'Series pares', t:'atletico'},
+          {n:'Sentadillas de payaso', sets:'', reps:'', weight:'', note:'Series impares', t:'atletico'}
+        ]
+      }
+    ]
+  };
+}
+
 const GYM = {
   // DOMINGO — descanso
   0: null,
 
-  // LUNES — Pre-activación arco + Pasadas velocidad pura
-  1: {
-    label: 'Arco + Velocidad Pura',
-    sessions: [
-      {
-        id: 'l_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
-        ex: [
-          {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos — el más importante',t:'arco'},
-          {n:'Elevación dedo gordo con arco activo',m:'2 × 12 reps por pie',note:'Levantá solo el gordo, los otros dedos en el suelo',t:'arco'},
-          {n:'Single leg balance con arco activo',m:'2 × 20 seg por lado',note:'Arco activado todo el tiempo, no dejés que el tobillo pronee',t:'arco'}
-        ]
-      },
-      {
-        id: 'l_vel', type: 'Tarde · ~20:30 · Parque', name: 'Pasadas — Velocidad Pura', icon: 'bolt', ic: 'ic-run',
-        ex: [
-          {n:'Calentamiento trote + drills',m:'8 minutos',note:'Incluí skipping, talones, y 2-3 aceleraciones cortas',t:'atletico'},
-          {n:'6 × 60m al 95-100%',m:'Descanso 3 min completos entre series',note:'Velocidad MÁXIMA — si no podés dar el 95%, pará ahí',t:'atletico'},
-          {n:'Vuelta a la calma',m:'5 min caminando',t:'atletico'}
-        ]
-      }
-    ]
-  },
+  // LUNES — rutina de fuerza
+  1: rutinaFuerza(),
 
   // MARTES — Espalda + Hombros Vol.1 (tirón dominante, ratio corregido)
   2: {
@@ -568,34 +590,8 @@ const GYM = {
     ]
   },
 
-  // MIÉRCOLES — Pecho + Brazos (único día de empuje)
-  3: {
-    label: 'Pecho + Brazos + Core',
-    sessions: [
-      {
-        id: 'mie_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
-        ex: [
-          {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos',t:'arco'},
-          {n:'Elevación dedo gordo con arco activo',m:'2 × 12 reps por pie',t:'arco'}
-        ]
-      },
-      {
-        id: 'mie_gym', type: 'Gym · Único día de empuje', name: 'Pecho + Brazos + Core', icon: 'dumbbell', ic: 'ic-gym',
-        ex: [
-          {n:'Press inclinado con mancuernas',m:'4 × 10 reps',note:'Pecho ALTO — más importante que el plano para la forma en V',t:'thor'},
-          {n:'Aperturas con mancuernas',m:'3 × 12 reps',note:'Abrí el pectoral al máximo — estiramiento completo',t:'thor'},
-          {n:'Fondos en paralelas',m:'3 × Máx reps',note:'Tríceps y pecho inferior — calistenia base',t:'calistenia'},
-          {n:'Flexiones arquers',m:'3 × 6 reps por lado',note:'Progresión hacia flexión a una mano — controlá la escápula',t:'calistenia'},
-          {n:'Curl con barra',m:'4 × 10 reps',note:'Control en la bajada — 3 seg excéntrico',t:'thor'},
-          {n:'Curl martillo',m:'3 × 12 reps',note:'Braquial y braquiorradial — masa de brazo',t:'thor'},
-          {n:'Press cerrado con barra',m:'4 × 10 reps',note:'Tríceps largo — masa trasera del brazo',t:'thor'},
-          {n:'Rueda abdominal',m:'4 × 8-10 reps',note:'Core anterior — no hundás la lumbar',t:'correctivo'},
-          {n:'Plancha con alcance',m:'3 × 10 reps por lado',note:'Anti-rotación — pelvis neutra todo el tiempo',t:'correctivo'},
-          {n:'Pallof press',m:'3 × 12 reps por lado',note:'Core anti-rotacional — transverso profundo',t:'correctivo'}
-        ]
-      }
-    ]
-  },
+  // MIÉRCOLES — rutina de fuerza
+  3: rutinaFuerza(),
 
   // JUEVES — Piernas + Core (glúteos, valgo, pie)
   4: {
@@ -628,34 +624,8 @@ const GYM = {
     ]
   },
 
-  // VIERNES — Espalda + Hombros Vol.2
-  5: {
-    label: 'Espalda + Hombros Vol.2',
-    sessions: [
-      {
-        id: 'vie_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
-        ex: [
-          {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos',t:'arco'},
-          {n:'Elevación dedo gordo con arco activo',m:'2 × 12 reps por pie',t:'arco'}
-        ]
-      },
-      {
-        id: 'vie_gym', type: 'Gym · Tirón dominante', name: 'Espalda + Hombros Vol.2', icon: 'dumbbell', ic: 'ic-gym',
-        ex: [
-          {n:'Jalón al pecho con polea',m:'4 × 10-12 reps',note:'Agarre neutro — dorsal + bíceps',t:'thor'},
-          {n:'Pullover con mancuerna',m:'3 × 12 reps',note:'Estira el dorsal al máximo — forma en V',t:'thor'},
-          {n:'Remo con barra agarre supino',m:'4 × 8-10 reps',note:'Más bíceps y dorsal bajo — variante del martes',t:'thor'},
-          {n:'Remo en TRX / anillas',m:'3 × 12 reps',note:'Core activo — escápulas al final del movimiento',t:'calistenia'},
-          {n:'Face pull con polea Vol.2',m:'4 × 15 reps',note:'Rear delts + postura — mismo foco que martes',t:'postura'},
-          {n:'W exercise con mancuerna 7kg',m:'3 × 12 reps',note:'Rotadores externos + trapecio inferior — boca abajo',t:'postura'},
-          {n:'Serratus punch con mancuerna',m:'3 × 12 reps por lado',note:'Serrato anterior — fija la escápula a la caja torácica',t:'postura'},
-          {n:'Press Arnold',m:'4 × 10 reps',note:'Deltoides completo — recorrido completo de rotación',t:'thor'},
-          {n:'Elevaciones laterales Vol.2',m:'5 × 15-20 reps',note:'5 series — máxima prioridad anchura',t:'thor'},
-          {n:'Remo al mentón con barra',m:'3 × 12 reps',note:'Trapecio + deltoides lateral — complemento',t:'thor'}
-        ]
-      }
-    ]
-  },
+  // VIERNES — rutina de fuerza
+  5: rutinaFuerza(),
 
   // SÁBADO — Pasadas resistencia + Calistenia Full Body
   6: {
@@ -1008,6 +978,7 @@ function totalPct(dt) {
 function init() {
   applyLegacyEdits();
   loadRoutine();
+  seedRutinaFuerza();
   applyEditMode();
   const today = getToday();
   document.getElementById('todayDate').textContent = today.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
@@ -1429,6 +1400,19 @@ function applyLegacyEdits(){
       Object.assign(GYM[dow].sessions[si].ex[ei], over);
     }
   });
+}
+
+// Los días 1, 3 y 5 se re-siembran una única vez con la rutina de fuerza,
+// aunque ya hubiera una rutina guardada. El resto de los días conserva lo
+// que la persona haya editado, y a partir de acá también estos tres.
+const SEED_KEY = 'rc_seed_fuerza_v1';
+function seedRutinaFuerza(){
+  try {
+    if(localStorage.getItem(SEED_KEY)) return;
+    [1,3,5].forEach(d => { GYM[d] = JSON.parse(JSON.stringify(GYM_DEFAULT[d])); });
+    saveRoutine();
+    localStorage.setItem(SEED_KEY, '1');
+  } catch(e){}
 }
 
 function refreshGym(){
