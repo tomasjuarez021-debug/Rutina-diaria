@@ -261,24 +261,46 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .view{display:none}.view.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 
-/* EDIT MODAL */
-.ex-edit{width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--muted2);cursor:pointer;flex-shrink:0;transition:color 0.15s,background 0.15s;margin-left:2px}
-.ex-edit .ic{width:14px;height:14px}
-.ex-edit:hover{color:var(--gold);background:var(--card3)}
+/* MODO EDICIÓN */
+.mode-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.mode-btn{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border2);color:var(--muted);border-radius:20px;padding:6px 13px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.2s}
+.mode-btn .ic{width:12px;height:12px;stroke-width:2}
+.mode-btn.on{background:var(--gold-dim);border-color:rgba(232,184,75,0.4);color:var(--gold)}
+.mode-hint{font-size:9px;color:var(--muted2);flex:1;text-align:right;line-height:1.4}
 
-/* lápiz para renombrar día / sesión */
+/* EDIT MODAL */
+.ex-tools{display:none;align-items:center;gap:2px;flex-shrink:0}
+body.edit-on .ex-tools{display:flex}
+body.edit-on .ex-tag{display:none}
+.ex-btn{width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--muted2);cursor:pointer;transition:color 0.15s,background 0.15s;background:none;border:none}
+.ex-btn .ic{width:14px;height:14px}
+.ex-btn:hover{color:var(--gold);background:var(--card3)}
+.ex-btn:disabled{opacity:0.25;cursor:default}
+
+/* lápiz para renombrar día / bloque */
 .lbl-row{display:flex;align-items:center;gap:7px}
-.lbl-edit{background:none;border:none;padding:2px;cursor:pointer;color:var(--muted2);display:flex;align-items:center;transition:color 0.15s}
+.lbl-edit{background:none;border:none;padding:2px;cursor:pointer;color:var(--muted2);display:none;align-items:center;transition:color 0.15s}
 .lbl-edit .ic{width:13px;height:13px}
 .lbl-edit:hover{color:var(--gold)}
-.sess-edit{width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--muted2);cursor:pointer;flex-shrink:0;transition:color 0.15s,background 0.15s}
-.sess-edit .ic{width:14px;height:14px}
-.sess-edit:hover{color:var(--gold);background:var(--card3)}
+body.edit-on .lbl-edit{display:flex}
 
-/* agregar ejercicio */
-.add-ex{width:100%;margin-top:10px;padding:11px;border-radius:9px;border:1px dashed var(--border2);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s}
+/* herramientas de bloque */
+.sess-tools{display:none;gap:6px;padding:8px 15px 0;flex-wrap:wrap}
+body.edit-on .sess-tools{display:flex}
+.tool-btn{display:inline-flex;align-items:center;gap:5px;background:var(--card2);border:1px solid var(--border2);color:var(--muted);border-radius:7px;padding:5px 10px;font-size:10px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.tool-btn .ic{width:12px;height:12px;stroke-width:2}
+.tool-btn:hover{color:var(--gold);border-color:rgba(232,184,75,0.35)}
+.tool-btn.danger:hover{color:#ff8080;border-color:rgba(255,100,100,0.4)}
+
+/* agregar ejercicio / bloque */
+.add-ex{display:none;width:100%;margin-top:10px;padding:11px;border-radius:9px;border:1px dashed var(--border2);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;align-items:center;justify-content:center;gap:6px;transition:all 0.2s}
 .add-ex .ic{width:13px;height:13px}
 .add-ex:hover{color:var(--gold);border-color:rgba(232,184,75,0.4)}
+body.edit-on .add-ex{display:flex}
+.add-block{display:none;width:100%;margin-top:4px;padding:13px;border-radius:11px;border:1px dashed var(--border2);background:transparent;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;align-items:center;justify-content:center;gap:7px;transition:all 0.2s}
+.add-block .ic{width:14px;height:14px}
+.add-block:hover{color:var(--gold);border-color:rgba(232,184,75,0.4)}
+body.edit-on .add-block{display:flex}
 
 /* campos series/reps/peso */
 .edit-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
@@ -290,7 +312,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .edit-reset:hover{color:#ff8080;border-color:rgba(255,100,100,0.3)}
 .edit-ov{display:none;position:fixed;inset:0;background:rgba(8,12,16,0.85);z-index:300;align-items:flex-end;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .edit-ov.show{display:flex}
-.edit-modal{background:var(--card);border:1px solid var(--border2);border-radius:18px 18px 0 0;padding:22px 20px 36px;width:100%;max-width:480px;animation:slideUp 0.28s cubic-bezier(0.34,1.1,0.64,1) both}
+.edit-modal{background:var(--card);border:1px solid var(--border2);border-radius:18px 18px 0 0;padding:22px 20px 36px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;animation:slideUp 0.28s cubic-bezier(0.34,1.1,0.64,1) both}
 @keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
 .edit-modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .edit-modal-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.5px;color:var(--text)}
@@ -350,6 +372,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       </div>
       <div class="day-big" id="dayBig">LUNES</div>
       <div class="day-sub" id="daySub">—</div>
+    </div>
+    <div class="mode-row">
+      <button class="mode-btn" id="modeBtn" onclick="toggleEditMode()"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.3 19.7h4L19.2 8.8a2.5 2.5 0 0 0-3.5-3.5L4.3 15.7v4z"/><path d="M14.6 6.5l3.4 3.4"/></svg><span id="modeTxt">Editar rutina</span></button>
+      <div class="mode-hint" id="modeHint"></div>
     </div>
     <div id="gymContent"></div>
   </div>
@@ -418,6 +444,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <label class="edit-lbl" id="nameLbl">Nombre</label>
       <input class="edit-inp" id="nameInp" type="text" placeholder="ej: Espalda y Hombros"/>
     </div>
+    <div class="edit-field">
+      <label class="edit-lbl" id="nameSubLbl">Subtítulo</label>
+      <input class="edit-inp" id="nameSub" type="text" placeholder="ej: Gym · Tirón dominante"/>
+    </div>
     <div class="edit-actions">
       <button class="edit-btn-cancel" onclick="closeName()">Cancelar</button>
       <button class="edit-btn-save" onclick="saveName()">Guardar</button>
@@ -451,7 +481,9 @@ const ICONS = {
   pencil:'<path d="M4.3 19.7h4L19.2 8.8a2.5 2.5 0 0 0-3.5-3.5L4.3 15.7v4z"/><path d="M14.6 6.5l3.4 3.4"/>',
   close:'<path d="M6.3 6.3l11.4 11.4M17.7 6.3L6.3 17.7"/>',
   arrowL:'<path d="M14.4 5.6L8 12l6.4 6.4"/>',
-  arrowR:'<path d="M9.6 5.6L16 12l-6.4 6.4"/>'
+  arrowR:'<path d="M9.6 5.6L16 12l-6.4 6.4"/>',
+  up:'<path d="M12 19V5.4M6.4 11L12 5.4 17.6 11"/>',
+  down:'<path d="M12 5v13.6M17.6 13L12 18.6 6.4 13"/>'
 };
 function icon(n, cls){
   const p = ICONS[n];
@@ -958,6 +990,7 @@ function totalPct(dt) {
 function init() {
   applyLegacyEdits();
   loadRoutine();
+  applyEditMode();
   const today = getToday();
   document.getElementById('todayDate').textContent = today.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
   buildDays();
@@ -1012,6 +1045,7 @@ function changeMainWeek(delta) {
 
 function selDay(dt) {
   curDayDate = new Date(dt);
+  openSess = new Set();
   buildDays();
   renderDay(curDayDate);
   if(document.getElementById('view-postura').classList.contains('active')) renderPostura(curDayDate);
@@ -1022,15 +1056,18 @@ function renderDay(dt) {
   const d = dt.getDay();
   const data = GYM[d];
   document.getElementById('dayBig').textContent = DN[d];
-  document.getElementById('dayLblEdit').style.display = data ? 'flex' : 'none';
+  document.getElementById('dayLblEdit').style.display = data ? '' : 'none';
+  const cont = document.getElementById('gymContent');
   if(!data) {
     document.getElementById('dayLbl').textContent = 'Descanso';
     document.getElementById('daySub').textContent = 'Recuperación activa';
-    document.getElementById('gymContent').innerHTML = `<div class="rest-card"><span class="rest-emoji">${icon('moon')}</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">El músculo crece mientras descansás.<br>Hidratate · 8 horas de sueño · proteína.</div></div>`;
+    cont.innerHTML = `<div class="rest-card"><span class="rest-emoji">${icon('moon')}</span><div class="rest-title">DESCANSO TOTAL</div><div class="rest-txt">El músculo crece mientras descansás.<br>Hidratate · 8 horas de sueño · proteína.</div></div>`
+      + `<button class="add-block" onclick="addBlock(${d})">${icon('plus')} Agregar bloque a este día</button>`;
     return;
   }
   document.getElementById('dayLbl').textContent = data.label;
-  document.getElementById('daySub').textContent = `${data.sessions.length} sesión${data.sessions.length>1?'es':''} · Fuerza`;
+  const ns = data.sessions.length;
+  document.getElementById('daySub').textContent = `${ns} ${ns>1?'sesiones':'sesión'} · ${data.tipo || 'Fuerza'}`;
   renderSessions(dt, data);
 }
 
@@ -1069,15 +1106,36 @@ function renderSessions(dt, data) {
       const done = !!store[gymKey(dt,ex.n)];
       const meta = exMeta(ex);
       const tap = `onclick="toggleGymAt(${si},${ei},'${dtStr}')"`;
-      return `<div class="ex-item${done?' done':''}"><div class="ex-chk" ${tap}>${done?icon('check'):''}</div><div class="ex-det" ${tap}><div class="ex-nm">${esc(ex.n)}</div>${meta?`<div class="ex-mt">${esc(meta)}</div>`:''}${ex.note?`<div class="ex-nt">${esc(ex.note)}</div>`:''}</div>${ex.t?`<span class="ex-tag tag-${esc(ex.t)}" ${tap}>${esc(TL[ex.t]||ex.t)}</span>`:''}<span class="ex-edit" onclick="openEdit(${dow},${si},${ei},event)" title="Editar">${icon('pencil')}</span></div>`;
+      return `<div class="ex-item${done?' done':''}">`
+        + `<div class="ex-chk" ${tap}>${done?icon('check'):''}</div>`
+        + `<div class="ex-det" ${tap}><div class="ex-nm">${esc(ex.n)}</div>`
+        + `${meta?`<div class="ex-mt">${esc(meta)}</div>`:''}`
+        + `${ex.note?`<div class="ex-nt">${esc(ex.note)}</div>`:''}</div>`
+        + `${ex.t?`<span class="ex-tag tag-${esc(ex.t)}" ${tap}>${esc(TL[ex.t]||ex.t)}</span>`:''}`
+        + `<span class="ex-tools">`
+          + `<button class="ex-btn" onclick="moveEx(${dow},${si},${ei},-1,event)" ${ei===0?'disabled':''} title="Subir">${icon('up')}</button>`
+          + `<button class="ex-btn" onclick="moveEx(${dow},${si},${ei},1,event)" ${ei===sess.ex.length-1?'disabled':''} title="Bajar">${icon('down')}</button>`
+          + `<button class="ex-btn" onclick="openEdit(${dow},${si},${ei},event)" title="Editar">${icon('pencil')}</button>`
+        + `</span></div>`;
     }).join('');
+    const tools = `<div class="sess-tools">`
+      + `<button class="tool-btn" onclick="moveSess(${dow},${si},-1,event)" ${si===0?'disabled':''}>${icon('up')} Subir bloque</button>`
+      + `<button class="tool-btn" onclick="moveSess(${dow},${si},1,event)" ${si===data.sessions.length-1?'disabled':''}>${icon('down')} Bajar bloque</button>`
+      + `<button class="tool-btn" onclick="openSessName(${dow},${si},event)">${icon('pencil')} Renombrar</button>`
+      + `<button class="tool-btn danger" onclick="deleteBlock(${dow},${si},event)">${icon('trash')} Eliminar bloque</button>`
+      + `</div>`;
     const card = document.createElement('div');
     card.className = `session-card${openSess.has(si)?' open':''}${ok?' all-done':''}`;
     card.id = 'sc'+si;
     card.style.animationDelay = (si*0.06)+'s';
-    card.innerHTML = `<div class="sess-hdr" onclick="togSess(${si})"><div class="s-ico ${sess.ic}">${icon(sess.icon)}</div><div class="s-inf"><div class="s-type">${esc(sess.type)}</div><div class="s-name">${esc(sess.name)}</div></div><span class="sess-edit" onclick="openSessName(${dow},${si},event)" title="Renombrar sesión">${icon('pencil')}</span><span class="s-badge${ok?' ok':''}">${ok?icon('check')+' Listo':din+'/'+sess.ex.length}</span><span class="chevron">${icon('chevron')}</span></div><div class="sess-body"><div class="pbar-wrap"><div class="pbar-lbl"><span>Progreso</span><span>${pct}%</span></div><div class="pbar"><div class="pbar-fill${ok?' gfill':''}" style="width:${pct}%"></div></div></div><div class="ex-list">${exHTML}<button class="add-ex" onclick="addEx(${dow},${si},event)">${icon('plus')} Agregar ejercicio</button></div></div>`;
+    card.innerHTML = `<div class="sess-hdr" onclick="togSess(${si})"><div class="s-ico ${sess.ic||'ic-gym'}">${icon(sess.icon||'dumbbell')}</div><div class="s-inf"><div class="s-type">${esc(sess.type)}</div><div class="s-name">${esc(sess.name)}</div></div><span class="s-badge${ok?' ok':''}">${ok?icon('check')+' Listo':din+'/'+sess.ex.length}</span><span class="chevron">${icon('chevron')}</span></div><div class="sess-body"><div class="pbar-wrap"><div class="pbar-lbl"><span>Progreso</span><span>${pct}%</span></div><div class="pbar"><div class="pbar-fill${ok?' gfill':''}" style="width:${pct}%"></div></div></div>${tools}<div class="ex-list">${exHTML}<button class="add-ex" onclick="addEx(${dow},${si},event)">${icon('plus')} Agregar ejercicio</button></div></div>`;
     cont.appendChild(card);
   });
+  const addB = document.createElement('button');
+  addB.className = 'add-block';
+  addB.innerHTML = `${icon('plus')} Agregar bloque`;
+  addB.onclick = () => addBlock(dow);
+  cont.appendChild(addB);
 }
 
 function togSess(i){
@@ -1324,14 +1382,17 @@ const ROUTINE_KEY = 'rc_routine_v2';
 
 function saveRoutine(){
   const out = {};
-  Object.keys(GYM).forEach(dow => { if(GYM[dow]) out[dow] = GYM[dow]; });
+  for(let d=0; d<7; d++) out[d] = GYM[d] || null;
   try { localStorage.setItem(ROUTINE_KEY, JSON.stringify(out)); } catch(e){}
 }
 
 function loadRoutine(){
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(ROUTINE_KEY) || '{}'); } catch(e){ saved = {}; }
-  Object.keys(saved).forEach(dow => { if(saved[dow]) GYM[dow] = saved[dow]; });
+  Object.keys(saved).forEach(dow => {
+    if(saved[dow] === undefined) return;
+    GYM[dow] = saved[dow];
+  });
 }
 
 // migra ediciones del sistema viejo (rc_gym_edits) sobre los defaults
@@ -1349,6 +1410,25 @@ function applyLegacyEdits(){
 function refreshGym(){
   renderDay(curDayDate);
   buildDays();
+}
+
+// ── MODO EDICIÓN ──
+let editMode = false;
+try { editMode = localStorage.getItem('rc_edit_mode') === '1'; } catch(e){}
+
+function applyEditMode(){
+  document.body.classList.toggle('edit-on', editMode);
+  document.getElementById('modeBtn').classList.toggle('on', editMode);
+  document.getElementById('modeTxt').textContent = editMode ? 'Listo' : 'Editar rutina';
+  document.getElementById('modeHint').textContent = editMode
+    ? 'Reordená, editá, agregá o eliminá ejercicios y bloques'
+    : '';
+}
+
+function toggleEditMode(){
+  editMode = !editMode;
+  try { localStorage.setItem('rc_edit_mode', editMode?'1':'0'); } catch(e){}
+  applyEditMode();
 }
 
 // ── MODAL: editar / agregar ejercicio ──
@@ -1410,7 +1490,7 @@ function saveEdit(){
   };
   const list = GYM[dow].sessions[si].ex;
   if(ei === null) list.push(data);
-  else list[ei] = data;
+  else Object.assign(list[ei], data);
   saveRoutine();
   closeEdit();
   refreshGym();
@@ -1427,13 +1507,65 @@ function deleteEx(){
   refreshGym();
 }
 
+function moveEx(dow, si, ei, dir, e){
+  if(e) e.stopPropagation();
+  const list = GYM[dow].sessions[si].ex;
+  const to = ei + dir;
+  if(to < 0 || to >= list.length) return;
+  const [item] = list.splice(ei, 1);
+  list.splice(to, 0, item);
+  saveRoutine();
+  openSess.add(si);
+  refreshGym();
+}
+
+// ── BLOQUES ──
+function moveSess(dow, si, dir, e){
+  if(e) e.stopPropagation();
+  const list = GYM[dow].sessions;
+  const to = si + dir;
+  if(to < 0 || to >= list.length) return;
+  const [item] = list.splice(si, 1);
+  list.splice(to, 0, item);
+  saveRoutine();
+  openSess = new Set([to]);
+  refreshGym();
+}
+
+function addBlock(dow){
+  if(!GYM[dow]) GYM[dow] = {label:'Entrenamiento', tipo:'', sessions:[]};
+  GYM[dow].sessions.push({
+    id:'blk_'+Date.now(),
+    type:'Bloque '+(GYM[dow].sessions.length+1),
+    name:'Nuevo bloque',
+    icon:'dumbbell', ic:'ic-gym',
+    ex:[]
+  });
+  saveRoutine();
+  openSess.add(GYM[dow].sessions.length-1);
+  refreshGym();
+}
+
+function deleteBlock(dow, si, e){
+  if(e) e.stopPropagation();
+  const sess = GYM[dow].sessions[si];
+  if(!confirm('¿Eliminar el bloque "'+sess.name+'" y todos sus ejercicios?')) return;
+  GYM[dow].sessions.splice(si, 1);
+  if(GYM[dow].sessions.length === 0) GYM[dow] = null;
+  saveRoutine();
+  openSess = new Set();
+  refreshGym();
+}
+
 // ── MODAL: renombrar dia o sesion ──
 let nameCtx = null;   // {kind:'day'|'sess', dow, si}
 
-function openNameModal(title, label, value, showReset){
+function openNameModal(title, label, value, subLabel, subValue, showReset){
   document.getElementById('nameTitle').textContent = title;
   document.getElementById('nameLbl').textContent = label;
   document.getElementById('nameInp').value = value || '';
+  document.getElementById('nameSubLbl').textContent = subLabel;
+  document.getElementById('nameSub').value = subValue || '';
   document.getElementById('nameReset').style.display = showReset ? 'block' : 'none';
   document.getElementById('nameOv').classList.add('show');
   setTimeout(()=>document.getElementById('nameInp').focus(), 80);
@@ -1443,13 +1575,15 @@ function openDayName(){
   const dow = curDayDate.getDay();
   if(!GYM[dow]) return;
   nameCtx = {kind:'day', dow};
-  openNameModal('Actividad del día', 'Nombre de la actividad', GYM[dow].label, true);
+  openNameModal('Actividad del día', 'Nombre de la actividad', GYM[dow].label,
+                'Descripción corta', GYM[dow].tipo, true);
 }
 
 function openSessName(dow, si, e){
   if(e) e.stopPropagation();
   nameCtx = {kind:'sess', dow, si};
-  openNameModal('Nombre de la sesión', 'Nombre', GYM[dow].sessions[si].name, false);
+  openNameModal('Nombre del bloque', 'Nombre', GYM[dow].sessions[si].name,
+                'Subtítulo', GYM[dow].sessions[si].type, false);
 }
 
 function closeName(){
@@ -1463,9 +1597,15 @@ function closeNameIfBg(e){
 function saveName(){
   if(!nameCtx) return;
   const v = document.getElementById('nameInp').value.trim();
+  const sub = document.getElementById('nameSub').value.trim();
   if(!v){ document.getElementById('nameInp').focus(); return; }
-  if(nameCtx.kind === 'day') GYM[nameCtx.dow].label = v;
-  else GYM[nameCtx.dow].sessions[nameCtx.si].name = v;
+  if(nameCtx.kind === 'day'){
+    GYM[nameCtx.dow].label = v;
+    GYM[nameCtx.dow].tipo = sub;
+  } else {
+    GYM[nameCtx.dow].sessions[nameCtx.si].name = v;
+    GYM[nameCtx.dow].sessions[nameCtx.si].type = sub;
+  }
   saveRoutine();
   closeName();
   refreshGym();
@@ -1475,8 +1615,9 @@ function resetDay(){
   if(!nameCtx || nameCtx.kind !== 'day') return;
   const dow = nameCtx.dow;
   if(!confirm('¿Restaurar la rutina original de este día? Se pierden los cambios que hiciste.')) return;
-  GYM[dow] = JSON.parse(JSON.stringify(GYM_DEFAULT[dow]));
+  GYM[dow] = GYM_DEFAULT[dow] ? JSON.parse(JSON.stringify(GYM_DEFAULT[dow])) : null;
   saveRoutine();
+  openSess = new Set();
   closeName();
   refreshGym();
 }
