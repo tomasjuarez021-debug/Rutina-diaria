@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Rutina Tomy</title>
-<meta name="theme-color" content="#080c10">
+<meta name="theme-color" content="#141b24">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -15,22 +15,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#080c10;
-  --card:#111820;
-  --card2:#161f28;
-  --card3:#1a2535;
+  --bg:#141b24;
+  --card:#1d2732;
+  --card2:#25303d;
+  --card3:#2f3c4b;
   --gold:#e8b84b;
   --gold2:#f5d080;
-  --gold-dim:rgba(232,184,75,0.12);
+  --gold-dim:rgba(232,184,75,0.15);
   --blue:#4ab8ff;
-  --blue-dim:rgba(74,184,255,0.1);
+  --blue-dim:rgba(74,184,255,0.13);
   --green:#4aaa6a;
-  --green-dim:rgba(74,170,106,0.1);
-  --text:#eef2f7;
-  --muted:#556070;
-  --muted2:#3a4858;
-  --border:rgba(255,255,255,0.07);
-  --border2:rgba(255,255,255,0.12);
+  --green-dim:rgba(74,170,106,0.13);
+  --text:#f0f4f9;
+  --muted:#8b98a9;
+  --muted2:#5f6d7f;
+  --border:rgba(255,255,255,0.09);
+  --border2:rgba(255,255,255,0.16);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
@@ -47,7 +47,7 @@ html{scroll-behavior:smooth}
 .week-nav-btn .ic{width:14px;height:14px;stroke-width:2.2}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
 
-.header{padding:14px 16px 0;position:sticky;top:0;background:rgba(8,12,16,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:100;border-bottom:1px solid var(--border)}
+.header{padding:14px 16px 0;position:sticky;top:0;background:rgba(20,27,36,0.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:100;border-bottom:1px solid var(--border)}
 .header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;gap:10px}
 .app-id{display:flex;align-items:center;gap:10px;min-width:0}
 .app-logo{width:34px;height:34px;border-radius:9px;flex-shrink:0;object-fit:cover}
@@ -77,7 +77,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .day-big{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;letter-spacing:1px;line-height:1;color:var(--text)}
 .day-sub{color:var(--muted);font-size:11px;margin-top:5px;font-weight:400}
 
-.session-card{background:var(--card);border:1px solid var(--border);border-radius:13px;margin-bottom:10px;overflow:hidden;transition:border-color 0.25s;animation:fadeUp 0.25s ease both}
+.session-card{background:var(--card);border:1px solid var(--border);border-radius:13px;margin-bottom:10px;overflow:hidden;transition:border-color 0.25s;box-shadow:0 1px 3px rgba(0,0,0,0.22);animation:fadeUp 0.25s ease both}
 .session-card.open{border-color:var(--border2)}
 .session-card.all-done{border-color:rgba(74,170,106,0.35)}
 .sess-hdr{padding:13px 15px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
@@ -106,11 +106,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .ex-item:last-child{border-bottom:none}
 .ex-item.done{opacity:0.36}
 .ex-chk{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;background:var(--card2);transition:all 0.2s}
-.ex-item.done .ex-chk{background:var(--gold);border-color:var(--gold);color:#000;font-weight:800}
+.ex-item.done .ex-chk{background:var(--gold);border-color:var(--gold);color:#141b24;font-weight:800}
 .ex-det{flex:1;min-width:0}
 .ex-nm{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
 .ex-mt{font-size:10px;color:var(--muted)}
-.ex-nt{font-size:10px;color:var(--gold);margin-top:2px;font-style:italic}
+.ex-nt{font-size:10px;color:#d9b978;margin-top:2px;font-style:italic}
 .ex-tag{font-size:8px;font-weight:700;padding:3px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:0.6px;flex-shrink:0}
 .tag-thor{background:rgba(232,184,75,0.12);color:var(--gold)}
 .tag-postura{background:rgba(255,100,100,0.12);color:#ff8080}
@@ -135,7 +135,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .ph-pill.done-ph{border-color:rgba(74,170,106,0.35);color:var(--green);background:var(--green-dim)}
 .ph-block-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin:18px 0 8px;display:flex;align-items:center;gap:10px}
 .ph-block-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.p-card{background:var(--card);border-radius:12px;margin-bottom:8px;border:1px solid var(--border);overflow:hidden;animation:fadeUp 0.22s ease both;transition:border-color 0.2s,opacity 0.2s}
+.p-card{background:var(--card);border-radius:12px;margin-bottom:8px;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.2);animation:fadeUp 0.22s ease both;transition:border-color 0.2s,opacity 0.2s}
 .p-card.p-done{border-color:rgba(74,170,106,0.25);opacity:0.55}
 .p-hdr{padding:13px 14px;display:flex;align-items:center;gap:12px;user-select:none}
 .p-hdr .p-chk{cursor:pointer}
@@ -212,7 +212,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .week-strip-label{flex:1;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--text);letter-spacing:0.5px}
 .week-strip-label span{font-size:9px;font-weight:500;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(232,184,75,0.25);border-radius:8px;padding:2px 7px;margin-left:7px;letter-spacing:1px;text-transform:uppercase;vertical-align:middle}
 .week-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
-.res-day-card{background:var(--card);border-radius:12px;margin-bottom:8px;border:1px solid var(--border);overflow:hidden;transition:border-color 0.2s}
+.res-day-card{background:var(--card);border-radius:12px;margin-bottom:8px;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.2);transition:border-color 0.2s}
 .res-day-card.r-open{border-color:var(--border2)}
 .res-day-card.is-today-card{border-color:rgba(74,184,255,0.25)}
 .res-day-hdr{padding:13px 15px;display:flex;align-items:center;gap:11px;cursor:pointer;user-select:none}
@@ -239,7 +239,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .res-act-pend{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted2)}
 
 /* TIMER */
-.timer-ov{display:none;position:fixed;inset:0;background:rgba(8,12,16,0.97);z-index:200;align-items:center;justify-content:center;flex-direction:column}
+.timer-ov{display:none;position:fixed;inset:0;background:rgba(20,27,36,0.94);z-index:200;align-items:center;justify-content:center;flex-direction:column}
 .timer-ov.show{display:flex}
 .t-ring{width:190px;height:190px;position:relative;margin-bottom:18px}
 .t-ring svg{transform:rotate(-90deg)}
@@ -250,12 +250,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .t-lbl{font-size:11px;color:var(--muted);text-align:center;padding:0 32px;margin-bottom:28px;line-height:1.5}
 .t-ctrl{display:flex;gap:10px}
 .t-btn{padding:13px 28px;border-radius:11px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;letter-spacing:1px;border:none;cursor:pointer;transition:opacity 0.2s}
-.t-btn.pri{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080c10}
+.t-btn.pri{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#141b24}
 .t-btn.sec{background:var(--card);color:var(--muted);border:1px solid var(--border2)}
 .t-btn:active{opacity:0.8}
 
 /* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(8,12,16,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:10px 6px 26px;display:flex;justify-content:space-around;z-index:100}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(20,27,36,0.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:10px 6px 26px;display:flex;justify-content:space-around;z-index:100}
 .nav-btn{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;color:var(--muted2);transition:color 0.2s;padding:5px 14px;border-radius:9px}
 .nav-btn.active{color:var(--gold)}
 .nav-btn .ni{font-size:20px;line-height:1.1}
@@ -285,6 +285,12 @@ body.edit-on .ex-tag{display:none}
 .lbl-edit .ic{width:13px;height:13px}
 .lbl-edit:hover{color:var(--gold)}
 body.edit-on .lbl-edit{display:flex}
+
+/* lápiz en la cabecera del bloque */
+.sess-edit{width:28px;height:28px;display:none;align-items:center;justify-content:center;border-radius:7px;color:var(--muted2);cursor:pointer;flex-shrink:0;background:var(--card2);border:1px solid var(--border2);transition:all 0.15s}
+.sess-edit .ic{width:14px;height:14px}
+.sess-edit:hover{color:var(--gold);border-color:rgba(232,184,75,0.35)}
+body.edit-on .sess-edit{display:flex}
 
 /* herramientas de bloque */
 .sess-tools{display:none;gap:6px;padding:8px 15px 0;flex-wrap:wrap}
@@ -316,7 +322,7 @@ body.edit-on .add-block{display:flex}
 .edit-btn-del .ic{width:16px;height:16px}
 .edit-reset{width:100%;margin-top:14px;padding:11px;border-radius:9px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;cursor:pointer}
 .edit-reset:hover{color:#ff8080;border-color:rgba(255,100,100,0.3)}
-.edit-ov{display:none;position:fixed;inset:0;background:rgba(8,12,16,0.85);z-index:300;align-items:flex-end;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.edit-ov{display:none;position:fixed;inset:0;background:rgba(10,14,19,0.72);z-index:300;align-items:flex-end;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .edit-ov.show{display:flex}
 .edit-modal{background:var(--card);border:1px solid var(--border2);border-radius:18px 18px 0 0;padding:22px 20px 36px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;animation:slideUp 0.28s cubic-bezier(0.34,1.1,0.64,1) both}
 @keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
@@ -329,7 +335,7 @@ body.edit-on .add-block{display:flex}
 .edit-inp:focus{border-color:rgba(232,184,75,0.45)}
 .edit-actions{display:flex;gap:10px;margin-top:20px}
 .edit-btn-cancel{flex:1;padding:13px;border-radius:10px;border:1px solid var(--border2);background:var(--card2);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer}
-.edit-btn-save{flex:2;padding:13px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#080c10;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;letter-spacing:1px;cursor:pointer}
+.edit-btn-save{flex:2;padding:13px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#141b24;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;letter-spacing:1px;cursor:pointer}
 
 </style>
 </head>
@@ -1139,14 +1145,14 @@ function renderSessions(dt, data) {
     const tools = `<div class="sess-tools">`
       + `<button class="tool-btn" onclick="moveSess(${dow},${si},-1,event)" ${si===0?'disabled':''}>${icon('up')} Subir bloque</button>`
       + `<button class="tool-btn" onclick="moveSess(${dow},${si},1,event)" ${si===data.sessions.length-1?'disabled':''}>${icon('down')} Bajar bloque</button>`
-      + `<button class="tool-btn" onclick="openSessName(${dow},${si},event)">${icon('pencil')} Renombrar</button>`
+      + `<button class="tool-btn" onclick="openSessName(${dow},${si},event)">${icon('pencil')} Nombre e ícono</button>`
       + `<button class="tool-btn danger" onclick="deleteBlock(${dow},${si},event)">${icon('trash')} Eliminar bloque</button>`
       + `</div>`;
     const card = document.createElement('div');
     card.className = `session-card${openSess.has(si)?' open':''}${ok?' all-done':''}`;
     card.id = 'sc'+si;
     card.style.animationDelay = (si*0.06)+'s';
-    card.innerHTML = `<div class="sess-hdr" onclick="togSess(${si})"><div class="s-ico ${sess.ic||'ic-gym'}">${sessGlyph(sess)}</div><div class="s-inf"><div class="s-type">${esc(sess.type)}</div><div class="s-name">${esc(sess.name)}</div></div><span class="s-badge${ok?' ok':''}">${ok?icon('check')+' Listo':din+'/'+sess.ex.length}</span><span class="chevron">${icon('chevron')}</span></div><div class="sess-body"><div class="pbar-wrap"><div class="pbar-lbl"><span>Progreso</span><span>${pct}%</span></div><div class="pbar"><div class="pbar-fill${ok?' gfill':''}" style="width:${pct}%"></div></div></div>${tools}<div class="ex-list">${exHTML}<button class="add-ex" onclick="addEx(${dow},${si},event)">${icon('plus')} Agregar ejercicio</button></div></div>`;
+    card.innerHTML = `<div class="sess-hdr" onclick="togSess(${si})"><div class="s-ico ${sess.ic||'ic-gym'}">${sessGlyph(sess)}</div><div class="s-inf"><div class="s-type">${esc(sess.type)}</div><div class="s-name">${esc(sess.name)}</div></div><span class="sess-edit" onclick="openSessName(${dow},${si},event)" title="Renombrar bloque e ícono">${icon('pencil')}</span><span class="s-badge${ok?' ok':''}">${ok?icon('check')+' Listo':din+'/'+sess.ex.length}</span><span class="chevron">${icon('chevron')}</span></div><div class="sess-body"><div class="pbar-wrap"><div class="pbar-lbl"><span>Progreso</span><span>${pct}%</span></div><div class="pbar"><div class="pbar-fill${ok?' gfill':''}" style="width:${pct}%"></div></div></div>${tools}<div class="ex-list">${exHTML}<button class="add-ex" onclick="addEx(${dow},${si},event)">${icon('plus')} Agregar ejercicio</button></div></div>`;
     cont.appendChild(card);
   });
   const addB = document.createElement('button');
