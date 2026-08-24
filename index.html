@@ -118,6 +118,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .tag-atletico{background:rgba(74,170,106,0.12);color:var(--green)}
 .tag-arco{background:rgba(180,140,255,0.12);color:#c4a0ff}
 .tag-calistenia{background:rgba(255,170,100,0.12);color:#ffb080}
+.tag-core{background:rgba(120,200,255,0.13);color:#7ec8ff}
 
 .rest-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:50px 20px;text-align:center}
 .rest-emoji{font-size:52px;margin-bottom:14px;display:block}
@@ -265,6 +266,20 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 /* MODO EDICIÓN */
 .mode-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.fase-box{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:12px 14px;margin-bottom:16px}
+.fase-seg{display:flex;gap:6px;margin-bottom:11px}
+.fase-pill{flex:1;padding:8px 4px;border-radius:9px;border:1px solid var(--border);background:var(--card2);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all 0.2s}
+.fase-pill.on{background:var(--gold-dim);border-color:rgba(232,184,75,0.45);color:var(--gold)}
+.fase-head{display:flex;align-items:center;gap:9px;cursor:pointer}
+.fase-nm{font-size:12px;font-weight:700;color:var(--text)}
+.fase-sub{font-size:10px;color:var(--muted);flex:1}
+.fase-chev{color:var(--muted2);display:flex;transition:transform 0.3s}
+.fase-chev .ic{width:12px;height:12px;stroke-width:2.2}
+.fase-box.open .fase-chev{transform:rotate(180deg)}
+.fase-txt{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.fase-box.open .fase-txt{max-height:400px}
+.fase-txt p{font-size:10px;color:var(--muted);line-height:1.65;margin-top:10px}
+.fase-txt p.fase-avance{color:var(--gold);opacity:0.85;border-left:2px solid rgba(232,184,75,0.35);padding-left:9px}
 .mode-btn{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border2);color:var(--muted);border-radius:20px;padding:6px 13px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.2s}
 .mode-btn .ic{width:12px;height:12px;stroke-width:2}
 .mode-btn.on{background:var(--gold-dim);border-color:rgba(232,184,75,0.4);color:var(--gold)}
@@ -377,6 +392,19 @@ body.edit-on .add-block{display:flex}
 
 <div class="content">
   <div class="view active" id="view-gym">
+    <div class="fase-box" id="faseBox">
+      <div class="fase-seg">
+        <button class="fase-pill" data-f="1" onclick="setFase(1)">FASE 1</button>
+        <button class="fase-pill" data-f="2" onclick="setFase(2)">FASE 2</button>
+        <button class="fase-pill" data-f="3" onclick="setFase(3)">FASE 3</button>
+      </div>
+      <div class="fase-head" onclick="togFaseInfo()">
+        <div class="fase-nm" id="faseNm">—</div>
+        <div class="fase-sub" id="faseSub">—</div>
+        <span class="fase-chev"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 9.6l5.4 5.4 5.4-5.4"/></svg></span>
+      </div>
+      <div class="fase-txt" id="faseTxt"></div>
+    </div>
     <div class="day-hero">
       <div class="lbl-row">
         <div class="day-lbl" id="dayLbl">—</div>
@@ -430,6 +458,7 @@ body.edit-on .add-block{display:flex}
         <option value="atletico">Atlético</option>
         <option value="arco">Arco / pie</option>
         <option value="calistenia">Calistenia</option>
+        <option value="core">Core</option>
         <option value="">Sin categoría</option>
       </select>
     </div>
@@ -511,158 +540,226 @@ function icon(n, cls){
 
 const DS=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 const DN=['DOMINGO','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES','SÁBADO'];
-const TL={thor:'fuerza',postura:'postura',correctivo:'correctivo',atletico:'atlético',arco:'arco/pie',calistenia:'calistenia'};
+const TL={thor:'fuerza',postura:'postura',correctivo:'correctivo',atletico:'atlético',arco:'arco/pie',calistenia:'calistenia',core:'core'};
 
-// ── RUTINA DE FUERZA ──
-// Se repite lunes, miércoles y viernes. Cada día recibe su propia copia,
-// así se puede editar un día sin tocar los otros.
-function rutinaFuerza(){
-  return {
-    label: 'Gambas + Tronco superior',
-    tipo: 'Fuerza · Piernas y tronco superior',
-    sessions: [
-      {
-        id:'ef_calor', type:'Pre-activación · 10 min', name:'Entrada en calor', icon:'dumbbell', ic:'ic-arco',
-        ex:[
-          {n:'Soga', sets:'', reps:'5 minutos', weight:'', note:'', t:'atletico'},
-          {n:'Mobility drills', sets:'', reps:'5 min', weight:'', note:'Caderas - rodillas - tobillos', t:'correctivo'}
-        ]
-      },
-      {
-        id:'ef_gambas', type:'Gym - 19:00 hs', name:'Gambas - fuerza', icon:'dumbbell', ic:'ic-run',
-        ex:[
-          {n:'Sentadillas con ketbell', sets:'4', reps:'20 reps', weight:'30 kg', note:'', t:'thor'},
-          {n:'Wall sits', sets:'4', reps:'60s', weight:'10kg', note:'', t:'thor'},
-          {n:'Subidas al cajon', sets:'4', reps:'20 reps', weight:'10 kg x lado', note:'', t:'thor'},
-          {n:'Peso muerto ketbell', sets:'4', reps:'20 reps', weight:'X 15 kg', note:'', t:'thor'},
-          {n:'Estocadas a dos piernas', sets:'', reps:'20 reps', weight:'10 kg', note:'', t:'thor'},
-          {n:'Sentadillas aductores', sets:'4', reps:'20 reps', weight:'15 kg', note:'', t:'thor'},
-          {n:'Gemelos', sets:'4', reps:'20 reps', weight:'30 kg', note:'', t:'thor'}
-        ]
-      },
-      {
-        id:'ef_spider', type:'Resistencia y desarrollo tronco superior', name:'Spiderman course 20\u201d', icon:'bolt', ic:'ic-gym',
-        ex:[
-          {n:'Pull ups', sets:'', reps:'6', weight:'', note:'Velocidad y resistencia', t:'calistenia'},
-          {n:'Flexiones de brazos', sets:'20', reps:'10', weight:'', note:'Apuntar a resistencia', t:'calistenia'},
-          {n:'Sentadillas', sets:'', reps:'15', weight:'', note:'Series impares', t:'atletico'},
-          {n:'Estocadas', sets:'', reps:'15', weight:'', note:'Series pares', t:'atletico'},
-          {n:'Sentadillas spiderman', sets:'', reps:'10', weight:'', note:'Series pares', t:'atletico'},
-          {n:'Sentadillas de payaso', sets:'', reps:'', weight:'', note:'Series impares', t:'atletico'}
-        ]
-      }
-    ]
-  };
-}
+// ── RUTINA: Fuerza L/M/V + running, en 3 fases ──
+// E(nombre, series, reps, peso, nota, categoria)
+const E = (n, sets, reps, weight, note, t) => ({
+  n, sets: sets||'', reps: reps||'', weight: weight||'', note: note||'', t: t||'thor'
+});
 
-const GYM = {
-  // DOMINGO — descanso
-  0: null,
+// Activación de 5 min antes de cada sesión de fuerza
+const CALENT = {
+  pierna: [
+    E('Monster walk con banda','2','10 / lado','','','correctivo'),
+    E('Puente de glúteo','2','12','','','correctivo'),
+    E('Dead bug','2','8','','','core')
+  ],
+  empuje: [
+    E('Band pull-apart','2','15','','','postura'),
+    E('Wall slides','2','10','','','postura'),
+    E('Rotación externa con banda','2','12','','','postura')
+  ]
+};
 
-  // LUNES — rutina de fuerza
-  1: rutinaFuerza(),
+const FASES = {
+  1: {
+    nombre: 'Reactivación', semanas: 'Semanas 1–2', rir: 'RIR 3–4',
+    intro: 'Intensidad moderada, nada al fallo. Bisagra de cadera solo con peso corporal o mancuerna liviana. Foco en técnica y en despertar el core.',
+    avance: 'Pasás a Fase 2 cuando completás sin dolor lumbar, la sentadilla goblet y el dead bug / bird dog salen con buen control, y no terminás agotado.',
+    dias: {
+      1: { label:'Full body · foco piernas (A)', calent:'pierna',
+        fuerza:[
+          E('Sentadilla goblet','3','8'),
+          E('Puente de glúteo / hip thrust sin barra','3','12'),
+          E('Bulgarian split squat','2','10 / pierna','','Peso corporal'),
+          E('Press banca con mancuernas','3','10'),
+          E('Gemelo de pie','3','15')
+        ],
+        core:[
+          E('Dead bug','3','8 / lado','','','core'),
+          E('Plancha','3','30 s','','','core')
+        ] },
+      3: { label:'Full body · foco empuje/postura (B)', calent:'empuje',
+        fuerza:[
+          E('Press militar con mancuernas','3','10'),
+          E('Press inclinado con mancuernas','3','10'),
+          E('Fondos asistidos o en banco','3','8','','','calistenia'),
+          E('Face pull','3','15','','','postura')
+        ],
+        core:[
+          E('Pallof press','3','10 / lado','','Anti-rotación','core'),
+          E('Bird dog','3','8 / lado','','Espinales, control','core')
+        ] },
+      5: { label:'Full body · piernas + tracción (C)', calent:'pierna',
+        fuerza:[
+          E('Sentadilla goblet tempo','3','8','','3 s de bajada'),
+          E('Zancadas caminando','2','10 / pierna','','Peso corporal o liviano'),
+          E('Curl femoral acostado','3','12','','Isquios sin cargar la lumbar'),
+          E('Remo con mancuerna a un brazo','3','10'),
+          E('Dominadas asistidas','3','8','','','calistenia')
+        ],
+        core:[
+          E('Plancha lateral','3','25 s / lado','','Anti-flexión lateral','core'),
+          E('Hiperextensión de rango corto','3','10','','Peso corporal','core')
+        ] }
+    },
+    cardio: {
+      2: { label:'Running · Z2', name:'Z2 continuo',
+           ex:[ E('Trote continuo en Z2','','25 min','','Ritmo conversado','atletico') ] },
+      4: { label:'Running · Intervalos', name:'Intervalos cortos',
+           ex:[ E('Intervalos','6','1 min fuerte','','2 min flojo entre series','atletico') ] },
+      6: { label:'Running largo (opcional)', name:'Largo suave',
+           ex:[ E('Trote suave','','30 min','','Opcional — o descanso','atletico') ] }
+    }
+  },
 
-  // MARTES — Espalda + Hombros Vol.1 (tirón dominante, ratio corregido)
   2: {
-    label: 'Espalda + Hombros Vol.1',
-    sessions: [
-      {
-        id: 'mar_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
-        ex: [
-          {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos',t:'arco'},
-          {n:'Calf raise unilateral con arco activo',m:'2 × 10 reps por lado',note:'Arco activado durante todo el movimiento',t:'arco'}
-        ]
-      },
-      {
-        id: 'mar_gym', type: 'Gym · Tirón dominante', name: 'Espalda + Hombros Vol.1', icon: 'dumbbell', ic: 'ic-gym',
-        ex: [
-          {n:'Dominadas pronadas lastradas +5kg',m:'4 × 6 reps',note:'Escápulas abajo ANTES de subir — semanas 1-4: +5kg / 5-8: +10kg',t:'calistenia'},
-          {n:'Jalón al pecho con polea',m:'3 × 10-12 reps',note:'Complemento al tirón vertical — dorsal ancho',t:'thor'},
-          {n:'Remo con barra',m:'4 × 8-10 reps',note:'Codos cerca del cuerpo — espalda gruesa',t:'thor'},
-          {n:'Remo unilateral con mancuerna',m:'3 × 10 reps por lado',note:'Pesado — foco en latísimo',t:'thor'},
-          {n:'Face pull con polea',m:'4 × 15 reps',note:'CLAVE: rear delts + postura — codos más altos que manos al final',t:'postura'},
-          {n:'Band pull apart',m:'4 × 20 reps',note:'Trapecio medio y romboides — escápulas juntas al final',t:'postura'},
-          {n:'Retracción escapular con banda',m:'3 × 15 reps',note:'Pausa 2 seg apretado — re-educa el patrón escapular',t:'postura'},
-          {n:'Elevaciones laterales',m:'5 × 15-20 reps',note:'Prioridad máxima — deltoides lateral = anchura en V',t:'thor'},
-          {n:'Encogimientos con mancuernas',m:'3 × 12 reps',note:'Trapecio superior controlado',t:'thor'}
-        ]
-      }
-    ]
+    nombre: 'Base atlética', semanas: 'Semanas 3–6', rir: 'RIR 2–3',
+    intro: 'Subís carga en tren superior y sentadilla. La bisagra de cadera sigue controlada: RDL ligero, en el rango donde mantengas la espalda neutra.',
+    avance: 'Pasás a Fase 3 cuando la sentadilla progresa estable 4 semanas, hacés rueda abdominal completa sin arquear, el RDL ligero sale con técnica perfecta y el core aguanta las planchas con peso.',
+    dias: {
+      1: { label:'Full body · foco piernas (A)', calent:'pierna',
+        fuerza:[
+          E('Sentadilla con barra','4','6','','Prioridad — carga axial cuidando la técnica'),
+          E('RDL con mancuernas','3','10','','Ligero, espalda neutra, sin buscar récord'),
+          E('Bulgarian split squat con mancuernas','3','8 / pierna'),
+          E('Press banca','4','8'),
+          E('Gemelo','4','12')
+        ],
+        core:[
+          E('Rueda abdominal','3','8','','Anti-extensión','core'),
+          E('Plancha con peso','3','40 s','','','core')
+        ] },
+      3: { label:'Full body · foco empuje/postura (B)', calent:'empuje',
+        fuerza:[
+          E('Press militar con barra','4','6'),
+          E('Press inclinado con mancuernas','3','10'),
+          E('Hip thrust con barra','3','10'),
+          E('Fondos','3','8','','','calistenia'),
+          E('Face pull','4','15','','','postura')
+        ],
+        core:[
+          E('Pallof press','3','12 / lado','','Anti-rotación','core'),
+          E('Suitcase carry','3','20 m / lado','','Anti-flexión lateral','core')
+        ] },
+      5: { label:'Full body · piernas unilateral + tracción (C)', calent:'pierna',
+        fuerza:[
+          E('Sentadilla frontal','3','6','','Carga menos la lumbar que la trasera'),
+          E('Zancadas con mancuernas','3','10 / pierna'),
+          E('Nordic curl excéntrico o curl femoral','3','8'),
+          E('Dominadas','4','6','','Lastradas si podés','calistenia'),
+          E('Remo con barra con pecho apoyado','3','10','','Saca la lumbar de la ecuación')
+        ],
+        core:[
+          E('Bird dog con banda','3','8 / lado','','Espinales','core'),
+          E('Good morning con banda','3','12','','Espinales, ya con algo de resistencia','core')
+        ] }
+    },
+    cardio: {
+      2: { label:'Running · Z2', name:'Z2 continuo',
+           ex:[ E('Trote continuo en Z2','','35 min','','Ritmo conversado','atletico') ] },
+      4: { label:'Running · Intervalos', name:'Intervalos cortos',
+           ex:[ E('Intervalos','6–8','1 min fuerte','','1:30 flojo entre series','atletico') ] },
+      6: { label:'Running largo (opcional)', name:'Largo suave',
+           ex:[ E('Trote suave','','40 min','','Opcional — o descanso','atletico') ] }
+    }
   },
 
-  // MIÉRCOLES — rutina de fuerza
-  3: rutinaFuerza(),
-
-  // JUEVES — Piernas + Core (glúteos, valgo, pie)
-  4: {
-    label: 'Piernas + Core Correctivo',
-    sessions: [
-      {
-        id: 'jue_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
-        ex: [
-          {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos',t:'arco'},
-          {n:'Tibial posterior — caminar en supinación',m:'3 × 30 pasos',note:'Caminá sobre el borde externo del pie — activa el arco',t:'arco'},
-          {n:'Single leg balance con arco activo',m:'2 × 20 seg por lado',note:'Derecha primero — foco en estabilidad tobillo derecho',t:'arco'}
-        ]
-      },
-      {
-        id: 'jue_gym', type: 'Gym · Correctivo + Fuerza', name: 'Piernas + Core', icon: 'dumbbell', ic: 'ic-gym',
-        ex: [
-          {n:'Clamshell con banda',m:'3 × 15 reps por lado',note:'PRE-FATIGA glúteo medio — hacelo antes de todo lo demás',t:'correctivo'},
-          {n:'Hip thrust con barra',m:'4 × 10-12 reps',note:'Corrige anteversión pélvica — pausa 2 seg arriba apretando glúteo',t:'correctivo'},
-          {n:'Romanian deadlift',m:'4 × 10 reps',note:'Isquiotibiales — freno excéntrico clave para velocidad',t:'thor'},
-          {n:'Sentadilla con banda en rodillas',m:'4 × 10 reps',note:'Rodillas hacia AFUERA siempre — corrige valgo activamente',t:'correctivo'},
-          {n:'Single leg deadlift',m:'3 × 10 reps por lado',note:'Derecha primero — estabilidad tobillo + glúteo',t:'correctivo'},
-          {n:'Step up lateral',m:'3 × 12 reps por lado',note:'Glúteo medio — corrige valgo lateral',t:'correctivo'},
-          {n:'Sentadilla búlgara',m:'3 × 10 reps por lado',note:'Fuerza unilateral real — cuádriceps + glúteo',t:'thor'},
-          {n:'Calf raise unilateral',m:'3 × 15 reps por lado',note:'Derecha primero — gemelo derecho específico + arco',t:'correctivo'},
-          {n:'Dead bug lento',m:'3 × 8 reps por lado',note:'Pelvis NEUTRA todo el tiempo — no dejés que la lumbar se despegue',t:'correctivo'},
-          {n:'Rueda abdominal',m:'3 × 8-10 reps',note:'Segunda vez en la semana — frecuencia para marcación',t:'correctivo'},
-          {n:'Pallof press',m:'3 × 12 reps por lado',note:'Core anti-rotacional — transverso profundo',t:'correctivo'}
-        ]
-      }
-    ]
-  },
-
-  // VIERNES — rutina de fuerza
-  5: rutinaFuerza(),
-
-  // SÁBADO — Pasadas resistencia + Calistenia Full Body
-  6: {
-    label: 'Pasadas Resistencia + Calistenia',
-    sessions: [
-      {
-        id: 'sab_arco', type: 'Pre-activación · 5 min', name: 'Activación Arco de Pie', icon: 'arch', ic: 'ic-arco',
-        ex: [
-          {n:'Short foot exercise',m:'3 × 10 seg por pie',note:'Apretá el arco sin doblar los dedos',t:'arco'},
-          {n:'Single leg balance con arco activo',m:'2 × 20 seg por lado',note:'Cierre de semana — consolidá el patrón',t:'arco'}
-        ]
-      },
-      {
-        id: 'sab_run', type: 'Parque · Resistencia de velocidad', name: 'Pasadas — Resistencia 200m', icon: 'run', ic: 'ic-run',
-        ex: [
-          {n:'Calentamiento trote suave',m:'8 minutos',note:'Más largo — viene de semana acumulada',t:'atletico'},
-          {n:'7 × 200m al 85-90%',m:'Descanso 2 min entre series',note:'Resistencia de velocidad — ritmo constante en las 7',t:'atletico'},
-          {n:'Vuelta a la calma',m:'5 min caminando',t:'atletico'}
-        ]
-      },
-      {
-        id: 'sab_cali', type: 'Full Body · Calistenia', name: 'Full Body Calistenia', icon: 'bolt', ic: 'ic-gym',
-        ex: [
-          {n:'Dominadas sin lastre — máx reps',m:'3 × Máx reps',note:'Volumen libre — después de las lastradas del martes',t:'calistenia'},
-          {n:'Flexiones',m:'3 × Máx reps',note:'Forma perfecta — escápulas bajas, pelvis neutra',t:'calistenia'},
-          {n:'Clean con mancuernas',m:'4 × 6 reps',note:'Potencia — explosión desde cadera, no desde brazos',t:'atletico'},
-          {n:'Farmer carry',m:'3 × 30 metros',note:'Core y grip — arco activo mientras caminás',t:'atletico'},
-          {n:'Saltos al cajón',m:'3 × 6 reps',note:'Aterrizaje con arco activo y rodillas hacia afuera',t:'atletico'},
-          {n:'Turkish get-up liviano',m:'2 × 5 reps por lado',note:'Movilidad + estabilidad total — cierre de semana',t:'correctivo'}
-        ]
-      }
-    ]
+  3: {
+    nombre: 'Desarrollo híbrido', semanas: 'Semana 7 en adelante', rir: 'RIR 1–2',
+    intro: 'Base ya construida: ahora sí sumamos bisagra de cadera con carga progresiva, más potencia e hipertrofia.',
+    avance: 'Cada 4–6 semanas hacé una semana de descarga: mismo esquema con 40% menos de volumen.',
+    dias: {
+      1: { label:'Fuerza de pierna (A)', calent:'pierna',
+        fuerza:[
+          E('Sentadilla','5','3–5'),
+          E('Peso muerto (convencional o trap bar)','3','5','','Recién en esta fase; la trap bar es más amable con la lumbar'),
+          E('Bulgarian split squat','3','8 / pierna'),
+          E('Press banca','4','5')
+        ],
+        core:[
+          E('Rueda abdominal','4','8','','Anti-extensión','core'),
+          E('Plancha lateral con peso','3','30 s / lado','','','core')
+        ] },
+      3: { label:'Potencia de empuje + postura (B)', calent:'empuje',
+        fuerza:[
+          E('Press militar','4','5'),
+          E('Salto al cajón','4','4','','Potencia — aterrizaje controlado','atletico'),
+          E('Press inclinado','3','8'),
+          E('Fondos lastrados','3','8','','','calistenia'),
+          E('Face pull','4','15','','','postura')
+        ],
+        core:[
+          E('Pallof press de rodilla','3','10 / lado','','Anti-rotación','core'),
+          E('Hollow hold','3','30 s','','','core')
+        ] },
+      5: { label:'Pierna unilateral/potencia + tracción (C)', calent:'pierna',
+        fuerza:[
+          E('Sentadilla frontal','4','5'),
+          E('Hip thrust pesado','4','8'),
+          E('Nordic curl','3','6'),
+          E('Dominadas lastradas','4','6','','','calistenia'),
+          E('Remo con barra','3','8')
+        ],
+        core:[
+          E('Good morning con barra ligera','3','10','','Espinales bajo carga, ya con base','core'),
+          E('Suitcase carry','3','20 m / lado','','Anti-flexión lateral','core')
+        ] }
+    },
+    cardio: {
+      2: { label:'Running · Z2', name:'Z2 continuo',
+           ex:[ E('Trote continuo en Z2','','40 min','','Ritmo conversado','atletico') ] },
+      4: { label:'Running · Intervalos', name:'Intervalos largos',
+           ex:[ E('Intervalos','5','3 min fuerte','','2 min flojo entre series','atletico') ] },
+      6: { label:'Running largo (opcional)', name:'Largo',
+           ex:[ E('Trote largo','','A gusto','','Opcional — o descanso','atletico') ] }
+    }
   }
 };
 
-// copia intacta de la rutina original — permite restaurar un día editado
-const GYM_DEFAULT = JSON.parse(JSON.stringify(GYM));
+// arma los 7 días de una fase
+function buildFase(f){
+  const F = FASES[f];
+  const out = {0: null};
+  Object.keys(F.dias).forEach(k => {
+    const d = F.dias[k];
+    out[k] = {
+      label: d.label,
+      tipo: 'Fuerza · ' + F.nombre,
+      sessions: [
+        { id:'cal'+k, type:'Activación · 5 min', name:'Entrada en calor',
+          icon:'arch', ic:'ic-arco', ex: JSON.parse(JSON.stringify(CALENT[d.calent])) },
+        { id:'fza'+k, type:'Fuerza · ' + F.rir, name:'Bloque principal',
+          icon:'dumbbell', ic:'ic-gym', ex: JSON.parse(JSON.stringify(d.fuerza)) },
+        { id:'core'+k, type:'Estabilidad y espinales', name:'Core',
+          icon:'posture', ic:'ic-run', ex: JSON.parse(JSON.stringify(d.core)) }
+      ]
+    };
+  });
+  Object.keys(F.cardio).forEach(k => {
+    const c = F.cardio[k];
+    out[k] = {
+      label: c.label,
+      tipo: 'Running',
+      sessions: [
+        { id:'run'+k, type:'Running · ' + F.nombre, name:c.name,
+          icon:'run', ic:'ic-run', ex: JSON.parse(JSON.stringify(c.ex)) }
+      ]
+    };
+  });
+  return out;
+}
+
+const FASE_DEFAULT = {1: buildFase(1), 2: buildFase(2), 3: buildFase(3)};
+
+// fase activa (persistida)
+const FASE_KEY = 'rc_fase';
+let fase = 1;
+try { const f = parseInt(localStorage.getItem(FASE_KEY), 10); if(f>=1 && f<=3) fase = f; } catch(e){}
+
+const GYM = {};
+for(let d=0; d<7; d++) GYM[d] = FASE_DEFAULT[fase][d] ? JSON.parse(JSON.stringify(FASE_DEFAULT[fase][d])) : null;
 
 const POST = {
   A: {
@@ -976,10 +1073,9 @@ function totalPct(dt) {
 }
 
 function init() {
-  applyLegacyEdits();
   loadRoutine();
-  seedRutinaFuerza();
   applyEditMode();
+  renderFase();
   const today = getToday();
   document.getElementById('todayDate').textContent = today.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
   buildDays();
@@ -1373,46 +1469,52 @@ function sw(v){
 // ── RUTINA EDITABLE ──
 // Se guarda la rutina completa por dia de semana. Al editar cualquier cosa
 // de un dia, ese dia queda "propio" del usuario y ya no toma el default.
-const ROUTINE_KEY = 'rc_routine_v2';
+// Cada fase guarda su propia copia editable de los 7 días.
+const ROUTINE_KEY = 'rc_routine_v3';
+
+function readSaved(){
+  try { return JSON.parse(localStorage.getItem(ROUTINE_KEY) || '{}'); } catch(e){ return {}; }
+}
 
 function saveRoutine(){
-  const out = {};
-  for(let d=0; d<7; d++) out[d] = GYM[d] || null;
-  try { localStorage.setItem(ROUTINE_KEY, JSON.stringify(out)); } catch(e){}
+  const saved = readSaved();
+  const dias = {};
+  for(let d=0; d<7; d++) dias[d] = GYM[d] || null;
+  saved[fase] = dias;
+  try { localStorage.setItem(ROUTINE_KEY, JSON.stringify(saved)); } catch(e){}
 }
 
 function loadRoutine(){
-  let saved = {};
-  try { saved = JSON.parse(localStorage.getItem(ROUTINE_KEY) || '{}'); } catch(e){ saved = {}; }
-  Object.keys(saved).forEach(dow => {
-    if(saved[dow] === undefined) return;
-    GYM[dow] = saved[dow];
-  });
+  const mine = readSaved()[fase] || {};
+  for(let d=0; d<7; d++){
+    if(mine[d] !== undefined) GYM[d] = mine[d];
+    else GYM[d] = FASE_DEFAULT[fase][d] ? JSON.parse(JSON.stringify(FASE_DEFAULT[fase][d])) : null;
+  }
 }
 
-// migra ediciones del sistema viejo (rc_gym_edits) sobre los defaults
-function applyLegacyEdits(){
-  let legacy = {};
-  try { legacy = JSON.parse(localStorage.getItem('rc_gym_edits') || '{}'); } catch(e){ return; }
-  Object.entries(legacy).forEach(([k, over]) => {
-    const [dow, si, ei] = k.split('-').map(Number);
-    if(GYM[dow] && GYM[dow].sessions[si] && GYM[dow].sessions[si].ex[ei]){
-      Object.assign(GYM[dow].sessions[si].ex[ei], over);
-    }
-  });
+function setFase(f){
+  if(f === fase) return;
+  fase = f;
+  try { localStorage.setItem(FASE_KEY, String(f)); } catch(e){}
+  loadRoutine();
+  openSess.clear();
+  renderFase();
+  refreshGym();
 }
 
-// Los días 1, 3 y 5 se re-siembran una única vez con la rutina de fuerza,
-// aunque ya hubiera una rutina guardada. El resto de los días conserva lo
-// que la persona haya editado, y a partir de acá también estos tres.
-const SEED_KEY = 'rc_seed_fuerza_v1';
-function seedRutinaFuerza(){
-  try {
-    if(localStorage.getItem(SEED_KEY)) return;
-    [1,3,5].forEach(d => { GYM[d] = JSON.parse(JSON.stringify(GYM_DEFAULT[d])); });
-    saveRoutine();
-    localStorage.setItem(SEED_KEY, '1');
-  } catch(e){}
+function renderFase(){
+  const F = FASES[fase];
+  document.querySelectorAll('.fase-pill').forEach(b => {
+    b.classList.toggle('on', Number(b.dataset.f) === fase);
+  });
+  document.getElementById('faseNm').textContent = F.nombre;
+  document.getElementById('faseSub').textContent = F.semanas + ' · ' + F.rir;
+  document.getElementById('faseTxt').innerHTML =
+    '<p>' + esc(F.intro) + '</p><p class="fase-avance">' + esc(F.avance) + '</p>';
+}
+
+function togFaseInfo(){
+  document.getElementById('faseBox').classList.toggle('open');
 }
 
 function refreshGym(){
@@ -1658,7 +1760,7 @@ function resetDay(){
   if(!nameCtx || nameCtx.kind !== 'day') return;
   const dow = nameCtx.dow;
   if(!confirm('¿Restaurar la rutina original de este día? Se pierden los cambios que hiciste.')) return;
-  GYM[dow] = GYM_DEFAULT[dow] ? JSON.parse(JSON.stringify(GYM_DEFAULT[dow])) : null;
+  GYM[dow] = FASE_DEFAULT[fase][dow] ? JSON.parse(JSON.stringify(FASE_DEFAULT[fase][dow])) : null;
   saveRoutine();
   openSess = new Set();
   closeName();
