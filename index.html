@@ -394,9 +394,9 @@ body.edit-on .add-block{display:flex}
   <div class="view active" id="view-gym">
     <div class="fase-box" id="faseBox">
       <div class="fase-seg">
-        <button class="fase-pill" data-f="1" onclick="setFase(1)">FASE 1</button>
-        <button class="fase-pill" data-f="2" onclick="setFase(2)">FASE 2</button>
-        <button class="fase-pill" data-f="3" onclick="setFase(3)">FASE 3</button>
+        <button class="fase-pill" data-f="1" onclick="irAFase(1)">FASE 1</button>
+        <button class="fase-pill" data-f="2" onclick="irAFase(2)">FASE 2</button>
+        <button class="fase-pill" data-f="3" onclick="irAFase(3)">FASE 3</button>
       </div>
       <div class="fase-head" onclick="togFaseInfo()">
         <div class="fase-nm" id="faseNm">—</div>
@@ -753,13 +753,52 @@ function buildFase(f){
 
 const FASE_DEFAULT = {1: buildFase(1), 2: buildFase(2), 3: buildFase(3)};
 
-// fase activa (persistida)
-const FASE_KEY = 'rc_fase';
-let fase = 1;
-try { const f = parseInt(localStorage.getItem(FASE_KEY), 10); if(f>=1 && f<=3) fase = f; } catch(e){}
+// ── CALENDARIO DE FASES ──
+// El plan arranca el lunes 24/8/2026 y corre 19 semanas, hasta fin de año.
+// Semanas 1–2 → Fase 1 · 3–6 → Fase 2 · 7 en adelante → Fase 3.
+const PLAN_START = new Date(2026, 7, 24);
+const PLAN_FIN   = new Date(2026, 11, 31);
+const PLAN_SEMANAS = (function(){
+  let n = 0, cur = new Date(PLAN_START);
+  while(cur <= PLAN_FIN){ n++; cur.setDate(cur.getDate()+7); }
+  return n;
+})();
 
-const GYM = {};
-for(let d=0; d<7; d++) GYM[d] = FASE_DEFAULT[fase][d] ? JSON.parse(JSON.stringify(FASE_DEFAULT[fase][d])) : null;
+// número de semana del plan para una fecha (1 = semana de inicio)
+function semanaDelPlan(dt){
+  const mon = getMondayOf(dt);
+  const ini = getMondayOf(PLAN_START);
+  return Math.round((mon - ini) / 604800000) + 1;
+}
+function faseDeSemana(w){
+  if(w <= 2) return 1;
+  if(w <= 6) return 2;
+  return 3;
+}
+function faseDeFecha(dt){ return faseDeSemana(semanaDelPlan(dt)); }
+// primera semana de cada fase
+const FASE_INICIO = {1:1, 2:3, 3:7};
+
+// Cada fase tiene su propio objeto de 7 días, cacheado y mutable:
+// lo que edita la persona vive acá y se persiste en localStorage.
+let _faseCache = {};
+function faseGym(f){
+  if(!_faseCache[f]){
+    const mine = readSaved()[f] || {};
+    const o = {};
+    for(let d=0; d<7; d++){
+      o[d] = (mine[d] !== undefined) ? mine[d]
+           : (FASE_DEFAULT[f][d] ? JSON.parse(JSON.stringify(FASE_DEFAULT[f][d])) : null);
+    }
+    _faseCache[f] = o;
+  }
+  return _faseCache[f];
+}
+// rutina del día que corresponde a ESA fecha, según la fase de su semana
+function gymDe(dt){ return faseGym(faseDeFecha(dt))[dt.getDay()]; }
+
+let fase = 1;
+let GYM = {};
 
 const POST = {
   A: {
@@ -1050,8 +1089,7 @@ let curDayDate = (function(){
 let resWeekOffset = 0;
 
 function gymPct(dt) {
-  const d = dt.getDay();
-  const data = GYM[d];
+  const data = gymDe(dt);
   if(!data) return 0;
   const all = data.sessions.flatMap(s=>s.ex);
   return all.length ? Math.round(all.filter(e=>store[gymKey(dt,e.n)]).length/all.length*100) : 0;
@@ -1068,12 +1106,13 @@ function totalPct(dt) {
   const d = dt.getDay();
   const gp = gymPct(dt);
   const pp = postPct(dt);
-  if(!GYM[d]) return pp;
+  if(!gymDe(dt)) return pp;
   return Math.round((gp+pp)/2);
 }
 
 function init() {
-  loadRoutine();
+  fase = faseDeFecha(curDayDate);
+  GYM = faseGym(fase);
   applyEditMode();
   renderFase();
   const today = getToday();
@@ -1122,6 +1161,7 @@ function changeMainWeek(delta) {
   const newDate = new Date(curDayDate);
   newDate.setDate(curDayDate.getDate() + delta * 7);
   curDayDate = newDate;
+  syncFase();
   buildDays();
   renderDay(curDayDate);
   if(document.getElementById('view-postura').classList.contains('active')) renderPostura(curDayDate);
@@ -1131,6 +1171,7 @@ function changeMainWeek(delta) {
 function selDay(dt) {
   curDayDate = new Date(dt);
   openSess = new Set();
+  syncFase();
   buildDays();
   renderDay(curDayDate);
   if(document.getElementById('view-postura').classList.contains('active')) renderPostura(curDayDate);
@@ -1139,7 +1180,7 @@ function selDay(dt) {
 
 function renderDay(dt) {
   const d = dt.getDay();
-  const data = GYM[d];
+  const data = gymDe(dt);
   document.getElementById('dayBig').textContent = DN[d];
   document.getElementById('dayLblEdit').style.display = data ? '' : 'none';
   const cont = document.getElementById('gymContent');
@@ -1237,7 +1278,7 @@ function togSess(i){
 function toggleGymAt(si, ei, dtStr) {
   const [y,m,d2] = dtStr.split('-').map(Number);
   const dt = new Date(y,m-1,d2);
-  const data = GYM[dt.getDay()];
+  const data = gymDe(dt);
   const ex = data && data.sessions[si] && data.sessions[si].ex[ei];
   if(!ex) return;
   const k = gymKey(dt, ex.n);
@@ -1333,7 +1374,7 @@ function renderResumen() {
   const gp = gymPct(sd), mok = mobDone(sd), pp = postPct(sd), tp = totalPct(sd);
   const tb = document.createElement('div');
   tb.className = 'today-box';
-  const isRestDay = !GYM[sd.getDay()] && !postSessKey(sd.getDay());
+  const isRestDay = !gymDe(sd) && !postSessKey(sd.getDay());
   const dayLabel = sdStr === todayStr ? 'HOY · ' : '';
   const hdr = `<div class="today-box-lbl">${icon('calendar')} ${dayLabel}${DN[sd.getDay()]}</div>`;
 
@@ -1342,7 +1383,7 @@ function renderResumen() {
   } else {
     const C = 2 * Math.PI * 34;                  // circunferencia del anillo
     const off = C * (1 - Math.min(tp,100)/100);
-    const hasGym = !!GYM[sd.getDay()];
+    const hasGym = !!gymDe(sd);
     const hasMob = !!postSessKey(sd.getDay());
     const bar = (nm, ico, val, cls, show) => show
       ? `<div><div class="stat-top"><span class="stat-nm">${icon(ico)} ${nm}</span><span class="stat-val">${val}%</span></div><div class="stat-bar"><div class="stat-fill ${val>=100?'full':cls}" style="width:${val}%"></div></div></div>`
@@ -1366,6 +1407,11 @@ function renderResumen() {
     <button class="week-nav-btn" onclick="changeWeek(-1)">${icon('arrowL')}</button>
     <div class="week-nav-center">
       <div class="week-nav-label">${weekRange}</div>
+      <div class="week-nav-sub">${(() => {
+        const w = semanaDelPlan(weekMon);
+        if(w < 1 || w > PLAN_SEMANAS) return 'Fuera del plan';
+        return `Semana ${w} · Fase ${faseDeSemana(w)} — ${FASES[faseDeSemana(w)].nombre}`;
+      })()}</div>
       ${!isCurrentWeek ? `<div><span class="week-nav-today" onclick="changeWeek(0)">IR A HOY</span></div>` : '<div style="font-size:9px;color:var(--gold);margin-top:3px;font-weight:700">SEMANA ACTUAL</div>'}
     </div>
     <button class="week-nav-btn" onclick="changeWeek(1)">${icon('arrowR')}</button>
@@ -1383,7 +1429,7 @@ function renderResumen() {
     const isFuture = dt > today;
     const isToday2 = dtStr2 === todayStr;
     const isCurDay = dtStr2 === sdStr;
-    const data = GYM[d];
+    const data = gymDe(dt);
     const tp2 = isFuture ? 0 : totalPct(dt);
     const sk = postSessKey(d);
     const pctColor = tp2>=100?'var(--green)':tp2>0?'var(--gold)':'var(--muted)';
@@ -1484,31 +1530,38 @@ function saveRoutine(){
   try { localStorage.setItem(ROUTINE_KEY, JSON.stringify(saved)); } catch(e){}
 }
 
-function loadRoutine(){
-  const mine = readSaved()[fase] || {};
-  for(let d=0; d<7; d++){
-    if(mine[d] !== undefined) GYM[d] = mine[d];
-    else GYM[d] = FASE_DEFAULT[fase][d] ? JSON.parse(JSON.stringify(FASE_DEFAULT[fase][d])) : null;
-  }
+// la fase la manda la semana que estás viendo, no un botón
+function syncFase(){
+  const f = faseDeFecha(curDayDate);
+  if(f !== fase){ fase = f; openSess.clear(); }
+  GYM = faseGym(f);
+  renderFase();
 }
 
-function setFase(f){
-  if(f === fase) return;
-  fase = f;
-  try { localStorage.setItem(FASE_KEY, String(f)); } catch(e){}
-  loadRoutine();
-  openSess.clear();
-  renderFase();
-  refreshGym();
+// tocar una fase te lleva a su primera semana
+function irAFase(f){
+  const mon = getMondayOf(PLAN_START);
+  mon.setDate(mon.getDate() + (FASE_INICIO[f]-1)*7);
+  const dow = curDayDate.getDay();
+  mon.setDate(mon.getDate() + (dow===0 ? 6 : dow-1));
+  curDayDate = mon;
+  syncFase();
+  buildDays();
+  renderDay(curDayDate);
 }
 
 function renderFase(){
   const F = FASES[fase];
+  const w = semanaDelPlan(curDayDate);
   document.querySelectorAll('.fase-pill').forEach(b => {
     b.classList.toggle('on', Number(b.dataset.f) === fase);
   });
   document.getElementById('faseNm').textContent = F.nombre;
-  document.getElementById('faseSub').textContent = F.semanas + ' · ' + F.rir;
+  let sub;
+  if(w < 1) sub = 'El plan arranca el 24 de agosto';
+  else if(w > PLAN_SEMANAS) sub = 'Plan terminado · seguís en ' + F.rir;
+  else sub = 'Semana ' + w + ' de ' + PLAN_SEMANAS + ' · ' + F.rir;
+  document.getElementById('faseSub').textContent = sub;
   document.getElementById('faseTxt').innerHTML =
     '<p>' + esc(F.intro) + '</p><p class="fase-avance">' + esc(F.avance) + '</p>';
 }
