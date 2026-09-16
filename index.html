@@ -565,6 +565,26 @@ const CALENT = {
     E('Band pull-apart','2','15','','','postura'),
     E('Wall slides','2','10','','','postura'),
     E('Rotación externa con banda','2','12','','','postura')
+  ],
+  // Lunes: movilidad de hombro y descompresión torácica antes de empujar,
+  // core, y saltos para activar el tobillo antes de la pierna.
+  empujePierna: [
+    E('Soga','','3 min','','Subí el pulso antes de movilizar','atletico'),
+    E('Movilidad de hombro con banda','2','12','','Pasadas por arriba, brazos casi extendidos','postura'),
+    E('Extensión torácica en foam roller','2','8','','Descompresión antes de empujar','correctivo'),
+    E('Dead bug','2','8 / lado','','Lumbar pegada al piso','core'),
+    E('Monster walk con banda','2','10 / lado','','Glúteo medio antes de la sentadilla','correctivo'),
+    E('Pogo jumps','2','20','','Activación elástica de tobillo','atletico')
+  ],
+  // Miércoles: descompresión colgado y escápulas activas antes de tirar,
+  // y entrada a la bisagra con peso liviano.
+  tironPierna: [
+    E('Soga','','3 min','','Subí el pulso antes de movilizar','atletico'),
+    E('Colgarse de la barra','3','30 s','','Descompresión de columna y apertura de hombro','correctivo'),
+    E('Movilidad de cadera 90/90','2','8 / lado','','Prepara la bisagra','postura'),
+    E('Band pull-apart','2','15','','Activa escápulas antes de tirar','postura'),
+    E('Bird dog','2','8 / lado','','Espinales, control','core'),
+    E('RDL con mancuerna liviana','2','12','','Entrada con peso a la bisagra')
   ]
 };
 
@@ -574,24 +594,32 @@ const FASES = {
     intro: 'Intensidad moderada, nada al fallo. Bisagra de cadera solo con peso corporal o mancuerna liviana. Foco en técnica y en despertar el core.',
     avance: 'Pasás a Fase 2 cuando completás sin dolor lumbar, la sentadilla goblet y el dead bug / bird dog salen con buen control, y no terminás agotado.',
     dias: {
-      1: { label:'Full body · foco piernas (A)', calent:'pierna',
+      1: { label:'Empuje + piernas (A)', calent:'empujePierna',
         fuerza:[
           E('Sentadilla goblet','3','8'),
-          E('Puente de glúteo / hip thrust sin barra','3','12'),
-          E('Bulgarian split squat','2','10 / pierna','','Peso corporal'),
           E('Press banca con mancuernas','3','10'),
+          E('Press militar con mancuernas','3','10'),
+          E('Fondos asistidos o en banco','3','8','','','calistenia'),
+          E('Elevaciones laterales','3','15','','Anchura de hombro'),
+          E('Extensión de tríceps con mancuerna','3','12'),
+          E('Face pull','3','15','','Compensa el volumen de empuje','postura'),
+          E('Puente de glúteo / hip thrust sin barra','3','12'),
           E('Gemelo de pie','3','15')
         ],
         core:[
           E('Dead bug','3','8 / lado','','','core'),
           E('Plancha','3','30 s','','','core')
         ] },
-      3: { label:'Full body · foco empuje/postura (B)', calent:'empuje',
+      3: { label:'Tirones + piernas (B)', calent:'tironPierna',
         fuerza:[
-          E('Press militar con mancuernas','3','10'),
-          E('Press inclinado con mancuernas','3','10'),
-          E('Fondos asistidos o en banco','3','8','','','calistenia'),
-          E('Face pull','3','15','','','postura')
+          E('Dominadas asistidas','3','8','','','calistenia'),
+          E('Remo con mancuerna a un brazo','3','10','','Nivelar lados'),
+          E('Jalón al pecho','3','12','','Dorsal ancho'),
+          E('Encogimientos con mancuernas','3','15','','Trapecio superior, sin rotar el hombro'),
+          E('Curl con mancuernas','3','12'),
+          E('Curl martillo','2','12','','Braquial'),
+          E('Curl femoral acostado','3','12','','Isquios sin cargar la lumbar'),
+          E('Zancadas caminando','2','10 / pierna','','Peso corporal o liviano')
         ],
         core:[
           E('Pallof press','3','10 / lado','','Anti-rotación','core'),
@@ -625,25 +653,33 @@ const FASES = {
     intro: 'Subís carga en tren superior y sentadilla. La bisagra de cadera sigue controlada: RDL ligero, en el rango donde mantengas la espalda neutra.',
     avance: 'Pasás a Fase 3 cuando la sentadilla progresa estable 4 semanas, hacés rueda abdominal completa sin arquear, el RDL ligero sale con técnica perfecta y el core aguanta las planchas con peso.',
     dias: {
-      1: { label:'Full body · foco piernas (A)', calent:'pierna',
+      1: { label:'Empuje + piernas (A)', calent:'empujePierna',
         fuerza:[
           E('Sentadilla con barra','4','6','','Prioridad — carga axial cuidando la técnica'),
-          E('RDL con mancuernas','3','10','','Ligero, espalda neutra, sin buscar récord'),
           E('Bulgarian split squat con mancuernas','3','8 / pierna'),
           E('Press banca','4','8'),
+          E('Press militar con barra','4','6'),
+          E('Fondos','3','8','','','calistenia'),
+          E('Elevaciones laterales','4','12','','Anchura de hombro'),
+          E('Extensión de tríceps en polea','3','12'),
+          E('Face pull','4','15','','Compensa el volumen de empuje','postura'),
           E('Gemelo','4','12')
         ],
         core:[
           E('Rueda abdominal','3','8','','Anti-extensión','core'),
           E('Plancha con peso','3','40 s','','','core')
         ] },
-      3: { label:'Full body · foco empuje/postura (B)', calent:'empuje',
+      3: { label:'Tirones + piernas (B)', calent:'tironPierna',
         fuerza:[
-          E('Press militar con barra','4','6'),
-          E('Press inclinado con mancuernas','3','10'),
-          E('Hip thrust con barra','3','10'),
-          E('Fondos','3','8','','','calistenia'),
-          E('Face pull','4','15','','','postura')
+          E('RDL con mancuernas','3','10','','Ligero, espalda neutra, sin buscar récord'),
+          E('Dominadas','4','6','','Lastradas si podés','calistenia'),
+          E('Remo con barra con pecho apoyado','3','10','','Saca la lumbar de la ecuación'),
+          E('Jalón al pecho','3','12','','Dorsal ancho'),
+          E('Encogimientos con mancuernas','4','15','','Trapecio superior'),
+          E('Remo al mentón','3','12','','Trapecio y deltoides lateral'),
+          E('Curl con barra','3','10','','3 s de bajada'),
+          E('Curl martillo','3','12','','Braquial'),
+          E('Curl femoral acostado','3','12','','Isquios sin cargar la lumbar')
         ],
         core:[
           E('Pallof press','3','12 / lado','','Anti-rotación','core'),
@@ -677,24 +713,33 @@ const FASES = {
     intro: 'Base ya construida: ahora sí sumamos bisagra de cadera con carga progresiva, más potencia e hipertrofia.',
     avance: 'Cada 4–6 semanas hacé una semana de descarga: mismo esquema con 40% menos de volumen.',
     dias: {
-      1: { label:'Fuerza de pierna (A)', calent:'pierna',
+      1: { label:'Empuje + piernas (A)', calent:'empujePierna',
         fuerza:[
           E('Sentadilla','5','3–5'),
-          E('Peso muerto (convencional o trap bar)','3','5','','Recién en esta fase; la trap bar es más amable con la lumbar'),
-          E('Bulgarian split squat','3','8 / pierna'),
-          E('Press banca','4','5')
+          E('Salto al cajón','4','4','','Potencia — aterrizaje controlado','atletico'),
+          E('Press banca','4','5'),
+          E('Press militar','4','5'),
+          E('Press inclinado','3','8'),
+          E('Fondos lastrados','3','8','','','calistenia'),
+          E('Elevaciones laterales','4','12','','Anchura de hombro'),
+          E('Extensión de tríceps en polea','3','12'),
+          E('Face pull','4','15','','Compensa el volumen de empuje','postura')
         ],
         core:[
           E('Rueda abdominal','4','8','','Anti-extensión','core'),
           E('Plancha lateral con peso','3','30 s / lado','','','core')
         ] },
-      3: { label:'Potencia de empuje + postura (B)', calent:'empuje',
+      3: { label:'Tirones + piernas (B)', calent:'tironPierna',
         fuerza:[
-          E('Press militar','4','5'),
-          E('Salto al cajón','4','4','','Potencia — aterrizaje controlado','atletico'),
-          E('Press inclinado','3','8'),
-          E('Fondos lastrados','3','8','','','calistenia'),
-          E('Face pull','4','15','','','postura')
+          E('Peso muerto (convencional o trap bar)','3','5','','Recién en esta fase; la trap bar es más amable con la lumbar'),
+          E('Dominadas lastradas','4','6','','','calistenia'),
+          E('Remo con barra','4','8','','Codos cerca del cuerpo'),
+          E('Remo con mancuerna a un brazo','3','10','','Nivelar lados'),
+          E('Encogimientos con barra','4','12','','Trapecio superior'),
+          E('Remo al mentón','3','12','','Trapecio y deltoides lateral'),
+          E('Curl con barra','3','10','','3 s de bajada'),
+          E('Curl martillo','3','12','','Braquial'),
+          E('Nordic curl','3','6','','Isquios excéntrico')
         ],
         core:[
           E('Pallof press de rodilla','3','10 / lado','','Anti-rotación','core'),
@@ -734,7 +779,7 @@ function buildFase(f){
       label: d.label,
       tipo: 'Fuerza · ' + F.nombre,
       sessions: [
-        { id:'cal'+k, type:'Activación · 5 min', name:'Entrada en calor',
+        { id:'cal'+k, type:'Entrada en calor · 8-10 min', name:'Core + movilidad',
           icon:'arch', ic:'ic-arco', ex: JSON.parse(JSON.stringify(CALENT[d.calent])) },
         { id:'fza'+k, type:'Fuerza · ' + F.rir, name:'Bloque principal',
           icon:'dumbbell', ic:'ic-gym', ex: JSON.parse(JSON.stringify(d.fuerza)) },
@@ -938,6 +983,7 @@ function totalPct(dt) {
 }
 
 function init() {
+  seedRutinas();
   fase = faseDeFecha(curDayDate);
   GYM = faseGym(fase);
   applyEditMode();
@@ -1357,6 +1403,26 @@ function sw(v){
 // de un dia, ese dia queda "propio" del usuario y ya no toma el default.
 // Cada fase guarda su propia copia editable de los 7 días.
 const ROUTINE_KEY = 'rc_routine_v3';
+
+// Cada siembra descarta lo guardado de esos días en las tres fases, para
+// que vuelvan a tomar el default nuevo. Corre una sola vez por clave.
+const SEEDS = [{key:'rc_seed_pushpull_v1', dias:[1,3]}];
+function seedRutinas(){
+  try {
+    SEEDS.forEach(sd => {
+      if(localStorage.getItem(sd.key)) return;
+      const saved = JSON.parse(localStorage.getItem(ROUTINE_KEY) || '{}');
+      let toco = false;
+      Object.keys(saved).forEach(f => {
+        sd.dias.forEach(d => {
+          if(saved[f] && saved[f][d] !== undefined){ delete saved[f][d]; toco = true; }
+        });
+      });
+      if(toco) localStorage.setItem(ROUTINE_KEY, JSON.stringify(saved));
+      localStorage.setItem(sd.key, '1');
+    });
+  } catch(e){}
+}
 
 function readSaved(){
   try { return JSON.parse(localStorage.getItem(ROUTINE_KEY) || '{}'); } catch(e){ return {}; }
