@@ -45,7 +45,7 @@ html{scroll-behavior:smooth}
 .dbtn .ic,.tbtn .ic{width:13px;height:13px;stroke-width:2}
 .rest-emoji .ic{width:46px;height:46px;stroke-width:1.2;color:var(--muted)}
 .week-nav-btn .ic{width:14px;height:14px;stroke-width:2.2}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+body{background:var(--bg);background-image:radial-gradient(120% 55% at 50% 0%,rgba(232,184,75,0.055),transparent 60%);background-attachment:fixed;color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
 
 .header{padding:14px 16px 0;position:sticky;top:0;background:rgba(20,27,36,0.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:100;border-bottom:1px solid var(--border)}
 .header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;gap:10px}
@@ -59,7 +59,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .day-strip{display:flex;gap:5px;overflow-x:auto;padding:0 0 13px;scrollbar-width:none}
 .day-strip::-webkit-scrollbar{display:none}
 .day-btn{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px;border-radius:11px;border:1px solid var(--border);background:var(--card);cursor:pointer;transition:all 0.2s;min-width:46px}
-.day-btn.active{background:linear-gradient(160deg,rgba(232,184,75,0.15),rgba(232,184,75,0.05));border-color:rgba(232,184,75,0.5);box-shadow:0 0 16px rgba(232,184,75,0.12)}
+.day-btn.active{background:linear-gradient(160deg,rgba(232,184,75,0.22),rgba(232,184,75,0.06));border-color:rgba(232,184,75,0.6);box-shadow:0 0 18px rgba(232,184,75,0.18),inset 0 1px 0 rgba(255,255,255,0.07);transform:translateY(-1px)}
 .day-btn .dn{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted)}
 .day-btn.active .dn{color:var(--gold)}
 .day-btn .dd{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--text);line-height:1}
@@ -74,16 +74,16 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 .day-hero{margin-bottom:18px}
 .day-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--gold);margin-bottom:4px}
-.day-big{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;letter-spacing:1px;line-height:1;color:var(--text)}
+.day-big{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;letter-spacing:1px;line-height:1;background:linear-gradient(170deg,var(--text),#9fb0c4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .day-sub{color:var(--muted);font-size:11px;margin-top:5px;font-weight:400}
 
-.session-card{background:var(--card);border:1px solid var(--border);border-radius:13px;margin-bottom:10px;overflow:hidden;transition:border-color 0.25s;box-shadow:0 1px 3px rgba(0,0,0,0.22);animation:fadeUp 0.25s ease both}
+.session-card{background:linear-gradient(170deg,var(--card2),var(--card) 55%);border:1px solid var(--border);border-radius:13px;margin-bottom:10px;overflow:hidden;transition:border-color 0.25s;box-shadow:0 1px 3px rgba(0,0,0,0.22);animation:fadeUp 0.25s ease both}
 .session-card.open{border-color:var(--border2)}
 .session-card.all-done{border-color:rgba(74,170,106,0.35)}
 .sess-hdr{padding:13px 15px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
 .s-emoji{font-size:21px;line-height:1;display:inline-block}
 .res-act-name .s-emoji{font-size:13px}
-.s-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid var(--border)}
+.s-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid var(--border);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05)}
 .ic-gym{background:linear-gradient(135deg,rgba(232,184,75,0.15),rgba(232,184,75,0.04))}
 .ic-run{background:linear-gradient(135deg,rgba(74,184,255,0.15),rgba(74,184,255,0.04))}
 .ic-arco{background:linear-gradient(135deg,rgba(74,170,106,0.15),rgba(74,170,106,0.04))}
@@ -263,8 +263,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(20,27,36,0.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:10px 6px 26px;display:flex;justify-content:space-around;z-index:100}
-.nav-btn{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;color:var(--muted2);transition:color 0.2s;padding:5px 14px;border-radius:9px}
+.nav-btn{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--muted2);transition:color 0.2s;padding:7px 13px 5px;border-radius:10px}
+.nav-btn::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%) scaleX(0);width:22px;height:2.5px;border-radius:2px;background:var(--gold);transition:transform 0.25s ease}
 .nav-btn.active{color:var(--gold)}
+.nav-btn.active::before{transform:translateX(-50%) scaleX(1)}
+.nav-btn.active .ni{filter:drop-shadow(0 0 7px rgba(232,184,75,0.4))}
 .nav-btn .ni{font-size:20px;line-height:1.1}
 .nav-btn .nl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-family:'Barlow Condensed',sans-serif}
 .view{display:none}.view.active{display:block}
@@ -272,7 +275,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 /* MODO EDICIÓN */
 .mode-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
-.fase-box{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:12px 14px;margin-bottom:16px}
+.fase-box{background:linear-gradient(170deg,var(--card2),var(--card) 60%);border:1px solid var(--border);border-radius:13px;padding:12px 14px;margin-bottom:16px}
 .fase-seg{display:flex;gap:6px;margin-bottom:11px}
 .fase-pill{flex:1;padding:8px 4px;border-radius:9px;border:1px solid var(--border);background:var(--card2);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all 0.2s}
 .fase-pill.on{background:var(--gold-dim);border-color:rgba(232,184,75,0.45);color:var(--gold)}
@@ -286,6 +289,47 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .fase-box.open .fase-txt{max-height:400px}
 .fase-txt p{font-size:10px;color:var(--muted);line-height:1.65;margin-top:10px}
 .fase-txt p.fase-avance{color:var(--gold);opacity:0.85;border-left:2px solid rgba(232,184,75,0.35);padding-left:9px}
+/* ── VISTA CUERPO ── */
+.home-hero{margin-bottom:14px}
+.home-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--gold);margin-bottom:4px}
+.home-big{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:900;letter-spacing:0.5px;line-height:1;background:linear-gradient(170deg,var(--text),#9fb0c4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.home-sub{color:var(--muted);font-size:11px;margin-top:5px}
+.rango-seg{display:flex;gap:6px;margin-bottom:14px}
+.rango-pill{flex:1;padding:9px 4px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s}
+.rango-pill.on{background:var(--gold-dim);border-color:rgba(232,184,75,0.45);color:var(--gold)}
+.body-card{background:linear-gradient(170deg,var(--card2),var(--card) 60%);box-shadow:0 2px 10px rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:14px;padding:14px 10px 12px}
+.body-wrap{display:flex;gap:4px}
+.body-col{flex:1;min-width:0;text-align:center}
+.body-cap{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted2);margin-bottom:6px}
+.body-svg{width:100%;height:auto;max-height:290px;display:block}
+.body-svg .sil{fill:#273242}
+.body-svg .msc{fill:#39465a;stroke:var(--card);stroke-width:1.2;stroke-linejoin:round;cursor:pointer;transition:opacity 0.15s}
+.body-svg .msc:hover{opacity:0.8}
+.body-svg .msc.sel{stroke:var(--text);stroke-width:1.8}
+.heat-scale{display:flex;align-items:center;gap:9px;margin-top:10px;padding:0 4px}
+.heat-scale span{font-size:8px;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+.heat-bar{flex:1;height:5px;border-radius:3px;background:linear-gradient(90deg,#39465a,#6b6048,#b8903c,#e8b84b,#f58a30)}
+/* detalle del músculo */
+.musc-det{background:var(--card);border:1px solid rgba(232,184,75,0.3);border-radius:12px;padding:13px 14px;margin-top:12px}
+.musc-det-hd{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.musc-det-nm{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--text);flex:1}
+.musc-det-v{font-size:11px;font-weight:600;color:var(--gold)}
+.musc-det-x{background:none;border:none;color:var(--muted2);cursor:pointer;display:flex;padding:2px}
+.musc-det-x .ic{width:13px;height:13px;stroke-width:2.2}
+.musc-det-e{font-size:11px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border)}
+.musc-det-e:last-child{border-bottom:none}
+.musc-det-vacio{font-size:10px;color:var(--muted2)}
+/* ranking */
+.musc-rank{margin-top:16px}
+.rank-ttl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:9px}
+.rank-row{display:flex;align-items:center;gap:10px;padding:6px 7px;border-radius:8px;cursor:pointer;transition:background 0.15s}
+.rank-row.on{background:var(--card)}
+.rank-nm{font-size:11px;color:var(--text);width:88px;flex-shrink:0}
+.rank-bar{flex:1;height:6px;border-radius:3px;background:var(--card3);overflow:hidden}
+.rank-fill{display:block;height:100%;border-radius:3px;transition:width 0.4s ease}
+.rank-v{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--muted);width:26px;text-align:right}
+.rank-vacio{font-size:11px;color:var(--muted2);line-height:1.6;text-align:center;padding:18px 10px}
+
 .mode-btn{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border2);color:var(--muted);border-radius:20px;padding:6px 13px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.2s}
 .mode-btn .ic{width:12px;height:12px;stroke-width:2}
 .mode-btn.on{background:var(--gold-dim);border-color:rgba(232,184,75,0.4);color:var(--gold)}
@@ -397,7 +441,31 @@ body.edit-on .add-block{display:flex}
 </div>
 
 <div class="content">
-  <div class="view active" id="view-gym">
+  <div class="view active" id="view-cuerpo">
+    <div class="home-hero">
+      <div class="home-lbl" id="homeLbl">—</div>
+      <div class="home-big" id="homeBig">—</div>
+      <div class="home-sub" id="homeSub">—</div>
+    </div>
+    <div class="rango-seg">
+      <button class="rango-pill on" data-r="semana" onclick="setRango('semana')">Esta semana</button>
+      <button class="rango-pill" data-r="dia" onclick="setRango('dia')">Solo hoy</button>
+    </div>
+    <div class="body-card">
+      <div class="body-wrap">
+        <div class="body-col"><div class="body-cap">Frente</div><div id="bodyF"></div></div>
+        <div class="body-col"><div class="body-cap">Espalda</div><div id="bodyB"></div></div>
+      </div>
+      <div class="heat-scale">
+        <span>Sin trabajar</span>
+        <div class="heat-bar"></div>
+        <span>A full</span>
+      </div>
+    </div>
+    <div id="muscDetail"></div>
+    <div class="musc-rank" id="muscRank"></div>
+  </div>
+  <div class="view" id="view-gym">
     <div class="fase-box" id="faseBox">
       <div class="fase-seg">
         <button class="fase-pill" data-f="1" onclick="irAFase(1)">FASE 1</button>
@@ -510,7 +578,8 @@ body.edit-on .add-block{display:flex}
 </div>
 
 <div class="bottom-nav">
-  <button class="nav-btn active" onclick="sw('gym')" id="nav-gym"><span class="ni"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5v7M3.6 10.5v3M17.5 8.5v7M20.4 10.5v3M6.5 12h11"/></svg></span><span class="nl">Gym</span></button>
+  <button class="nav-btn active" onclick="sw('cuerpo')" id="nav-cuerpo"><span class="ni"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.3" r="2.1"/><path d="M5.6 9.1c4.2-1.5 8.6-1.5 12.8 0"/><path d="M12 7.3v7.4M8.6 14.7l-1 6.4M15.4 14.7l1 6.4"/></svg></span><span class="nl">Cuerpo</span></button>
+  <button class="nav-btn" onclick="sw('gym')" id="nav-gym"><span class="ni"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5v7M3.6 10.5v3M17.5 8.5v7M20.4 10.5v3M6.5 12h11"/></svg></span><span class="nl">Gym</span></button>
   <button class="nav-btn" onclick="sw('postura')" id="nav-postura"><span class="ni"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.4" r="2.05"/><path d="M12 6.9v7.3M8.4 9.9h7.2M12 14.2l-2.7 5.5M12 14.2l2.7 5.5"/></svg></span><span class="nl">Postura</span></button>
   <button class="nav-btn" onclick="sw('resumen')" id="nav-resumen"><span class="ni"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.6h16"/><path d="M7.7 19.6v-5.3M12 19.6v-9.5M16.3 19.6v-3.3"/></svg></span><span class="nl">Resumen</span></button>
 </div>
@@ -542,6 +611,188 @@ function icon(n, cls){
   const p = ICONS[n];
   if(!p) return '';
   return `<svg class="ic${cls?' '+cls:''}" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+}
+
+// ── CUERPO ──
+// Silueta compuesta por piezas + músculos como formas sueltas. Todo se dibuja
+// sobre la mitad izquierda y se espeja, así frente y espalda quedan simétricos.
+const _MIR = 'transform="translate(200,0) scale(-1,1)"';
+const _SIL_P = [
+  '<ellipse cx="100" cy="40" rx="21" ry="26"/>',
+  '<path d="M89 60h22v14H89z"/>',
+  '<path d="M100 66 L82 68 C66 72 52 80 48 93 C44 105 50 113 58 117 C61 136 64 156 66 173 C67 189 64 199 60 209 C58 221 66 233 80 233 L100 233 Z"/>',
+  '<path d="M50 95 C41 101 35 114 32 131 C29 152 27 174 26 193 C25 207 24 220 25 231 C26 239 34 240 36 232 C39 219 42 203 45 187 C49 162 54 134 59 113 C60 104 56 97 50 95 Z"/>',
+  '<path d="M67 231 C61 253 59 279 62 303 C63 315 65 321 68 327 C66 349 68 375 73 397 C75 407 77 415 78 421 C79 428 90 428 91 421 C92 409 93 395 94 379 C95 355 95 337 96 327 C99 317 99 305 99 289 C99 263 98 245 97 231 Z"/>'
+];
+const _SIL = _SIL_P.map((d,i) => {
+  const tag = d.replace('<path','<path class="sil"').replace('<ellipse','<ellipse class="sil"');
+  return i < 2 ? tag : tag + ' ' + tag.replace(/^<path /, '<path ' + _MIR + ' ');
+}).join('');
+
+const CUERPO = {
+  frente: {
+    trapecio:   {mirror:true, d:'M96 64c-13 2-24 6-31 12-4 3-5 7-3 10 9-6 19-9 29-10 4-1 6-3 6-7 0-3-1-5-1-5z'},
+    hombro:     {mirror:true, d:'M62 76c-10 4-16 12-17 22-1 7 1 12 6 14 4-9 10-15 17-18 4-2 6-6 5-11-2-6-6-9-11-7z'},
+    pecho:      {mirror:true, d:'M97 79c-11 0-21 3-27 8-4 4-6 10-4 15 3 6 9 10 17 11 7 0 12-3 14-8 2-5 2-12 2-19 0-5-1-7-2-7z'},
+    biceps:     {mirror:true, d:'M55 101c-8 5-13 14-16 26-3 11-5 20-5 27 0 6 3 9 7 8 4-1 6-4 7-10 3-13 6-25 10-36 3-9 2-14-3-15z'},
+    antebrazo:  {mirror:true, d:'M38 152c-6 5-9 14-12 26-2 11-4 21-4 28 0 6 2 8 6 7 3-1 5-3 6-9 2-13 5-26 8-37 2-9 1-14-4-15z'},
+    abdomen:    {mirror:false, d:'M86 118h28c1 13 1 25 0 36-1 12-3 21-5 28H91c-2-7-4-16-5-28-1-11-1-23 0-36z'},
+    oblicuo:    {mirror:true, d:'M83 120c-7 2-11 9-12 20-1 12-1 23 0 33 1 8 4 13 7 12 3-1 4-5 3-12-1-12-1-24-1-35 0-9 2-17 3-18z'},
+    cuadriceps: {mirror:true, d:'M78 240c-11 2-17 11-18 25-1 15 0 31 2 44 1 10 4 16 8 18 3 1 6-2 6-9-1-18-1-39 0-54 1-13 2-23 2-24z'},
+    aductor:    {mirror:true, d:'M97 232c-6 2-10 10-11 21-1 13-1 25 0 34 1 7 3 11 6 10 3-1 4-5 4-11v-54z'},
+    gemelo:     {mirror:true, d:'M79 328c-9 2-13 11-14 24-1 14 0 26 2 35 1 7 4 11 7 10 3-1 4-5 4-12 1-16 1-32 1-45 0-7 0-11 0-12z'}
+  },
+  espalda: {
+    trapecio:   {mirror:true, d:'M99 64c-16 2-29 7-38 14-5 4-6 10-4 16 2 12 6 23 10 32 3 7 6 9 9 7 3-2 4-7 2-14-3-15 0-29 6-40 4-7 9-12 15-15z'},
+    hombroPost: {mirror:true, d:'M62 78c-10 4-16 12-17 22-1 7 1 12 6 14 5-9 12-15 20-18 4-2 6-6 5-11-2-6-8-9-14-7z'},
+    dorsal:     {mirror:true, d:'M96 112c-12 1-23 5-30 12-6 6-9 15-8 25 1 12 5 24 10 33 3 6 7 8 10 5 3-3 4-8 2-16-3-17 1-32 8-44 4-8 7-13 8-15z'},
+    triceps:    {mirror:true, d:'M53 100c-8 5-13 14-16 26-3 11-5 20-5 27 0 6 3 9 7 8 4-1 6-4 7-10 3-13 6-25 10-36 3-9 2-14-3-15z'},
+    antebrazo:  {mirror:true, d:'M37 152c-6 5-9 14-12 26-2 11-4 21-4 28 0 6 2 8 6 7 3-1 5-3 6-9 2-13 5-26 8-37 2-9 1-14-4-15z'},
+    lumbar:     {mirror:false, d:'M84 160h32c1 11 1 21 0 29-1 8-3 14-5 17H89c-2-3-4-9-5-17-1-8-1-18 0-29z'},
+    gluteo:     {mirror:true, d:'M99 192c-15 0-26 4-33 12-6 7-8 15-6 24 3 11 10 16 20 16 10-1 17-6 19-15v-37z'},
+    isquios:    {mirror:true, d:'M78 238c-11 2-17 11-18 25-1 15 0 31 2 44 1 9 4 16 8 17 3 1 6-2 6-9-1-18-1-38 0-53 1-13 2-23 2-24z'},
+    gemelo:     {mirror:true, d:'M79 326c-9 2-14 11-15 24-1 14 0 27 2 36 1 7 4 11 7 10 3-1 4-5 4-12 1-17 1-33 1-46 0-8 1-12 1-12z'}
+  }
+};
+
+// escala de calor: gris -> dorado -> naranja
+const HEAT_STOPS = [[0,'#39465a'],[.18,'#6b6048'],[.4,'#b8903c'],[.68,'#e8b84b'],[.88,'#f58a30']];
+function heatColor(v){
+  if(!v || v <= 0) return null;
+  let c = HEAT_STOPS[0][1];
+  for(const [t, col] of HEAT_STOPS) if(v >= t) c = col;
+  return c;
+}
+
+function bodySVG(vista, heat, sel){
+  const map = CUERPO[vista];
+  let out = _SIL;
+  for(const [id, m] of Object.entries(map)){
+    const v = (heat && heat[id]) || 0;
+    const col = heatColor(v);
+    const st = col ? ` style="fill:${col}"` : '';
+    const cl = 'msc' + (sel === id ? ' sel' : '');
+    const tap = ` onclick="selMusc('${id}')"`;
+    out += `<path class="${cl}"${st}${tap} d="${m.d}"/>`;
+    if(m.mirror) out += `<path class="${cl}"${st}${tap} ${_MIR} d="${m.d}"/>`;
+  }
+  return `<svg viewBox="0 0 200 450" class="body-svg">${out}</svg>`;
+}
+
+// ── MAPA MUSCULAR ──
+const MUSC = {
+  trapecio:'Trapecio', hombro:'Hombros', hombroPost:'Hombro posterior', pecho:'Pecho',
+  biceps:'Bíceps', triceps:'Tríceps', antebrazo:'Antebrazo', abdomen:'Abdomen',
+  oblicuo:'Oblicuos', dorsal:'Dorsal', lumbar:'Lumbares', gluteo:'Glúteos',
+  cuadriceps:'Cuádriceps', isquios:'Isquios', aductor:'Aductores', gemelo:'Gemelos'
+};
+
+// Qué músculos trabaja cada ejercicio, por nombre. Gana la primera regla que
+// coincide, así que van de más específica a más general. Al ser por texto,
+// también funciona con los ejercicios que agregues vos.
+const MUSC_REGLAS = [
+  // — hombro posterior y postura (antes que pecho/espalda, por el nombre)
+  [/peck\s?deck\s+posterior|pájaro|pajaro|rear\s?delt/i, {hombroPost:1, trapecio:.4}],
+  [/face\s?pull|band\s?pull.?apart|retracci[oó]n\s+escapular|rotaci[oó]n\s+externa|wall\s?slide|w\s+exercise/i,
+                                                    {hombroPost:1, trapecio:.6}],
+  [/dislocacion|movilidad\s+de\s+hombro/i,          {hombro:.5, hombroPost:.5, trapecio:.3}],
+  // — empuje
+  [/press\s+(de\s+)?banca|press\s+plano/i,          {pecho:1, triceps:.6, hombro:.5}],
+  [/press\s+inclinad/i,                             {pecho:1, hombro:.6, triceps:.5}],
+  [/press\s+cerrad/i,                               {triceps:1, pecho:.4}],
+  [/press\s+(militar|arnold)|press\s+de\s+hombro/i, {hombro:1, triceps:.6, trapecio:.3}],
+  [/fondo|dip\b/i,                                  {triceps:1, pecho:.7, hombro:.4}],
+  [/flexion|push.?up|lagartij/i,                    {pecho:1, triceps:.6, hombro:.4, abdomen:.3}],
+  [/apertura|pec\s?deck|pullover/i,                 {pecho:1, dorsal:.3}],
+  [/elevaci[oó]n(es)?\s+lateral/i,                  {hombro:1, trapecio:.3}],
+  [/extensi[oó]n\s+de\s+tr[ií]ceps|tr[ií]ceps|copa|patada/i, {triceps:1}],
+  [/serratus|serrato/i,                             {pecho:.5, abdomen:.4, hombro:.3}],
+  // — tracción
+  [/dominad|pull.?up|jal[oó]n/i,                    {dorsal:1, biceps:.6, antebrazo:.4, hombroPost:.3}],
+  [/remo\s+al\s+ment[oó]n/i,                        {trapecio:1, hombro:.7}],
+  [/remo/i,                                         {dorsal:1, trapecio:.6, biceps:.5, hombroPost:.4}],
+  [/encogimiento|shrug/i,                           {trapecio:1}],
+  [/curl\s+(con\s+)?(barra|mancuerna|martillo|b[ií]ceps)|curl\s+martillo|b[ií]ceps/i,
+                                                    {biceps:1, antebrazo:.5}],
+  [/colgarse|dead\s?hang/i,                         {antebrazo:1, dorsal:.4, hombro:.2}],
+  // — bisagra de cadera y cadena posterior
+  [/peso\s+muerto|deadlift|trap\s?bar/i,            {isquios:1, gluteo:.9, lumbar:.8, trapecio:.4, antebrazo:.4, dorsal:.3}],
+  [/rdl|rumano|romanian|hip\s+hinge|bisagra/i,      {isquios:1, gluteo:.8, lumbar:.6}],
+  [/good\s?morning/i,                               {lumbar:1, isquios:.7, gluteo:.4}],
+  [/hiperextensi[oó]n|extensi[oó]n\s+lumbar/i,      {lumbar:1, gluteo:.5, isquios:.4}],
+  [/hip\s?thrust|puente\s+de\s+gl[uú]teo|puente\s+unilateral/i, {gluteo:1, isquios:.5}],
+  [/nordic|curl\s+femoral|isquio/i,                 {isquios:1, gemelo:.2}],
+  // — pierna
+  [/b[uú]lgar|split\s?squat|zancada|estocada|lunge|step\s?up|subida\s+al\s+caj[oó]n/i,
+                                                    {cuadriceps:1, gluteo:.8, isquios:.3, aductor:.3}],
+  [/sentadilla|squat|wall\s?sit/i,                  {cuadriceps:1, gluteo:.7, aductor:.4, abdomen:.3, lumbar:.2}],
+  [/salto\s+al\s+caj[oó]n|box\s?jump|pogo|salto/i,  {cuadriceps:.8, gluteo:.6, gemelo:.8}],
+  [/gemelo|calf|pantorrilla|soleo|s[oó]leo/i,       {gemelo:1}],
+  [/aductor/i,                                      {aductor:1, cuadriceps:.3}],
+  [/clamshell|almeja|monster\s?walk|gl[uú]teo\s+medio|abducci[oó]n/i, {gluteo:1}],
+  // — core
+  [/rueda\s+abdominal|ab\s?wheel|hollow/i,          {abdomen:1, lumbar:.3, dorsal:.2}],
+  [/plancha\s+lateral|suitcase|farmer|carry/i,      {oblicuo:1, abdomen:.5, antebrazo:.5, trapecio:.3}],
+  [/pallof|anti.?rotaci/i,                          {oblicuo:1, abdomen:.6}],
+  [/plancha|plank/i,                                {abdomen:1, oblicuo:.4, lumbar:.2}],
+  [/dead\s?bug|bicho\s+muerto/i,                    {abdomen:1, lumbar:.2}],
+  [/bird\s?dog|perro\s+de\s+caza/i,                 {lumbar:1, gluteo:.4, abdomen:.4}],
+  [/abdominal|crunch|elevaci[oó]n\s+de\s+piernas/i, {abdomen:1, oblicuo:.3}],
+  [/oblicu/i,                                       {oblicuo:1}],
+  // — cardio y otros
+  [/trote|correr|running|intervalo|z2|pasada|sprint|velocidad|caminata|caminar/i,
+                                                    {cuadriceps:.5, isquios:.5, gemelo:.6, gluteo:.4}],
+  [/soga|comba|cuerda/i,                            {gemelo:.8, hombro:.2}],
+  [/turkish|get.?up/i,                              {hombro:.7, abdomen:.7, oblicuo:.5}],
+  [/clean|arranque|cargada/i,                       {trapecio:.8, cuadriceps:.6, gluteo:.6, hombro:.4}],
+  [/tor[aá]cic|cadera\s+90\/90|movilidad|tobillo|respiraci[oó]n|foam\s?roller|estiramiento/i, {}]
+];
+
+function musculosDe(nombre){
+  for(const [re, m] of MUSC_REGLAS) if(re.test(nombre)) return m;
+  return null;
+}
+
+// series de un ejercicio (si no las declara, cuenta como 1)
+function seriesDe(ex){
+  const n = parseInt(String(ex.sets||'').replace(/\D.*$/,''), 10);
+  return n > 0 ? n : 1;
+}
+
+// Suma el volumen por músculo de los ejercicios HECHOS en un rango de días.
+// Devuelve {vol:{musculo:series}, hechos:{musculo:[nombres]}, sinMapear:[...]}
+function volumenMuscular(dias){
+  const vol = {}, hechos = {}, sinMapear = [];
+  const sumar = (nombre, series) => {
+    const m = musculosDe(nombre);
+    if(m === null){ if(!sinMapear.includes(nombre)) sinMapear.push(nombre); return; }
+    for(const [k, w] of Object.entries(m)){
+      vol[k] = (vol[k] || 0) + series * w;
+      (hechos[k] = hechos[k] || []);
+      if(!hechos[k].includes(nombre)) hechos[k].push(nombre);
+    }
+  };
+  dias.forEach(dt => {
+    const g = gymDe(dt);
+    if(g) g.sessions.forEach(ses => ses.ex.forEach(ex => {
+      if(store[gymKey(dt, ex.n)]) sumar(ex.n, seriesDe(ex));
+    }));
+    const sk = postSessKey(dt.getDay());
+    if(sk) POST[sk].phases.forEach(ph => ph.ex.forEach(ex => {
+      if(store[postKey(dt, ex.id)]) sumar(ex.name, 2);
+    }));
+  });
+  return {vol, hechos, sinMapear};
+}
+
+// Series por músculo para llegar al tope de la escala. Distinto por rango:
+// una semana completa acumula mucho más volumen que un solo día.
+const MUSC_OBJETIVO = {semana: 22, dia: 8};
+function objetivoMusc(){ return MUSC_OBJETIVO[rangoCuerpo] || 22; }
+function heatDe(vol){
+  const h = {}, obj = objetivoMusc();
+  for(const [k, v] of Object.entries(vol)) h[k] = Math.min(1, v / obj);
+  return h;
 }
 
 const DS=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
@@ -1002,6 +1253,7 @@ function init() {
   document.getElementById('todayDate').textContent = today.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
   buildDays();
   renderDay(curDayDate);
+  renderCuerpo();
 }
 
 function buildDays() {
@@ -1400,12 +1652,87 @@ function closeTimer(){clearInterval(timerInterval);timerRunning=false;document.g
 function fmt(s){const m=Math.floor(s/60);const sec=s%60;return m+':'+(sec<10?'0':'')+sec}
 
 function sw(v){
+  if(v==='cuerpo') renderCuerpo();
   if(v==='postura') renderPostura(curDayDate);
   if(v==='resumen') renderResumen();
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
   document.getElementById('view-'+v).classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('nav-'+v).classList.add('active');
+}
+
+// ── VISTA CUERPO ──
+let rangoCuerpo = 'semana';
+let muscSel = null;
+
+function setRango(r){
+  rangoCuerpo = r;
+  muscSel = null;
+  document.querySelectorAll('.rango-pill').forEach(b => b.classList.toggle('on', b.dataset.r === r));
+  renderCuerpo();
+}
+function selMusc(id){
+  muscSel = (muscSel === id) ? null : id;
+  renderCuerpo();
+}
+
+function diasDelRango(){
+  if(rangoCuerpo === 'dia') return [curDayDate];
+  const mon = getMondayOf(curDayDate);
+  return weekDays(mon);
+}
+
+function renderCuerpo(){
+  const dias = diasDelRango();
+  const {vol, hechos} = volumenMuscular(dias);
+  const heat = heatDe(vol);
+
+  // encabezado
+  const w = semanaDelPlan(curDayDate);
+  const F = FASES[faseDeFecha(curDayDate)];
+  const esHoy = dateStr(curDayDate) === dateStr(getToday());
+  document.getElementById('homeLbl').textContent =
+    (w >= 1 && w <= PLAN_SEMANAS) ? `SEMANA ${w} DE ${PLAN_SEMANAS} · FASE ${faseDeFecha(curDayDate)}` : 'FUERA DEL PLAN';
+  document.getElementById('homeBig').textContent = F.nombre;
+  const tot = Object.values(vol).reduce((a,b) => a+b, 0);
+  const tocados = Object.keys(vol).length;
+  document.getElementById('homeSub').textContent = tot > 0
+    ? `${Math.round(tot)} series en ${tocados} grupo${tocados>1?'s':''} muscular${tocados>1?'es':''}`
+    : (rangoCuerpo === 'dia' ? 'Todavía no marcaste nada hoy' : 'Todavía no marcaste nada esta semana');
+
+  document.getElementById('bodyF').innerHTML = bodySVG('frente', heat, muscSel);
+  document.getElementById('bodyB').innerHTML = bodySVG('espalda', heat, muscSel);
+
+  // detalle del músculo tocado
+  const det = document.getElementById('muscDetail');
+  if(muscSel){
+    const lista = hechos[muscSel] || [];
+    det.innerHTML = `<div class="musc-det">
+      <div class="musc-det-hd"><span class="musc-det-nm">${esc(MUSC[muscSel]||muscSel)}</span>
+        <span class="musc-det-v">${Math.round((vol[muscSel]||0)*10)/10} series</span>
+        <button class="musc-det-x" onclick="selMusc('${muscSel}')">${icon('close')}</button></div>
+      ${lista.length
+        ? '<div class="musc-det-ls">' + lista.map(n => `<div class="musc-det-e">${esc(n)}</div>`).join('') + '</div>'
+        : '<div class="musc-det-vacio">Sin ejercicios marcados en este rango.</div>'}
+    </div>`;
+  } else {
+    det.innerHTML = '';
+  }
+
+  // ranking
+  const orden = Object.entries(vol).sort((a,b) => b[1]-a[1]);
+  const rank = document.getElementById('muscRank');
+  if(!orden.length){
+    rank.innerHTML = `<div class="rank-vacio">Marcá ejercicios en Gym o Postura y los músculos se van prendiendo acá.</div>`;
+    return;
+  }
+  const max = orden[0][1];
+  rank.innerHTML = `<div class="rank-ttl">Más trabajado</div>` + orden.map(([k,v]) => `
+    <div class="rank-row${muscSel===k?' on':''}" onclick="selMusc('${k}')">
+      <span class="rank-nm">${esc(MUSC[k]||k)}</span>
+      <span class="rank-bar"><span class="rank-fill" style="width:${Math.round(v/max*100)}%;background:${heatColor(Math.min(1,v/objetivoMusc()))||'var(--card3)'}"></span></span>
+      <span class="rank-v">${Math.round(v*10)/10}</span>
+    </div>`).join('');
 }
 
 // ── RUTINA EDITABLE ──
